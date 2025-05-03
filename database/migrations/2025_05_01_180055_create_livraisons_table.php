@@ -16,12 +16,14 @@ return new class extends Migration {
             $table->date('date');
             $table->enum('status', ['en_attente','en_cours', 'livree', 'annulee']);
             $table->string('code');
-            $table->string('montant');
+            $table->float('montant');
             $table->foreignId('expedition_id')->constrained('expeditions')->onDelete('cascade');
+            $table->foreignId('destination_id')->constrained('destinations')->onDelete('cascade');
 
-            $table->foreignId('destination_id')->constrained('destination')->onDelete('cascade');
-            $table->foreignId('client-expediteur_id')->constrained('expeditions')->onDelete('cascade');
-            $table->foreignId('client_destinateur_id')->constrained('expeditions')->onDelete('cascade');
+            $table->foreignId('client_expediteur_id')->constrained('clients')->onDelete('cascade');
+            $table->foreignId('client_destinateur_id')->constrained('clients')->onDelete('cascade');
+
+            $table->foreignId('vehicule_id')->constrained('vihicules')->onDelete('cascade');
             $table->timestamps();
         });
     }

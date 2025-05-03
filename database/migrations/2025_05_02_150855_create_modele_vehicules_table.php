@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('modele_vehicules', function (Blueprint $table) {
             $table->id();
             $table->string('nom_modele');
-            $table->integer('tarif');
+            $table->float('tarif');
             $table->timestamps();
         });
     }
