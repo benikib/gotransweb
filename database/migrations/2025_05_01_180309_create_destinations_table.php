@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('destinations', function (Blueprint $table) {
             $table->id();
             $table->string('adresse');
-            $table->integer('longitude');
+            $table->fl('longitude');
             $table->integer('latitude');
             $table->string('tel_destination')->nullable();
             $table->timestamps();
