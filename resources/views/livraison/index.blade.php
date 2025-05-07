@@ -78,7 +78,7 @@ function getBadgeClass($status) {
                       </td>
                    
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">{{$livraison->Vehicule->couleur}}</span>
+                        <span class="text-secondary text-xs font-weight-bold">{{$livraison->Vehicule->immatriculation}}</span>
                       </td>
 
                       <td class="align-middle text-center">

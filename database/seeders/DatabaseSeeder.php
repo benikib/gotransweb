@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Client;
 use App\Models\Vehicule;
 use App\Models\Livraison;
 use App\Models\Expedition;
@@ -18,15 +19,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
 
-        /**Vehicule::factory(4)->create();
-        Livraison::factory(4)->create();
-
+        /*
+         
+          Vehicule::factory(4)->create();
+      
 
         Expedition::factory(4)->create();
-        Destination::factory(4)->create();*/
+         
+        Destination::factory(4)->create();
+        Livraison::factory(4)->create();
+        
+         */
+        // User::factory(10)->create();
 
         Livraison::factory(4)->create();
+
+
+     
+
+       
+       
     }
 }

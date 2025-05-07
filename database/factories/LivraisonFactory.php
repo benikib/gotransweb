@@ -4,6 +4,7 @@ namespace Database\Factories;
 use App\Models\Vehicule;
 use App\Models\Expedition;
 use App\Models\Destination;
+use App\Models\User;
 
 
 
@@ -31,8 +32,14 @@ class LivraisonFactory extends Factory
             //pour les cles etranger  
             'expedition_id' => Expedition::inRandomOrder()->first()->id,
             'destination_id' => Destination::inRandomOrder()->first()->id,
-            'client_expediteur_id' => fake()->numberBetween(1, 30),
-            'client_destinateur_id' => fake()->numberBetween(1, 30),
+
+            'client_expediteur_id' => fake()
+            ->unique()
+            ->randomElement(User::pluck('id')->toArray()),
+
+            'client_destinateur_id' => fake()
+            ->unique()
+            ->randomElement(User::pluck('id')->toArray()),
             
             'vehicule_id' => Vehicule::inRandomOrder()->first()->id
         ];

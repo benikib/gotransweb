@@ -2,6 +2,9 @@
 
 namespace App\Models;
 use App\Models\Vehicule;
+use App\Models\Client;
+use App\Models\Destination;
+use App\Models\Expedition;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +27,11 @@ class Livraison extends Model
         'vehicule_id',
     ];
 
+
+    public function Client()
+    {
+        return $this->belongsTo(Client::class);
+    }
     public function Vehicule()
     {
         return $this->belongsTo(Vehicule::class);

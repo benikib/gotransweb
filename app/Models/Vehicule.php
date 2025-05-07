@@ -22,4 +22,12 @@ class Vehicule extends Model
         'capacite',
         'statut',
     ];
+
+    public function Livreur()
+    {
+        return $this->belongsToMany(Livreur::class);
+    }
+
+
+
 }
