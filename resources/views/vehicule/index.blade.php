@@ -1,5 +1,5 @@
 @extends('layouts.base')
-@section('title', 'Type de véhicule')
+@section('title', 'Véhicules')
 @section('content')
 @if (session('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -25,11 +25,11 @@
         <div class="card my-4 ">
           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
             <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 d-flex justify-content-between align-items-center px-3">
-                <h6 class="text-white text-capitalize m-0">Type de Vehicule</h6>
+                <h6 class="text-white text-capitalize m-0">Vehicule</h6>
 
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                  Ajouter type de vehicule
+                  Ajouter Vehicule
                 </button>
               </div>
 
@@ -46,37 +46,37 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @forelse ($typeVehicules as $typeVehicule)
+                  @forelse ($vehicules as $vehicule)
                   <tr>
                     <!-- ID -->
                     <td class="align-middle">
                       <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{ $typeVehicule->id }}</h6>
+                          <h6 class="mb-0 text-sm">{{ $vehicule->id }}</h6>
                         </div>
                       </div>
                     </td>
 
                     <!-- Nom du type -->
                     <td class="align-middle">
-                      <p class="text-xs font-weight-bold mb-0">{{ $typeVehicule->nom_type }}</p>
+                      <p class="text-xs font-weight-bold mb-0">{{ $vehicule->immatriculation }}</p>
                     </td>
 
                     <!-- Timestamp -->
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">
-                        {{ $typeVehicule->created_at->format('d/m/Y H:i') }}
+                        {{ $vehicule->created_at->format('d/m/Y H:i') }}
                       </span>
                     </td>
 
                     <!-- Bouton Edit -->
                     <td class="align-middle text-begin">
-                      <a href="{{ route('typeVehicule.edit', $typeVehicule->id) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
+                      <a href="{{ route('typeVehicule.edit', $vehicule->id) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
                         Éditer
                       </a>
                     </td>
                     <td class="align-middle text-start">
-                        <form action="{{ route('typeVehicule.destroy', $typeVehicule->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce type de véhicule ?');" style="display:inline;">
+                        <form action="{{ route('vehicule.destroy', $vehicule->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce  véhicule ?');" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-link text-danger text-xs p-0 m-0" style="text-decoration: none;" title="Supprimer">
@@ -106,7 +106,7 @@
   </div>
 
   <!-- Modal -->
-  @include('typeVehicule.create')
+  @include('vehicule.create')
 @endsection
 
 

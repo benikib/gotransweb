@@ -9,4 +9,9 @@ class Modele_vehicule extends Model
 {
     /** @use HasFactory<\Database\Factories\ModeleVehiculeFactory> */
     use HasFactory;
+    protected $fillable = [
+        'nom_modele',
+        'tarif'
+    ];
+
 }

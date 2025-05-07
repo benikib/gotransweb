@@ -1,5 +1,5 @@
 @extends('layouts.base')
-@section('title', 'Type de véhicule')
+@section('title', 'Modele de véhicule')
 @section('content')
 @if (session('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -29,7 +29,7 @@
 
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                  Ajouter type de vehicule
+                  Ajouter type de Modele
                 </button>
               </div>
 
@@ -42,41 +42,46 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">N°</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type de vehicule</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Creation</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tarif</th>
                     <th class="text-secondary opacity-7"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  @forelse ($typeVehicules as $typeVehicule)
+                  @forelse ($modeleVehicules as $modeleVehicule)
                   <tr>
                     <!-- ID -->
                     <td class="align-middle">
                       <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{ $typeVehicule->id }}</h6>
+                          <h6 class="mb-0 text-sm">{{ $modeleVehicule->id }}</h6>
                         </div>
                       </div>
                     </td>
 
-                    <!-- Nom du type -->
+
                     <td class="align-middle">
-                      <p class="text-xs font-weight-bold mb-0">{{ $typeVehicule->nom_type }}</p>
+                      <p class="text-xs font-weight-bold mb-0">{{ $modeleVehicule->nom_modele }}</p>
                     </td>
 
-                    <!-- Timestamp -->
+
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">
-                        {{ $typeVehicule->created_at->format('d/m/Y H:i') }}
+                        {{ $modeleVehicule->tarif }} FC
+                      </span>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">
+                        {{ $modeleVehicule->created_at->format('d/m/Y H:i') }}
                       </span>
                     </td>
 
                     <!-- Bouton Edit -->
                     <td class="align-middle text-begin">
-                      <a href="{{ route('typeVehicule.edit', $typeVehicule->id) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
+                      <a href="{{ route('modeleVehicule.edit', $modeleVehicule->id) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
                         Éditer
                       </a>
                     </td>
                     <td class="align-middle text-start">
-                        <form action="{{ route('typeVehicule.destroy', $typeVehicule->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce type de véhicule ?');" style="display:inline;">
+                        <form action="{{ route('modeleVehicule.destroy', $modeleVehicule->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce type de véhicule ?');" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-link text-danger text-xs p-0 m-0" style="text-decoration: none;" title="Supprimer">
@@ -90,7 +95,7 @@
                   @empty
                     <tr>
                         <td colspan="5" class="text-center">
-                        <p class="text-xs font-weight-bold mb-0">Aucun type de véhicule trouvé.</p>
+                        <p class="text-xs font-weight-bold mb-0">Aucun Modele de véhicule trouvé.</p>
                         </td>
                   @endforelse
 
@@ -106,7 +111,7 @@
   </div>
 
   <!-- Modal -->
-  @include('typeVehicule.create')
+  @include('modeleVehicule.create')
 @endsection
 
 
