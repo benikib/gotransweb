@@ -16,9 +16,9 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active bg-gradient-dark text-white" href="../pages/tables.html">
+          <a class="nav-link active bg-gradient-dark text-white" href="{{ route('livraison.index') }}">
             <i class="material-symbols-rounded opacity-5">table_view</i>
-            <span class="nav-link-text ms-1">Tables</span>
+            <span class="nav-link-text ms-1">Livraisonss</span>
           </a>
         </li>
         <li class="nav-item">

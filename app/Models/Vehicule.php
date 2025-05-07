@@ -9,4 +9,17 @@ class Vehicule extends Model
 {
     /** @use HasFactory<\Database\Factories\VehiculeFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'id',
+        'immatriculation',
+        'marque',
+        'modele',
+        'annee',
+        'kilometrage',
+        'type',
+        'couleur',
+        'capacite',
+        'statut',
+    ];
 }
