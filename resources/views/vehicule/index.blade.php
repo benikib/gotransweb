@@ -40,7 +40,10 @@
                 <thead>
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">N°</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type de vehicule</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Immatriculation</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Modele</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tarif</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Creation</th>
                     <th class="text-secondary opacity-7"></th>
                   </tr>
@@ -58,10 +61,24 @@
                     </td>
 
                     <!-- Nom du type -->
-                    <td class="align-middle">
+                    <td class="align-middle ">
                       <p class="text-xs font-weight-bold mb-0">{{ $vehicule->immatriculation }}</p>
                     </td>
-
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">
+                        {{ $vehicule->modele_vehicule->nom_modele }}
+                      </span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">
+                        {{ $vehicule->type_vehicule->nom_type }}
+                      </span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">
+                        {{ $vehicule->tarif }}
+                      </span>
+                    </td>
                     <!-- Timestamp -->
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">
@@ -71,7 +88,7 @@
 
                     <!-- Bouton Edit -->
                     <td class="align-middle text-begin">
-                      <a href="{{ route('typeVehicule.edit', $vehicule->id) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
+                      <a href="{{ route('vehicule.edit', $vehicule->id) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
                         Éditer
                       </a>
                     </td>
@@ -90,7 +107,7 @@
                   @empty
                     <tr>
                         <td colspan="5" class="text-center">
-                        <p class="text-xs font-weight-bold mb-0">Aucun type de véhicule trouvé.</p>
+                        <p class="text-xs font-weight-bold mb-0">Aucun  véhicule trouvé.</p>
                         </td>
                   @endforelse
 

@@ -13,5 +13,8 @@ class Modele_vehicule extends Model
         'nom_modele',
         'tarif'
     ];
-
+    public function vehicules()
+    {
+        return $this->hasMany(Vehicule::class);
+    }
 }
