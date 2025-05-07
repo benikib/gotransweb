@@ -9,4 +9,7 @@ class Type_vehicule extends Model
 {
     /** @use HasFactory<\Database\Factories\TypeVehiculeFactory> */
     use HasFactory;
+    protected $fillable = [
+        'nom_type',
+    ];
 }

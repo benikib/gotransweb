@@ -17,7 +17,7 @@ class TypeVehiculeFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nom_type' => fake()->month,
         ];
     }
 }

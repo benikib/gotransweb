@@ -12,7 +12,9 @@ class TypeVehiculeController extends Controller
      */
     public function index()
     {
-        //
+        $typeVehicules = Type_vehicule::all();
+
+        return view('typeVehicule.index', compact('typeVehicules'));
     }
 
     /**
@@ -28,7 +30,13 @@ class TypeVehiculeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom_type' => 'required|string|max:255',
+        ]);
+
+        Type_vehicule::create($request->all());
+
+        return redirect()->route('typeVehicule.index')->with('success', 'Type de véhicule créé avec succès.');
     }
 
     /**
@@ -44,7 +52,11 @@ class TypeVehiculeController extends Controller
      */
     public function edit(Type_vehicule $type_vehicule)
     {
-        //
+        $typeVehicule = Type_vehicule::find($type_vehicule->id);
+        if (!$type_vehicule) {
+            return redirect()->route('typeVehicule.index')->with('error', 'Type de véhicule non trouvé.');
+        }
+        return view('typeVehicule.edit', compact('typeVehicule'));
     }
 
     /**
@@ -52,7 +64,14 @@ class TypeVehiculeController extends Controller
      */
     public function update(Request $request, Type_vehicule $type_vehicule)
     {
-        //
+        $request->validate([
+            'nom_type' => 'required|string|max:255',
+        ]);
+
+
+        $type_vehicule->update($request->all());
+
+        return redirect()->route('typeVehicule.index')->with('success', 'Type de véhicule mis à jour avec succès.');
     }
 
     /**
@@ -60,6 +79,8 @@ class TypeVehiculeController extends Controller
      */
     public function destroy(Type_vehicule $type_vehicule)
     {
-        //
+        $type_vehicule->delete();
+
+        return redirect()->route('typeVehicule.index')->with('success', 'Type de véhicule supprimé avec succès.');
     }
 }

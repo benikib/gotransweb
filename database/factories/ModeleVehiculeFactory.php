@@ -17,7 +17,8 @@ class ModeleVehiculeFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nom_modele' => fake()->macAddress(),
+            'tarif'  => fake()->numberBetween(100,3000),
         ];
     }
 }
