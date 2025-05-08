@@ -29,9 +29,9 @@
                 <h6 class="text-white text-capitalize m-0">Adminstrateurs</h6>
 
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                  Ajouter
-                </button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                   Ajouter
+                  </button>
               </div>
 
               <div class="card-body px-0 pb-2">
@@ -106,5 +106,5 @@
       </div>
 
       <!-- Modal -->
-      {{-- @include('typeVehicule.create') --}}
+ @include('users.create')
       @endsection
