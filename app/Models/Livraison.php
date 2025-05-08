@@ -9,4 +9,6 @@ class Livraison extends Model
 {
     /** @use HasFactory<\Database\Factories\LivraisonFactory> */
     use HasFactory;
+
+    
 }
