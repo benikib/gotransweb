@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use app\Http\Requests\CreateAdminRequest;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -13,7 +14,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('forms.sing');
+        $admins = User::all();
+        return view('users.index', compact('admins'));
+        
     }
     
 
@@ -26,10 +29,10 @@ class AdminController extends Controller
         $validated = $request->validated();
 
         // Create a new admin
-        $admin = Admin::create($validated);
+        $admin = User::create($validated);
 
         // Redirect to the admin index page
-        return redirect()->route('forms.login');
+        return redirect()->route('admin.index')->with('success', 'Admin created successfully.');
     }
     public function login()
     {
