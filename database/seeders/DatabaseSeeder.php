@@ -29,11 +29,19 @@ class DatabaseSeeder extends Seeder
          
         Destination::factory(4)->create();
         Livraison::factory(4)->create();
+
+          Livraison::factory(4)->create();
         
          */
         // User::factory(10)->create();
 
+        // Client::factory(10)->create();
+
         Livraison::factory(4)->create();
+
+        
+
+     
 
 
      

@@ -5,6 +5,7 @@ use App\Models\Vehicule;
 use App\Models\Expedition;
 use App\Models\Destination;
 use App\Models\User;
+use App\Models\Client;
 
 
 
@@ -29,17 +30,18 @@ class LivraisonFactory extends Factory
             'status' => fake()->randomElement(['en_attente', 'en_cours', 'livree', 'annulee']),
             'code' => fake()->lexify('???-4555-???-77'),
             'montant' => fake()->randomFloat(2, 10, 1000),
+            
             //pour les cles etranger  
             'expedition_id' => Expedition::inRandomOrder()->first()->id,
             'destination_id' => Destination::inRandomOrder()->first()->id,
 
             'client_expediteur_id' => fake()
             ->unique()
-            ->randomElement(User::pluck('id')->toArray()),
+            ->randomElement(Client::pluck('id')->toArray()),
 
             'client_destinateur_id' => fake()
             ->unique()
-            ->randomElement(User::pluck('id')->toArray()),
+            ->randomElement(Client::pluck('id')->toArray()),
             
             'vehicule_id' => Vehicule::inRandomOrder()->first()->id
         ];

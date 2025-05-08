@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Livraison;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -14,10 +13,8 @@ class LivraisonController extends Controller
      */
     public function index():View
     {
-        $livraison = Livraison::find(1);
-
        
-
+       
         return view('livraison.index', [
             'livraisons' => Livraison::all()
         ]);

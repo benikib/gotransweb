@@ -28,10 +28,8 @@ class Livraison extends Model
     ];
 
 
-    public function Client()
-    {
-        return $this->belongsTo(Client::class);
-    }
+   
+    
     public function Vehicule()
     {
         return $this->belongsTo(Vehicule::class);
@@ -45,5 +43,15 @@ class Livraison extends Model
     public function Expedition()
     {
         return $this->belongsTo(Expedition::class);
+    }
+
+    public function expediteur()
+    {
+        return $this->belongsTo(Client::class, 'client_expediteur_id');
+    }
+
+    public function destinateur()
+    {
+        return $this->belongsTo(Client::class, 'client_destinateur_id');
     }
 }
