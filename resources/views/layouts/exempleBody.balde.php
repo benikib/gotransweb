@@ -1,4 +1,5 @@
-<div class="container-fluid py-2">
+@extends('base')
+@section('content')
       <div class="row">
         <div class="col-12">
           <div class="card my-4">
@@ -454,3 +455,4 @@
         </div>
       </footer>
     </div>
+  @endsection

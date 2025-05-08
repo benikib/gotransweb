@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="{{asset('assets/img/apple-icon.png')}}">
   <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
   <title>
-    Go trans
+    @yield('title')
   </title>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
@@ -28,6 +28,7 @@
  @include('layouts.headerBase')
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
    @include('layouts.navbase')
+   @yield('content')
 
   </main>
 
