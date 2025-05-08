@@ -45,4 +45,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function livreur()
+    {
+        return $this->hasOne(Livreur::class, 'user_id', 'id');
+    }
+    public function livreur_vehicule()
+    {
+        return $this->hasManyThrough(Livreur_Vehicule::class, Livreur::class, 'user_id', 'livreur_id', 'id', 'id');
+    }
 }

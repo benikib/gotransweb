@@ -23,4 +23,9 @@ class Vehicule extends Model
     {
         return $this->belongsTo(Modele_vehicule::class, 'modele_vehicule_id');
     }
+    public function livreurs()
+{
+    return $this->hasMany(Livreur_Vehicule::class, 'vehicule_id');
+}
+
 }

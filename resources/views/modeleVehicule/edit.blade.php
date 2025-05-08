@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('title', ' Edite Type de véhicule')
 @section('content')
-<div class="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
+<div class="container-fluid px-12 min-vh-100 d-flex justify-content-center align-items-center">
     <div class="modal-body shadow p-4 rounded bg-white">
       <form action="{{ route('modeleVehicule.update',$modeleVehicule->id) }}" method="POST">
         @csrf
@@ -14,11 +14,16 @@
               <input type="number" class="form-control" id="tarif" name="tarif" value="{{ $modeleVehicule->tarif }}" placeholder="Ex: 2000">
 
     </div>
-        <div class="container overflow-hidden">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-
-          <button type="submit" class="btn btn-success">Modifier</button>
+    <div class= "container px- overflow-hidden">
+        <div class="row gx-2">
+          <div class="col">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          </div>
+          <div class="col">
+            <button type="submit" class="btn btn-success">Valider</button>
+          </div>
         </div>
+      </div>
       </form>
     </div>
   </div>

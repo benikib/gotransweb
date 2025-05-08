@@ -13,5 +13,13 @@ class Livreur_Vehicule extends Model
         'livreur_id',
         'vehicule_id',
     ];
+    public function livreur()
+    {
+        return $this->belongsTo(Livreur::class, 'livreur_id');
+    }
+    public function vehicule()
+    {
+        return $this->belongsTo(Vehicule::class, 'vehicule_id');
+    }
 
 }

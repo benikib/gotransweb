@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\LivreurVehiculeController;
 use App\Http\Controllers\ModeleVehiculeController;
 use App\Http\Controllers\TypeVehiculeController;
 use App\Http\Controllers\VehiculeController;
+use App\Models\Livreur;
 use Illuminate\Support\Facades\Route;
 use Mockery\Matcher\Type;
 
@@ -28,3 +30,12 @@ Route::get('vehicule/{vehicule}',  [VehiculeController::class, 'edit'])->name('v
 Route::post('vehicule/{vehicule}',  [VehiculeController::class, 'update'])->name('vehicule.update');
 Route::delete('vehicule/{vehicule}',  [VehiculeController::class, 'destroy'])->name('vehicule.destroy');
 Route::get('vehicule/{vehicule}/show',  [VehiculeController::class, 'show'])->name('vehicule.show');
+
+
+Route::get('affectation',  [LivreurVehiculeController::class, 'index'])->name('livreurVehicule.index');
+Route::get('affectation/create',  [LivreurVehiculeController::class, 'create']);
+Route::post('affectation',  [LivreurVehiculeController::class, 'store'])->name('livreurVehicule.store');
+Route::get('affectation/{livreur_Vehicule}',  [LivreurVehiculeController::class, 'edit'])->name('livreurVehicule.edit');
+Route::post('affectation/{livreur_Vehicule}',  [LivreurVehiculeController::class, 'update'])->name('livreurVehicule.update');
+Route::delete('affectation/{livreur_Vehicule}',  [LivreurVehiculeController::class, 'destroy'])->name('livreurVehicule.destroy');
+Route::get('affectation/{livreur_Vehicule}/show',  [LivreurVehiculeController::class, 'show'])->name('livreurVehicule.show');
