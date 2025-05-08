@@ -30,87 +30,81 @@
 
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                  Ajouter 
+                  Ajouter
                 </button>
               </div>
 
-          </div>
-          <div class="card-body px-0 pb-2">
-            <div class="table-responsive p-0">
-              <table class="table align-items-center mb-0">
-                <thead>
-                  <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">N°</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">email</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">name</th>
-                    <th class="text-secondary opacity-7"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                   @forelse ($admins as $admin) 
-                  <tr>
-                    <!-- ID -->
-                    <td class="align-middle">
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                           <h6 class="mb-0 text-sm">{{ $admin->id }} </h6> 
-                        </div>
-                      </div>
-                    </td>
-
-                    <!-- Nom du type -->
-                    <td class="align-middle">
-                      <p class="text-xs font-weight-bold mb-0">{{ $admin->email }}</p> 
-                    </td>
-
-                    <!-- Timestamp -->
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">
-                        {{ $admin->created_at->format('d/m/Y H:i') }}
-                      </span>
-                    </td>
-
-                    <!-- Bouton Edit -->
-                    <td class="align-middle text-begin">
-                      {{-- <a href="{{ route('typeVehicule.edit', $typeVehicule->id) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier"> --}}
-                        Éditer
-                      </a>
-                    </td>
-                    <td class="align-middle text-start">
-                        {{-- <form action="{{ route('typeVehicule.destroy', $typeVehicule->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce type de véhicule ?');" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-link text-danger text-xs p-0 m-0" style="text-decoration: none;" title="Supprimer">
-                                Supprimer
-                            </button>
-                        </form> --}}
-                    </td>
-
-                  </tr>
-
-                   @empty 
-                    <tr>
-                        <td colspan="5" class="text-center">
-                        <p class="text-xs font-weight-bold mb-0">Aucun type de véhicule trouvé.</p>
+              <div class="card-body px-0 pb-2">
+                <div class="table-responsive p-0">
+                  <table class="table align-items-center mb-0">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">N°</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type de vehicule</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Creation</th>
+                        <th class="text-secondary opacity-7"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @forelse ($admins as $admin)
+                      <tr>
+                        <!-- ID -->
+                        <td class="align-middle">
+                          <div class="d-flex px-2 py-1">
+                            <div class="d-flex flex-column justify-content-center">
+                              <h6 class="mb-0 text-sm">{{ $admin->id }}</h6>
+                            </div>
+                          </div>
                         </td>
-                   @endforelse 
 
-                </tbody>
-              </table>
+                        <!-- Nom du type -->
+                        <td class="align-middle">
+                          <p class="text-xs font-weight-bold mb-0">{{ $admin->email }}</p>
+                        </td>
+
+                        <!-- Timestamp -->
+                        <td class="align-middle text-center">
+                          <span class="text-secondary text-xs font-weight-bold">
+                            {{ $admin->created_at->format('d/m/Y H:i') }}
+                          </span>
+                        </td>
+
+                        <!-- Bouton Edit -->
+                        <td class="align-middle text-begin">
+                          {{-- <a href="{{ route('typeVehicule.edit', $typeVehicule->id) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier"> --}}
+                            Éditer
+                          </a>
+                        </td>
+                        <td class="align-middle text-start">
+                            {{-- <form action="{{ route('typeVehicule.destroy', $typeVehicule->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce type de véhicule ?');" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-link text-danger text-xs p-0 m-0" style="text-decoration: none;" title="Supprimer">
+                                    Supprimer
+                                </button>
+                            </form> --}}
+                        </td>
+
+                      </tr>
+
+                      @empty
+                        <tr>
+                            <td colspan="5" class="text-center">
+                            <p class="text-xs font-weight-bold mb-0">Aucun type de véhicule trouvé.</p>
+                            </td>
+                      @endforelse
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
+
       </div>
-    </div>
 
-
-  </div>
-
-  <!-- Modal -->
-  
-
-
-
-
-
-
+      <!-- Modal -->
+      {{-- @include('typeVehicule.create') --}}
+      @endsection
