@@ -62,12 +62,13 @@
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">N°</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">email</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Téléphone</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Creation</th>
                         <th class="text-secondary opacity-7"></th>
                       </tr>
                     </thead>
                    
-                    {{-- /livreur --}}
+                    {{-- /Admin --}}
                     <tbody>
                         @forelse ($admins as $admin)
                         <tr>
@@ -89,7 +90,10 @@
                           <td class="align-middle">
                             <p class="text-xs font-weight-bold mb-0">{{ $admin->user->email }}</p>
                           </td>
-  
+                          <!-- Email -->
+                          <td class="align-middle">
+                            <p class="text-xs font-weight-bold mb-0">{{ $admin->user->number_phone }}</p>
+                          </td>
                           <!-- Timestamp -->
                           <td class="align-middle text-center">
                             <span class="text-secondary text-xs font-weight-bold">
@@ -113,9 +117,7 @@
                                     Supprimer
                                 </button>
                             </form>
-                            @php
-                                #dd($admin->user->id);
-                            @endphp
+                          
                         </td>
   
                         </tr>
@@ -160,6 +162,7 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">N°</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">nom</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">email</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Téléphone</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Creation</th>
                                 <th class="text-secondary opacity-7"></th>
                               </tr>
@@ -187,7 +190,10 @@
                                   <td class="align-middle">
                                     <p class="text-xs font-weight-bold mb-0">{{ $livreur->user->email }}</p>
                                   </td>
-                
+                                  <!-- Phone -->
+                                  <td class="align-middle">
+                                    <p class="text-xs font-weight-bold mb-0">{{ $livreur->user->number_phone }}</p>
+                                  </td>
                                   <!-- Timestamp -->
                                   <td class="align-middle text-center">
                                     <span class="text-secondary text-xs font-weight-bold">
@@ -197,7 +203,7 @@
                 
                                   <!-- Bouton Edit -->
                                   <td class="align-middle text-begin">
-                                    <a href="{{route('users.edit',['user'=>$livreur->user->id] ) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#livreurModal"  title="Modifier">
+                                    <a href="{{route('users.edit', $livreur->user->id) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
                                         Éditer
                                     </a>
                                 </td>
@@ -232,9 +238,6 @@
        
               {{-- clients --}}
               
-          
-          
-                </div>
                 <div class="card my-4">
                     <div class="card-header p-0 mt-n4 mx-3 z-index-2">
                         <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 d-flex justify-content-between align-items-center px-3">
@@ -254,12 +257,13 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">N°</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">nom</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">email</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Téléphone</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Creation</th>
                                         <th class="text-secondary opacity-7"></th>
                                       </tr>
                                     </thead>
                                    
-                                    {{-- /livreur --}}
+                                    {{-- /client --}}
                                     <tbody>
                                         @forelse ($clients as $client)
                                         <tr>
@@ -272,14 +276,18 @@
                                             </div>
                                           </td>
                   
-                                          <!-- Nom du type -->
+                                          <!-- Nom -->
                                           <td class="align-middle">
                                             <p class="text-xs font-weight-bold mb-0">{{ $client->user->name }}</p>
                                           </td>
                                           
-                                          <!-- Nom du type -->
+                                          <!-- Email -->
                                           <td class="align-middle">
                                             <p class="text-xs font-weight-bold mb-0">{{ $client->user->email }}</p>
+                                          </td>
+                                          <!-- Phone -->
+                                          <td class="align-middle">
+                                            <p class="text-xs font-weight-bold mb-0">{{ $client->user->number_phone }}</p>
                                           </td>
                   
                                           <!-- Timestamp -->

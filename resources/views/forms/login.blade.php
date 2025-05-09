@@ -31,33 +31,33 @@
     <div class="container mt-5">
       <div class="card shadow-lg border-0 rounded-4">
         <div class="card-header bg-primary text-white rounded-top-4">
-          <h5 class="mb-0">Créer un livreur</h5>
+          <h5 class="mb-0">Modifier un utilisateur</h5>
         </div>
         <div class="card-body px-4 py-4">
-          <form action="{{ route('users.store') }}" method="POST">
+          <form action="" method="POST">
             @csrf
 
             <div class="mb-3">
-              <label for="firstname" class="form-label fw-bold">Prénom</label>
-              <input type="text" class="form-control rounded-3" name="name" id="firstname" placeholder="Entrez votre prénom" required>
+              <label for="firstname" class="form-label fw-bold">Nom</label>
+              <input type="text" class="form-control"name='name' id="firstname" value="{{old('nom',$use->name)}} "required>
             </div>
 
             <div class="mb-3">
               <label for="email" class="form-label fw-bold">Email</label>
-              <input type="email" class="form-control rounded-3" name="email" id="email" placeholder="Entrez votre email" required>
+              <input type="email" class="form-control " name="email" id="email" em value="{{old('email',$use->email)}}" required>
             </div>
 
             <div class="mb-3">
               <label for="phone" class="form-label fw-bold">Téléphone (facultatif)</label>
-              <input type="tel" class="form-control rounded-3" name="number_phone" id="phone" placeholder="Entrez votre numéro de téléphone">
+              <input type="tel" class="form-control" name="number_phone" id="phone" value="{{old('number_phone',$use->number_phone)}}">
             </div>
 
             <div class="mb-3">
               <label for="password" class="form-label fw-bold">Mot de passe</label>
-              <input type="password" class="form-control rounded-3" name="password" id="password" placeholder="Entrez votre mot de passe" required>
+              <input type="password" class="form-control" id="password" name="password" value="{{old('password',$use->password)}}" required>
             </div>
 
-            <div class="mb-4">
+            {{-- <div class="mb-4">
               <label for="role" class="form-label fw-bold">Rôle</label>
               <select class="form-select rounded-3" name="role" id="role" required>
                 <option value="">-- Sélectionnez un rôle --</option>
@@ -65,7 +65,7 @@
                 <option value="client">Client</option>
                 <option value="livreur">Livreur</option>
               </select>
-            </div>
+            </div> --}}
 
             <div class="d-flex justify-content-end">
               <button type="submit" class="btn btn-primary rounded-3">Enregistrer</button>
