@@ -2,19 +2,19 @@
 @section('title', 'Véhicules')
 @section('content')
 @if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert m-4 alert-success alert-dismissible fade show" role="alert">
         {{ session('success') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
 @if (session('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="alert m-4 alert-danger alert-dismissible fade show" role="alert">
         {{ session('error') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
     </div>
 @endif
 @if (session('warning'))
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <div class="alert m-4 alert-warning alert-dismissible fade show" role="alert">
         {{ session('warning') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
     </div>
@@ -41,8 +41,8 @@
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">N°</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Immatriculation</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Modele</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Etat</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tarif</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Creation</th>
                     <th class="text-secondary opacity-7"></th>
@@ -66,19 +66,25 @@
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">
-                        {{ $vehicule->modele_vehicule->nom_modele }}
-                      </span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">
                         {{ $vehicule->type_vehicule->nom_type }}
                       </span>
                     </td>
+
+                    <td class="align-middle text-center">
+                        <span class="text-secondary text-xs font-weight-bold">
+                         @if(  $vehicule->etat )
+                            Bon
+                         @else
+                            Mauvais
+                         @endif
+                        </span>
+                      </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">
-                        {{ $vehicule->tarif }}
+                        {{  $vehicule->type_vehicule->tarif->prix_tarif .' kilo / $'. $vehicule->type_vehicule->tarif->kilo_tarif }}
                       </span>
                     </td>
+                 
                     <!-- Timestamp -->
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">

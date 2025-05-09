@@ -6,14 +6,14 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('modeleVehicule.store') }}" method="POST">
+            <form action="{{ route('tarifs.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                  <label for="nomModeleVehicule" class="form-label">Nom du Modele de véhicule</label>
-                  <input type="text" class="form-control" id="nomModeleVehicule" name="nom_modele" placeholder="Ex: spriter.">
+                  <label for="nomtarif" class="form-label">Kilo  du tarification</label>
+                  <input type="number" class="form-control" id="nomtarif" name="kilo_tarif" placeholder="Ex: 1 , 2, 3">
                 </div>
-                <label for="tarif" class="form-label">Tarif</label>
-                <input type="number" class="form-control" id="tarif" name="tarif" placeholder="Ex: 2000">
+                <label for="tarif" class="form-label"> prix du Tarif</label>
+                <input type="number" class="form-control" id="tarif" name="prix_tarif" placeholder="Ex: 2 , 3 , 10 ">
                 {{-- <label for="nomTypeVehicule" class="form-label">Nom du Modele de véhicule</label> --}}
                 {{-- <select  name="id_type_vehicule"class="form-select" aria-label="Default select example" >
                     <option  selected >Open this select menu</option>

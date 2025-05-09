@@ -18,11 +18,11 @@ class VehiculeController extends Controller
     public function index()
     {
         $vehicules = Vehicule::all();
-        $modeleVehicules = Modele_vehicule::all();
         $typeVehicules = Type_vehicule::all();
 
+        
 
-        return view('vehicule.index', compact('vehicules', 'modeleVehicules', 'typeVehicules'));
+        return view('vehicule.index', compact('vehicules', 'typeVehicules'));
     }
 
     /**
@@ -41,17 +41,18 @@ class VehiculeController extends Controller
        try {
         $request->validate([
             'immatriculation' => 'required|string|max:255',
-            'modele_vehicule_id' => 'required|exists:modele_vehicules,id',
             'type_vehicule_id' => 'required|exists:type_vehicules,id',
             'couleur' => 'required|string|max:255',
+            'etat' => 'required',
         ]);
-
+            
+       
         Vehicule::create($request->all());
 
         return redirect()->route('vehicule.index')->with('success', 'Véhicule créé avec succès.');
         } catch (\Exception $e) {
 
-            return redirect()->back()->with('error', 'Erreur de validation.');
+            return redirect()->back()->with('error', $e);
         }
 
     }
@@ -76,7 +77,7 @@ class VehiculeController extends Controller
         $modeleVehicules = Modele_vehicule::all();
         $typeVehicules = Type_vehicule::all();
 
-        return view('vehicule.edit', compact('vehicule', 'modeleVehicules', 'typeVehicules'));
+        return view('vehicule.edit', compact('vehicule',  'typeVehicules'));
     }
 
     /**
@@ -87,9 +88,9 @@ class VehiculeController extends Controller
         try {
             $request->validate([
                 'immatriculation' => 'required|string|max:255',
-                'modele_vehicule_id' => 'required|exists:modele_vehicules,id',
                 'type_vehicule_id' => 'required|exists:type_vehicules,id',
                 'couleur' => 'required|string|max:255',
+                'etat' => 'required',
             ]);
 
             $vehicule->update($request->all());
@@ -97,7 +98,7 @@ class VehiculeController extends Controller
             return redirect()->route('vehicule.index')->with('success', 'Véhicule mis à jour avec succès.');
         } catch (\Exception $e) {
 
-            return redirect()->back()->with('error', 'Erreur de validation.');
+            return redirect()->back()->with('error', $e);
         }
     }
 
@@ -112,7 +113,7 @@ class VehiculeController extends Controller
             return redirect()->route('vehicule.index')->with('success', 'Véhicule supprimé avec succès.');
         } catch (\Exception $e) {
 
-            return redirect()->back()->with('error', 'Erreur de suppression.');
+            return redirect()->back()->with('error', $e);
         }
     }
 }

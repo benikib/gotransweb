@@ -46,6 +46,7 @@ class ModeleVehiculeController extends Controller
             return redirect()->route('modelevehicule.index')->with('success', 'Modèle de véhicule créé avec succès.');
         } catch (\Exception $e) {
 
+            dd($e);
             return redirect()->back()->with('error', 'Modèle de véhicule non trouvé.');
         }
 

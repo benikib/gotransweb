@@ -2,19 +2,19 @@
 @section('title', 'Type de véhicule')
 @section('content')
 @if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert m-4 alert-success alert-dismissible fade show" role="alert">
         {{ session('success') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
 @if (session('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="alert  m-4 alert-danger alert-dismissible fade show" role="alert">
         {{ session('error') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
     </div>
 @endif
 @if (session('warning'))
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <div class="alert alert-warning m-4 alert-dismissible fade show" role="alert">
         {{ session('warning') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
     </div>
@@ -41,6 +41,9 @@
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">N°</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type de vehicule</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tarif Kilo initial</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tarif Kilo final</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">TTarification</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Creation</th>
                     <th class="text-secondary opacity-7"></th>
                   </tr>
@@ -62,12 +65,25 @@
                       <p class="text-xs font-weight-bold mb-0">{{ $typeVehicule->nom_type }}</p>
                     </td>
 
-                    <!-- Timestamp -->
+                     <!-- Nom du type -->
+                     <td class="align-middle">
+                        <p class="text-xs font-weight-bold mb-0">{{ $typeVehicule->kilo_initiale }}</p>
+                      </td>
+                       <!-- Nom du type -->
+                     <td class="align-middle">
+                        <p class="text-xs font-weight-bold mb-0">{{ $typeVehicule->kilo_final }}</p>
+                      </td>
+                    <!-- Nom du type -->
+                    <td class="align-middle">
+                        <p class="text-xs font-weight-bold mb-0">{{ $typeVehicule->tarif->kilo_tarif . 'kilo / $'. $typeVehicule->tarif->prix_tarif }}</p>
+                    </td>
+                                        <!-- Timestamp -->
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">
                         {{ $typeVehicule->created_at->format('d/m/Y H:i') }}
                       </span>
                     </td>
+                    
 
                     <!-- Bouton Edit -->
                     <td class="align-middle text-begin">
