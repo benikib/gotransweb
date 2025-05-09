@@ -8,21 +8,41 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
+
 @if (session('error'))
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         {{ session('error') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
     </div>
 @endif
+
 @if (session('warning'))
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         {{ session('warning') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
     </div>
 @endif
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Ajouter
-   </button>
+
+{{-- Script pour faire disparaître les messages après 5 secondes --}}
+<script>
+    setTimeout(() => {
+        let alerts = document.querySelectorAll('.alert');
+        alerts.forEach((alert) => {
+            // Démarre l'effet de disparition Bootstrap
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            // Supprime l'élément du DOM après la transition
+            setTimeout(() => alert.remove(), 500); // temps pour l'animation fade
+        });
+    }, 3000); // 5000ms = 5 secondes
+</script>
+
+<div class="text-end mb-3" style="margin-right: 70px;">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Ajouter
+    </button>
+</div>
+
    <div class="card my-4">
     <div class="card-header p-0 mt-n4 mx-3 z-index-2">
         <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 d-flex justify-content-between align-items-center px-3">
@@ -40,6 +60,7 @@
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">N°</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">email</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Creation</th>
                         <th class="text-secondary opacity-7"></th>
@@ -59,12 +80,15 @@
                             </div>
                           </td>
   
-                          <!-- Nom du type -->
+                          <!-- Nom -->
+                          <td class="align-middle">
+                            <p class="text-xs font-weight-bold mb-0">{{ $admin->user->name }}</p>
+                          </td>
+                          
+                          <!-- Email -->
                           <td class="align-middle">
                             <p class="text-xs font-weight-bold mb-0">{{ $admin->user->email }}</p>
                           </td>
-                          
-                          
   
                           <!-- Timestamp -->
                           <td class="align-middle text-center">
@@ -75,26 +99,31 @@
   
                           <!-- Bouton Edit -->
                           <td class="align-middle text-begin">
-                            {{-- <a href="{{ route('typeVehicule.edit', $typeVehicule->id) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier"> --}}
-                              Éditer
+                            <a href="{{route('users.edit', ['user'=>$admin->user->id]) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
+                                Éditer
                             </a>
-                          </td>
-                          <td class="align-middle text-start">
-                              {{-- <form action="{{ route('typeVehicule.destroy', $typeVehicule->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce type de véhicule ?');" style="display:inline;">
-                                  @csrf
-                                  @method('DELETE')
-                                  <button type="submit" class="btn btn-link text-danger text-xs p-0 m-0" style="text-decoration: none;" title="Supprimer">
-                                      Supprimer
-                                  </button>
-                              </form> --}}
-                          </td>
+                        </td>
+                        
+                        <!-- Bouton Supprimer -->
+                        <td class="align-middle text-start">
+                            <form action="{{route('users.destroy', $admin->user)}}" method="POST" onsubmit="return confirm('Êtes-vous sûr ?');" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-link text-danger text-xs p-0 m-0" style="text-decoration: none;" title="Supprimer">
+                                    Supprimer
+                                </button>
+                            </form>
+                            @php
+                                #dd($admin->user->id);
+                            @endphp
+                        </td>
   
                         </tr>
   
                         @empty
                           <tr>
                               <td colspan="5" class="text-center">
-                              <p class="text-xs font-weight-bold mb-0">Aucun type de véhicule trouvé.</p>
+                              <p class="text-xs font-weight-bold mb-0">Aucun Admin enregistrer.</p>
                               </td>
                         @endforelse
   
@@ -129,6 +158,7 @@
                             <thead>
                               <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">N°</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">nom</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">email</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Creation</th>
                                 <th class="text-secondary opacity-7"></th>
@@ -148,12 +178,15 @@
                                     </div>
                                   </td>
                 
-                                  <!-- Nom du type -->
+                                  <!-- Nom -->
+                                  <td class="align-middle">
+                                    <p class="text-xs font-weight-bold mb-0">{{ $livreur->user->name }}</p>
+                                  </td>
+                                  
+                                  <!-- Email -->
                                   <td class="align-middle">
                                     <p class="text-xs font-weight-bold mb-0">{{ $livreur->user->email }}</p>
                                   </td>
-                                  
-                                  
                 
                                   <!-- Timestamp -->
                                   <td class="align-middle text-center">
@@ -164,26 +197,28 @@
                 
                                   <!-- Bouton Edit -->
                                   <td class="align-middle text-begin">
-                                    {{-- <a href="{{ route('typeVehicule.edit', $typeVehicule->id) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier"> --}}
-                                      Éditer
+                                    <a href="{{route('users.edit',['user'=>$livreur->user->id] ) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#livreurModal"  title="Modifier">
+                                        Éditer
                                     </a>
-                                  </td>
-                                  <td class="align-middle text-start">
-                                      {{-- <form action="{{ route('typeVehicule.destroy', $typeVehicule->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce type de véhicule ?');" style="display:inline;">
-                                          @csrf
-                                          @method('DELETE')
-                                          <button type="submit" class="btn btn-link text-danger text-xs p-0 m-0" style="text-decoration: none;" title="Supprimer">
-                                              Supprimer
-                                          </button>
-                                      </form> --}}
-                                  </td>
+                                </td>
+                                
+                                <!-- Bouton Supprimer -->
+                                <td class="align-middle text-start">
+                                    <form action="{{route('users.destroy', $livreur->user->id)}}" method="POST" onsubmit="return confirm('Êtes-vous sûr ?');" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-link text-danger text-xs p-0 m-0" style="text-decoration: none;" title="Supprimer">
+                                            Supprimer
+                                        </button>
+                                    </form>
+                                </td>
                 
                                 </tr>
                 
                                 @empty
                                   <tr>
                                       <td colspan="5" class="text-center">
-                                      <p class="text-xs font-weight-bold mb-0">Aucun type de véhicule trouvé.</p>
+                                      <p class="text-xs font-weight-bold mb-0">Aucun livreur enregistrer.</p>
                                       </td>
                                 @endforelse
                 
@@ -203,7 +238,7 @@
                 <div class="card my-4">
                     <div class="card-header p-0 mt-n4 mx-3 z-index-2">
                         <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 d-flex justify-content-between align-items-center px-3">
-                            <h6 class="text-white text-capitalize m-0">Administrateur</h6>
+                            <h6 class="text-white text-capitalize m-0">Client</h6>
                             <!-- Bouton pour collapse -->
                             <button class="btn btn-outline-light btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#clientCollapse">
                                 Afficher / Masquer
@@ -217,6 +252,7 @@
                                     <thead>
                                       <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">N°</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">nom</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">email</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Creation</th>
                                         <th class="text-secondary opacity-7"></th>
@@ -238,10 +274,13 @@
                   
                                           <!-- Nom du type -->
                                           <td class="align-middle">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $client->user->email }}</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $client->user->name }}</p>
                                           </td>
                                           
-                                          
+                                          <!-- Nom du type -->
+                                          <td class="align-middle">
+                                            <p class="text-xs font-weight-bold mb-0">{{ $client->user->email }}</p>
+                                          </td>
                   
                                           <!-- Timestamp -->
                                           <td class="align-middle text-center">
@@ -253,14 +292,14 @@
                                           <!-- Bouton Edit -->
                                      <!-- Bouton Edit -->
 <td class="align-middle text-begin">
-    <a href="{{ route('users.edit', $admin->user->id) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
+    <a href="{{route('users.edit', $client->user->id) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
         Éditer
     </a>
 </td>
 
 <!-- Bouton Supprimer -->
 <td class="align-middle text-start">
-    <form action="{{ route('users.destroy', $admin->user->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr ?');" style="display:inline;">
+    <form action="{{route('users.destroy', $client->user->id)}}" method="POST" onsubmit="return confirm('Êtes-vous sûr ?');" style="display:inline;">
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-link text-danger text-xs p-0 m-0" style="text-decoration: none;" title="Supprimer">
@@ -273,7 +312,7 @@
                                         @empty
                                           <tr>
                                               <td colspan="5" class="text-center">
-                                              <p class="text-xs font-weight-bold mb-0">Aucun type de véhicule trouvé.</p>
+                                              <p class="text-xs font-weight-bold mb-0">Aucun enregistrer.</p>
                                               </td>
                                         @endforelse
                   

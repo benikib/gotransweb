@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
-use app\Http\Requests\CreateAdminRequest;
+use App\Http\Requests\CreateAdminRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\SuperAdminRequest;
 
 class AdminController extends Controller
 {
@@ -36,14 +38,22 @@ class AdminController extends Controller
     }
     public function login()
     {
-        return view('forms.login');
+        return view('auth.login');
     }
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function connecter(SuperAdminRequest $request)
     {
-        //
+        $superadmin = $request->validated();
+        dd($superadmin);
+        if(Auth::attempt($superadmin)) {
+            $request->session()->regenerate();
+            return redirect()->intended(route('users.index')); 
+        }
+        return to_route('auth.login')->withErrors([
+                'email' => "Email ou Mot de passe incorrect !!!"
+        ])->onlyInput('email');
     }
 
     /**

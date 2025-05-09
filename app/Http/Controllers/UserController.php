@@ -7,6 +7,8 @@ use App\Models\Client;
 use App\Models\Livreur;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -16,6 +18,7 @@ class UserController extends Controller
         $admins = Admin::all();
         $clients = Client::all();
         $livreurs = Livreur::all();
+        #dd($admins);
         return view('users.index', compact('users', 'admins', 'clients', 'livreurs'));
 
     }
@@ -42,14 +45,14 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
         
-        try {
+       /* try {
             
-             $validated = $request->validate([
+             $validated = $request->validated([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique',
             'password' => 'required|string|min:8',
             'number_phone' => 'nullable|string|max:15',
             'role' => 'required|string|in:admin,client,livreur', // vérifie que le rôle est valide
@@ -63,6 +66,11 @@ class UserController extends Controller
             'number_phone' => $validated['number_phone'],
         ]);
 
+*/       // Validate the request
+        $validated = $request->validated();
+        
+        $user = User::create($validated);
+        #($validated['role']);
         // Assigner le rôle
         
 
@@ -70,20 +78,26 @@ class UserController extends Controller
         switch ($validated['role']) {
             case 'admin':
                 Admin::create(['user_id' => $user->id]);
+                 // Redirect to the user index page
+                return redirect()->route('users.index')->with('success', 'Admin created successfully.');
                 break;
             case 'client':
                Client::create(['user_id' => $user->id]);
+                // Redirect to the user index page
+                return redirect()->route('users.index')->with('success', 'Client created successfully.');
                 break;
             case 'livreur':
                 Livreur::create(['user_id' => $user->id]);
+                 // Redirect to the user index page
+                return redirect()->route('users.index')->with('success', 'Livreur created successfully.');
                 break;
         }
 
         // Redirect to the user index page
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
-        } catch (\Throwable $th) {
-            dd($th);
-        }
+        #return redirect()->route('users.index');
+        /*} catch (\Throwable $th) {
+            #dd($th);
+        }*/
        
         // Validate the request
         // Create a new user
@@ -104,26 +118,43 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request)
-    {
-        //
+    public function edit(User $user)
+        
+    {   
+        #dd($user);
+      return view('users.edit',[
+        'use' => $user
+      ]);
     }
-
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
-    {
-        //
+    public function update(User $user, UpdateUserRequest $request){
+        $user->update($request->validated());
+        return \redirect()->route('users.index')->with('success','je suis modifier avec success');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
-    {
-        //
+    public function destroy(User $user)
+{   
+    ##dd($user->id);
+    $client = Client::where('user_id', $user->id)->first();
+    $admin = Admin::where('user_id', $user->id)->first();
+    $livreur = Livreur::where('user_id', $user->id)->first();
+    if ($client) {
+        Client::destroy($client->id);
+    } elseif ($admin) {
+        Admin::destroy($admin->id);
+    } elseif ($livreur) {
+        Livreur::destroy($livreur->id);
+    } else {
+        dd($user->id);
     }
+    User::destroy($user->id); // on passe l'ID, pas l'objet complet
+    return redirect()->route('users.index')->with('success', 'Utilisateur supprimé avec succès');
+}
+
 }
 

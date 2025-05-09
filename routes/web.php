@@ -9,15 +9,12 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/sing',[UserController::class,'index'])->name('sing');
-
+Route::get('/pour', function () {
+    return view('forms.login');
+});
 
 Route::get('/logins',[AdminController::class,'login'])->name('login');
 Route::post('/logins',[AdminController::class,'connecter']);
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
