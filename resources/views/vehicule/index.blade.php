@@ -28,7 +28,7 @@
                 <h6 class="text-white text-capitalize m-0">Vehicule</h6>
 
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ajoutVehiculeModal">
                   Ajouter Vehicule
                 </button>
               </div>
@@ -84,7 +84,7 @@
                         {{  $vehicule->type_vehicule->tarif->prix_tarif .' kilo / $'. $vehicule->type_vehicule->tarif->kilo_tarif }}
                       </span>
                     </td>
-                 
+
                     <!-- Timestamp -->
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">

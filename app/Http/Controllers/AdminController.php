@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Type_vehicule;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateAdminRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\SuperAdminRequest;
+use App\Models\Livreur;
+use App\Models\Tarif;
+use App\Models\Vehicule;
 
 class AdminController extends Controller
 {
@@ -18,9 +22,9 @@ class AdminController extends Controller
     {
         $admins = User::all();
         return view('users.index', compact('admins'));
-        
+
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -49,7 +53,7 @@ class AdminController extends Controller
         dd($superadmin);
         if(Auth::attempt($superadmin)) {
             $request->session()->regenerate();
-            return redirect()->intended(route('users.index')); 
+            return redirect()->intended(route('users.index'));
         }
         return to_route('auth.login')->withErrors([
                 'email' => "Email ou Mot de passe incorrect !!!"
@@ -86,5 +90,15 @@ class AdminController extends Controller
     public function destroy(Admin $admin)
     {
         //
+    }
+    public function views(Admin $admin)
+    {
+        $livreurs=Livreur::all();
+        $typeVehicules = Type_vehicule::all();
+        $vehicules = Vehicule::all();
+        $admins = Admin::all();
+        $tarifs = Tarif::all();
+
+        return view('dashbord.views', compact('livreurs','typeVehicules','livreurs','vehicules','admins','tarifs'));
     }
 }

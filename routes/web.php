@@ -13,6 +13,7 @@ use App\Http\Controllers\UserController;
 
 Route::get('/',[AdminController::class,'login'])->name('login');
 Route::post('/',[AdminController::class,'connecter']);
+Route::get('/views',[AdminController::class,'views'])->name('dashbord.views');
 
 
 Route::middleware('auth')->group(function () {
@@ -20,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 
 require __DIR__.'/users.php';
 

@@ -1,8 +1,8 @@
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="ajoutVehiculeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Ajouter</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">Ajouter Vehicule</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -27,9 +27,9 @@
                   </select>
                 </div>
 
-               
+
                   </select>
-                 
+
                   <div class="mb-3">
                   <select name="couleur" class="form-select" aria-label="Default select example">
                     <option selected>Couleur du vehicule</option>
