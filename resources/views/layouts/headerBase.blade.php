@@ -71,6 +71,7 @@
             <i class="material-symbols-rounded opacity-5">logout</i>
             <span class="nav-link-text ms-1">Déconnexion</span>
           </a>
+
         </form>
       </li>
     </ul>

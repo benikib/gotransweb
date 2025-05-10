@@ -17,7 +17,12 @@ class VehiculeFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+
+            'type_vehicule_id' => fake()->numberBetween(1, 20),
+            'modele_vehicule_id' => fake()->numberBetween(1, 20),
+            'immatriculation' => fake()->lexify('???-444-???'),
+            'couleur' =>  fake()->randomElement(['rouge', 'bleu', 'vert', 'noir', 'blanc']),
+            
         ];
     }
 }

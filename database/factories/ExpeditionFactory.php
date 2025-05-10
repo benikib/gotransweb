@@ -17,7 +17,10 @@ class ExpeditionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'adresse' => fake()->randomElement(['C/mont-ngafula', 'C/limete', 'C/salongo', 'C/bandale']),
+            'longitude' => fake()->randomFloat(3, 3, 5),
+            'latitude' => fake()->randomFloat(3, 3, 5),
+            'tel_expedition' => fake()->phoneNumber(),
         ];
     }
 }
