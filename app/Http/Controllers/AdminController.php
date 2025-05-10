@@ -54,10 +54,12 @@ class AdminController extends Controller
         if(Auth::attempt($superadmin)) {
             $request->session()->regenerate();
             return redirect()->intended(route('users.index'));
-        }
-        return to_route('auth.login')->withErrors([
+        }else{
+            return back()->withErrors([
                 'email' => "Email ou Mot de passe incorrect !!!"
-        ])->onlyInput('email');
+            ])->onlyInput('email');
+        }
+
     }
 
     /**

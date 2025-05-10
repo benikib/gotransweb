@@ -84,7 +84,7 @@ class LivreurVehiculeController extends Controller
 
         $livreur_Vehicule->update($request->all());
 
-        return redirect()->back()->with('success', 'Affectation mise à jour avec succès.');
+        return redirect()->route('livreurVehicule.index')->with('success', 'Affectation mise à jour avec succès.');
     }
 
     /**

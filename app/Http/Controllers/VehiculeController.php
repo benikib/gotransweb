@@ -85,6 +85,7 @@ class VehiculeController extends Controller
      */
     public function update(Request $request, Vehicule $vehicule)
     {
+
         try {
             $request->validate([
                 'immatriculation' => 'required|string|max:255',
@@ -92,11 +93,14 @@ class VehiculeController extends Controller
                 'couleur' => 'required|string|max:255',
                 'etat' => 'required',
             ]);
-            dd($request->etat);
 
             $vehicule->update($request->all());
 
-            return redirect()->back()->with('success', 'Véhicule mis à jour avec succès.');
+            return redirect()->route('vehicule.index')->with('success', 'Véhicule mis à jour avec succès.');
+
+
+
+
         } catch (\Exception $e) {
 
             return redirect()->back()->with('error', $e);

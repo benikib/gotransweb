@@ -14,12 +14,13 @@ class Vehicule extends Model
         'modele_vehicule_id',
         'type_vehicule_id',
         'couleur',
+        'etat'
     ];
     public function type_vehicule()
     {
         return $this->belongsTo(Type_vehicule::class, 'type_vehicule_id');
     }
-  
+
     public function livreurs()
 {
     return $this->hasMany(Livreur_Vehicule::class, 'vehicule_id');

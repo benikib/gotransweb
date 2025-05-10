@@ -38,7 +38,7 @@ class TypeVehiculeController extends Controller
             'kilo_initiale'=> 'required',
             'tarif_id'  => 'required',
             'kilo_final'=> 'required',
-            
+
         ]);
 
         Type_vehicule::create($request->all());
@@ -47,7 +47,7 @@ class TypeVehiculeController extends Controller
         }
         catch (\Exception $e) {
 
-            
+
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
@@ -86,7 +86,7 @@ class TypeVehiculeController extends Controller
 
         $type_vehicule->update($request->all());
 
-        return redirect()->back()->with('success', 'Type de véhicule mis à jour avec succès.');
+        return redirect()->route('typeVehicule.index')->with('success', 'Type de véhicule mis à jour avec succès.');
     }
 
     /**

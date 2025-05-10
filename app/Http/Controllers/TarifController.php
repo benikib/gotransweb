@@ -13,7 +13,7 @@ class TarifController extends Controller
     public function index()
     {
         $tarifs = Tarif::all();
-        
+
         return view('tarifs.index', compact('tarifs'));
     }
 
@@ -37,7 +37,7 @@ class TarifController extends Controller
 
         Tarif::create($request->all());
 
-        return redirect()->back()->with('success', 'Tarif created successfully.');    
+        return redirect()->back()->with('success', 'Tarif created successfully.');
     }
 
     /**
@@ -68,7 +68,7 @@ class TarifController extends Controller
 
         $tarif->update($request->all());
 
-        return redirect()->back()->with('success', 'Tarif updated successfully.');
+        return redirect()->route('tarifs.index')->with('success', 'Tarif updated successfully.');
     }
 
     /**

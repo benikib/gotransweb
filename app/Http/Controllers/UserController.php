@@ -138,7 +138,8 @@ class UserController extends Controller
             'number_phone' => $request->number_phone,
             'password' => Hash::make($request->password),
         ]);
-        return redirect()->back()->with('success','Modifier avec success');
+
+        return redirect()->route('users.index')->with('success', 'Utilisateur mis à jour avec succès.');
     }
 
     /**
