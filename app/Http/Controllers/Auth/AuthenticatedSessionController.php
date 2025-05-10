@@ -34,15 +34,26 @@ class AuthenticatedSessionController extends Controller
     }
     public function connecter(SuperAdminRequest $request)
     {
+    try {
         $superadmin = $request->validated();
-        $superadmin['password'] = Hash::make($superadmin['password']);
+
+
+
         if(Auth::attempt($superadmin)) {
             $request->session()->regenerate();
             return redirect()->intended(route('users.index'));
         }
         return to_route('auth.login')->withErrors([
-                'email' => "Email ou Mot de passe incorrect !!!"
+            'email' => "Email ou Mot de passe incorrect !!!"
         ])->onlyInput('email');
+    } catch (\Throwable $th) {
+        // Handle the exception
+        return redirect()->back()->with('error', 'Erreur lors de la connexion.');
+    }
+
+        // return to_route('auth.login')->withErrors([
+        //         'email' => "Email ou Mot de passe incorrect !!!"
+        // ])->onlyInput('email');
     }
     /**
      * Destroy an authenticated session.
