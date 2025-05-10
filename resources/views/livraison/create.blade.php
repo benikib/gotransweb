@@ -13,16 +13,12 @@
               <div class="card-body">
                 <form role="form" method="post" action="{{route('livraison.store')}}" class="text-start">
                     @csrf
-
                 <div class="row">
                     <div class="col"> 
                         <label class="form-label">Code de livraison</label>
                         <div class="input-group input-group-outline ">
                             <input type="text"  name="code" value="" class="form-control">
                         </div>
-                        @error('code')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
                     </div>
 
                     <div class="col">
@@ -38,12 +34,10 @@
                         <label class="form-label">Moyen tansport</label>
                         <div class="input-group input-group-outline " >
                         <select id="status" name="moyen_transport" class="form-control">
-                            
                                 <option value="moto" >moto</option>
                                 <option value="mini_voiture" >mini voiture</option>
                                 <option value="moyen_voiture" >moyen voiture</option>
                                 <option value="grand_voiture" >grand voiture</option>
-                            
                         </select>
                         </div>
                     </div>
@@ -61,7 +55,7 @@
                     <div class="col"> 
                         <label class="form-label">Status</label>
                         <div class="input-group input-group-outline " >
-                            <select id="status"   name="status" class="form-control">
+                            <select id="status"  name="status" class="form-control">
                                 
                                     <option value="livree" >livree</option>
                                     <option value="en_attente" selected>en_attente</option>
@@ -69,9 +63,7 @@
                                     <option value="en_cours" >en_cours</option>
                                 
                             </select>
-                            @error('status')
-                            <small class="text-danger">{{ $message }}</small>
-                            @enderror
+                           
                         </div>
                     </div>
 
@@ -83,35 +75,11 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col"> 
-                    <label for="status" class="form-label">Type de véhicule</label>
-                    <div class="input-group input-group-outline">
-                        <select id="status" name="id_type_vehicule" class="form-control">
-                            @foreach ($donnees['Type_vehicules'] as $type_vehicule)
-                                <option value="{{ $type_vehicule->nom_type }}" >{{ $type_vehicule->nom_type }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    </div>
-
-                    <div class="col">
-                    <label for="status" class="form-label">véhicules (immatriculation)</label>
-                    <div class="input-group input-group-outline">
-                        <select id="status" name="id_vehicule" class="form-control">
-                            @foreach ($donnees['vehicules'] as $vehicule)
-                                <option value="{{ $vehicule->id }}" >{{ $vehicule->immatriculation }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    </div>
-                </div>
+                
 
                 <fieldset class="border p-3 mb-4 mt-3">
                     <legend class="w-auto px-2">Information destination </legend>
-                    
 
-    
                     <div class="row">
                         <div class="col">
                         
@@ -133,7 +101,7 @@
                             <div class="col">
                                 <label for="client" class="form-label">Client(Destinateur)</label>
                                 <div class="input-group input-group-outline">
-                                    <select id="id_client_destinateur" name="id_client_destinateur" class="form-control">
+                                    <select id="id_client_destinateur" name="client_destinateur_id" class="form-control">
                                         @foreach ($donnees['clients'] as $client)
                                             <option value="{{ $client->id }}" >{{ $client->User->name }}</option>
                                         @endforeach
@@ -171,7 +139,7 @@
                             <div class="col">
                                 <label for="client" class="form-label">Client(Expediteur)</label>
                                 <div class="input-group input-group-outline">
-                                    <select id="client" name="id_client_expediteur" class="form-control">
+                                    <select id="client" name="client_expediteur_id" class="form-control">
                                         @foreach ($donnees['clients'] as $client)
                                             <option value="{{ $client->id }}" >{{ $client->User->name }}</option>
                                         @endforeach

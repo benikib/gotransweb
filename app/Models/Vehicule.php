@@ -15,11 +15,9 @@ class Vehicule extends Model
         'immatriculation',
         'marque',
         'modele',
-        'annee',
-        'kilometrage',
         'type',
         'couleur',
-        'capacite',
+   
         'statut',
     ];
 

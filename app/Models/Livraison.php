@@ -23,7 +23,7 @@ class Livraison extends Model
         'expedition_id',
         'destination_id',
         'client_expediteur_id',
-        'client_destinataire_id',
+        'client_destinateur_id',
         'vehicule_id',
     ];
 

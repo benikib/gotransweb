@@ -26,15 +26,15 @@ class CreateLivraisaonRequest extends FormRequest
             'Kilo_total' => 'required|min:0',
             'moyen_transport' => 'required|exists:type_vehicules,nom_type',
             'montant' => 'required|min:0',
-            
-            'id_type_vehicule' => 'required|exists:type_vehicules,id',
-            'id_vehicule' => 'required|exists:vehicules,id',
+            'status' => 'required',
+            'date' => 'required|date',
+    
             'adresse_destination' => 'required|max:255',
             'tel_destination' => 'required|max:255',
-            'id_client_destinateur' => 'required|exists:clients,id',
+            'client_destinateur_id' => 'required|exists:clients,id',
             'adresse_expedition' => 'required|max:255',
             'tel_expedition' => 'required|max:255',
-            'id_client_expediteur' => 'required|exists:clients,id',
+            'client_expediteur_id' => 'required|exists:clients,id',
             
         ];
     }

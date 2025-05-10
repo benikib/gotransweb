@@ -11,21 +11,21 @@
             <div class="card z-index-0 fadeIn3 fadeInBottom">
            
               <div class="card-body">
-                <form role="form" method="POST" action="" class="text-start">
+                <form role="form" method="POST" action="{{route('livraison.update')}}" class="text-start">
                     @csrf
 
                 <div class="row">
                     <div class="col"> 
                         <label class="form-label">Code de livraison</label>
                         <div class="input-group input-group-outline ">
-                            <input type="text" disabled="true" name="code" value="{{$donnees['livraison']->code}}" class="form-control">
+                            <input type="text"  name="code" value="{{$donnees['livraison']->code}}" class="form-control">
                         </div>
                     </div>
 
                     <div class="col">
                         <label class="form-label">Kilo total</label>
                         <div class="input-group input-group-outline ">
-                            <input type="text" disabled="true"  name="Kilo_total" value="{{$donnees['livraison']->kilo_total ?? ''}}" class="form-control">
+                            <input type="text"  name="kilo_total" value="{{$donnees['livraison']->kilo_total ?? ''}}" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -34,14 +34,14 @@
                     <div class="col"> 
                         <label class="form-label">Moyen tansport</label>
                         <div class="input-group input-group-outline " >
-                            <input type="text" name="moyen_transport"disabled="true" value="{{$donnees['livraison']->moyen_transport}}" class="form-control">
+                            <input type="text" name="moyen_transport" value="{{$donnees['livraison']->moyen_transport}}" class="form-control">
                         </div>
                     </div>
 
                     <div class="col">
                         <label class="form-label">Montant</label>
                         <div class="input-group input-group-outline ">
-                            <input type="text" disabled="true"  name="montant" value="{{$donnees['livraison']->montant ?? ''}}" class="form-control">
+                            <input type="text"   name="montant" value="{{$donnees['livraison']->montant ?? ''}}" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -50,14 +50,14 @@
                     <div class="col"> 
                         <label class="form-label">Status</label>
                         <div class="input-group input-group-outline ">
-                            <input type="text" disabled="true" name="status" value="{{$donnees['livraison']->status}}" class="form-control">
+                            <input type="text"  name="status" value="{{$donnees['livraison']->status}}" class="form-control">
                         </div>
                     </div>
 
                     <div class="col">
                         <label class="form-label">Date de livraison</label>
                         <div class="input-group input-group-outline ">
-                            <input type="date"  name="date" value="{{$donnees['livraison']->date ?? ''}}" class="form-control">
+                            <input type="date" name="date" value="{{$donnees['livraison']->date ?? ''}}" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                         <input  type="text" name="id_destination"  style="display:none" value="{{$donnees['livraison']->destination->id}}">
                             <label for="id_type_vehicule" class="form-label">Adresse</label>
                             <div class="input-group input-group-outline">
-                                <input type="text"  name="date" value="{{$donnees['livraison']->destination->adresse ?? ''}}" class="form-control">
+                                <input type="text"  name="adresse_destination" value="{{$donnees['livraison']->destination->adresse ?? ''}}" class="form-control">
                             
                             </div>
                         </div>
@@ -105,7 +105,20 @@
                         <div class="col">
                             <label for="id_vehicule" class="form-label">Telephone</label>
                             <div class="input-group input-group-outline">
-                                <input type="text" name="id_destination"   name="date" value="{{$donnees['livraison']->destination->tel_destination ?? ''}}" class="form-control">
+                                <input type="text" name="tel_destination"   name="date" value="{{$donnees['livraison']->destination->tel_destination ?? ''}}" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="client" class="form-label">Client(Destinateur)</label>
+                                <div class="input-group input-group-outline">
+                                    <select id="id_client_destinateur" name="client_destinateur_id" class="form-control">
+                                        @foreach ($donnees['clients'] as $client)
+                                            <option value="{{ $client->id }}" >{{ $client->User->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -117,19 +130,32 @@
                     <div class="row">
                         
                         <div class="col">
-                        <input  type="text" name="id_expedition"  style="display:none" value="{{$donnees['livraison']->expedition->id}}">
-                        <label for="id_type_vehicule" class="form-label">Type de véhicule</label>
-                        <div class="input-group input-group-outline">
-                            <input type="text"  name="date" value="{{$donnees['livraison']->expedition->adresse ?? ''}}" class="form-control">
-                           
-                        </div>
+                          <input  type="text" name="id_expedition"  style="display:none" value="{{$donnees['livraison']->expedition->id}}">
+                          <label for="id_type_vehicule" class="form-label">Adresse expedition</label>
+                          <div class="input-group input-group-outline">
+                              <input type="text"  name="adresse_expedition" value="{{$donnees['livraison']->expedition->adresse ?? ''}}" class="form-control">
+                            
+                          </div>
                         </div>
 
                         <div class="col">
-                        <label for="id_vehicule" class="form-label">telephone</label>
-                        <div class="input-group input-group-outline">
-                        <input type="text"  name="date" value="{{$donnees['livraison']->expedition->tel_expedition ?? ''}}" class="form-control">
+                          <label for="id_vehicule" class="form-label">telephone</label>
+                          <div class="input-group input-group-outline">
+                          <input type="text"  name="tel_expedition" value="{{$donnees['livraison']->expedition->tel_expedition ?? ''}}" class="form-control">
+                          </div>
                         </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="client" class="form-label">Client(Expedition)</label>
+                                <div class="input-group input-group-outline">
+                                    <select id="id_client_destinateur" name="client_expediteur_id" class="form-control">
+                                        @foreach ($donnees['clients'] as $client)
+                                            <option value="{{ $client->id }}" >{{ $client->User->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </fieldset>
@@ -137,7 +163,7 @@
                  
                  
                   <div class="text-center">
-                    <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Modifier</button>
+                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Modifier</button>
                   </div>
                   
                 </form>
