@@ -14,6 +14,10 @@ use App\Http\Controllers\UserController;
 Route::get('/',[AdminController::class,'login'])->name('login');
 Route::post('/',[AdminController::class,'connecter']);
 Route::get('/views',[AdminController::class,'views'])->name('dashbord.views');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
 
 
 Route::middleware('auth')->group(function () {

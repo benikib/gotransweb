@@ -75,7 +75,7 @@
                     <h6 class="mb-0">Livreurs</h6>
                   </div>
                   <div class="col-6 text-end">
-                    <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-primary btn-sm mb-0 me-2">Ajouter admin</button>
+                    <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-primary btn-sm mb-0 me-2">Ajouter Livreur</button>
 
                   </div><div class="col-4 text-end">
 

@@ -93,11 +93,11 @@ class AdminController extends Controller
     }
     public function views(Admin $admin)
     {
-        $livreurs=Livreur::all();
-        $typeVehicules = Type_vehicule::all();
-        $vehicules = Vehicule::all();
-        $admins = Admin::all();
-        $tarifs = Tarif::all();
+        $livreurs=Livreur::latest()->take(3)->get();
+        $typeVehicules = Type_vehicule::latest()->take(3)->get();;
+        $vehicules = Vehicule::latest()->take(3)->get();;
+        $admins = Admin::latest()->take(3)->get();;
+        $tarifs = Tarif::latest()->take(3)->get();;
 
         return view('dashbord.views', compact('livreurs','typeVehicules','livreurs','vehicules','admins','tarifs'));
     }
