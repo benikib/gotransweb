@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -47,9 +48,9 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
-        
+
        /* try {
-            
+
              $validated = $request->validated([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique',
@@ -68,11 +69,11 @@ class UserController extends Controller
 
 */       // Validate the request
         $validated = $request->validated();
-        
+
         $user = User::create($validated);
         #($validated['role']);
         // Assigner le rôle
-        
+
 
         // Insérer dans la bonne table selon le rôle
         switch ($validated['role']) {
@@ -98,7 +99,7 @@ class UserController extends Controller
         /*} catch (\Throwable $th) {
             #dd($th);
         }*/
-       
+
         // Validate the request
         // Create a new user
 
@@ -119,8 +120,8 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(User $user)
-        
-    {   
+
+    {
         #dd($user);
       return view('users.edit',[
         'use' => $user
@@ -130,15 +131,21 @@ class UserController extends Controller
      * Update the specified resource in storage.
      */
     public function update(User $user, UpdateUserRequest $request){
-        $user->update($request->validated());
-        return \redirect()->route('users.index')->with('success','je suis modifier avec success');
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'number_phone' => $request->number_phone,
+            'password' => Hash::make($request->password),
+        ]);
+        return \redirect()->route('users.index')->with('success','Modifier avec success');
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(User $user)
-{   
+{
     ##dd($user->id);
     $client = Client::where('user_id', $user->id)->first();
     $admin = Admin::where('user_id', $user->id)->first();

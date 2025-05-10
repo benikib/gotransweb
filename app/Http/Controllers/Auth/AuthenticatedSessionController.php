@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\SuperAdminRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -33,10 +35,10 @@ class AuthenticatedSessionController extends Controller
     public function connecter(SuperAdminRequest $request)
     {
         $superadmin = $request->validated();
-        dd($superadmin);
+        $superadmin['password'] = Hash::make($superadmin['password']);
         if(Auth::attempt($superadmin)) {
             $request->session()->regenerate();
-            return redirect()->intended(route('users.index')); 
+            return redirect()->intended(route('users.index'));
         }
         return to_route('auth.login')->withErrors([
                 'email' => "Email ou Mot de passe incorrect !!!"
