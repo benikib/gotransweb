@@ -47,13 +47,22 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
     public function admin(){
         return $this->hasMany(Admin::class);
     }
     public function client(){
         return $this->hasMany(Client::class);
     }
-    public function livreur(){
-        return $this->hasMany(Livreur::class);
+   
+
+    public function livreur()
+    {
+        return $this->hasOne(Livreur::class, 'user_id', 'id');
+    }
+    public function livreur_vehicule()
+    {
+        return $this->hasManyThrough(Livreur_Vehicule::class, Livreur::class, 'user_id', 'livreur_id', 'id', 'id');
+
     }
 }

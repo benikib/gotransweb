@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tarif;
 use App\Models\Type_vehicule;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,10 @@ class TypeVehiculeController extends Controller
      */
     public function index()
     {
-        //
+        $typeVehicules = Type_vehicule::all();
+        $tarifs = Tarif::all();
+
+        return view('typeVehicule.index', compact('typeVehicules','tarifs'));
     }
 
     /**
@@ -28,7 +32,24 @@ class TypeVehiculeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+        $request->validate([
+            'nom_type' => 'required|string|max:255',
+            'kilo_initiale'=> 'required',
+            'tarif_id'  => 'required',
+            'kilo_final'=> 'required',
+            
+        ]);
+
+        Type_vehicule::create($request->all());
+
+        return redirect()->route('typeVehicule.index')->with('success', 'Type de véhicule créé avec succès.');
+        }
+        catch (\Exception $e) {
+
+            
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -44,7 +65,12 @@ class TypeVehiculeController extends Controller
      */
     public function edit(Type_vehicule $type_vehicule)
     {
-        //
+        $typeVehicule = Type_vehicule::find($type_vehicule->id);
+        $tarifs = Tarif::all();
+        if (!$type_vehicule) {
+            return redirect()->route('typeVehicule.index')->with('error', 'Type de véhicule non trouvé.');
+        }
+        return view('typeVehicule.edit', compact('typeVehicule','tarifs'));
     }
 
     /**
@@ -52,7 +78,15 @@ class TypeVehiculeController extends Controller
      */
     public function update(Request $request, Type_vehicule $type_vehicule)
     {
-        //
+        $request->validate([
+            'nom_type' => 'required|string|max:255',
+            'tarif_id'  => 'required'
+        ]);
+
+
+        $type_vehicule->update($request->all());
+
+        return redirect()->route('typeVehicule.index')->with('success', 'Type de véhicule mis à jour avec succès.');
     }
 
     /**
@@ -60,6 +94,8 @@ class TypeVehiculeController extends Controller
      */
     public function destroy(Type_vehicule $type_vehicule)
     {
-        //
+        $type_vehicule->delete();
+
+        return redirect()->route('typeVehicule.index')->with('success', 'Type de véhicule supprimé avec succès.');
     }
 }

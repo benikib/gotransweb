@@ -13,8 +13,8 @@ return new class extends Migration {
         Schema::create('vehicules', function (Blueprint $table) {
             $table->id();
             $table->foreignId('type_vehicule_id')->constrained('type_vehicules')->onDelete('cascade');
-            $table->foreignId('modele_vehicule_id')->constrained('modele_vehicules')->onDelete('cascade');
             $table->string('immatriculation')->unique();
+            $table->boolean('etat')->default(true);
             $table->string('couleur')->nullable();
             $table->timestamps();
         });

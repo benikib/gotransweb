@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Modele_vehicule>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tarif>
  */
-class ModeleVehiculeFactory extends Factory
+class TarifFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class ModeleVehiculeFactory extends Factory
     public function definition(): array
     {
         return [
-            'nom_modele' => fake()->macAddress(),
-            'tarif'  => fake()->numberBetween(100,3000),
+            //
         ];
     }
 }
