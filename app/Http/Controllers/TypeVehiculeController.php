@@ -43,7 +43,7 @@ class TypeVehiculeController extends Controller
 
         Type_vehicule::create($request->all());
 
-        return redirect()->route('typeVehicule.index')->with('success', 'Type de véhicule créé avec succès.');
+        return redirect()->back()->with('success', 'Type de véhicule créé avec succès.');
         }
         catch (\Exception $e) {
 
@@ -68,7 +68,7 @@ class TypeVehiculeController extends Controller
         $typeVehicule = Type_vehicule::find($type_vehicule->id);
         $tarifs = Tarif::all();
         if (!$type_vehicule) {
-            return redirect()->route('typeVehicule.index')->with('error', 'Type de véhicule non trouvé.');
+            return redirect()->back()->with('error', 'Type de véhicule non trouvé.');
         }
         return view('typeVehicule.edit', compact('typeVehicule','tarifs'));
     }
@@ -86,7 +86,7 @@ class TypeVehiculeController extends Controller
 
         $type_vehicule->update($request->all());
 
-        return redirect()->route('typeVehicule.index')->with('success', 'Type de véhicule mis à jour avec succès.');
+        return redirect()->back()->with('success', 'Type de véhicule mis à jour avec succès.');
     }
 
     /**
@@ -96,6 +96,6 @@ class TypeVehiculeController extends Controller
     {
         $type_vehicule->delete();
 
-        return redirect()->route('typeVehicule.index')->with('success', 'Type de véhicule supprimé avec succès.');
+        return redirect()->back()->with('success', 'Type de véhicule supprimé avec succès.');
     }
 }

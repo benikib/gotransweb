@@ -37,7 +37,7 @@ class TarifController extends Controller
 
         Tarif::create($request->all());
 
-        return redirect()->route('tarifs.index')->with('success', 'Tarif created successfully.');    
+        return redirect()->back()->with('success', 'Tarif created successfully.');    
     }
 
     /**
@@ -68,7 +68,7 @@ class TarifController extends Controller
 
         $tarif->update($request->all());
 
-        return redirect()->route('tarifs.index')->with('success', 'Tarif updated successfully.');
+        return redirect()->back()->with('success', 'Tarif updated successfully.');
     }
 
     /**
@@ -78,6 +78,6 @@ class TarifController extends Controller
     {
         $tarif->delete();
 
-        return redirect()->route('tarifs.index')->with('success', 'Tarif deleted successfully.');
+        return redirect()->back()->with('success', 'Tarif deleted successfully.');
     }
 }

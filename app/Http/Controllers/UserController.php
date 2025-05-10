@@ -138,7 +138,7 @@ class UserController extends Controller
             'number_phone' => $request->number_phone,
             'password' => Hash::make($request->password),
         ]);
-        return \redirect()->route('users.index')->with('success','Modifier avec success');
+        return redirect()->back()->with('success','Modifier avec success');
     }
 
     /**
@@ -160,7 +160,7 @@ class UserController extends Controller
         dd($user->id);
     }
     User::destroy($user->id); // on passe l'ID, pas l'objet complet
-    return redirect()->route('users.index')->with('success', 'Utilisateur supprimé avec succès');
+    return redirect()->back()->with('success', 'Utilisateur supprimé avec succès');
 }
 
 }

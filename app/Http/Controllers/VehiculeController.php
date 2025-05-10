@@ -20,7 +20,7 @@ class VehiculeController extends Controller
         $vehicules = Vehicule::all();
         $typeVehicules = Type_vehicule::all();
 
-        
+
 
         return view('vehicule.index', compact('vehicules', 'typeVehicules'));
     }
@@ -38,18 +38,18 @@ class VehiculeController extends Controller
      */
     public function store(Request $request)
     {
-       try {
-        $request->validate([
-            'immatriculation' => 'required|string|max:255',
-            'type_vehicule_id' => 'required|exists:type_vehicules,id',
-            'couleur' => 'required|string|max:255',
-            'etat' => 'required',
-        ]);
-            
-       
-        Vehicule::create($request->all());
+        try {
+            $request->validate([
+                'immatriculation' => 'required|string|max:255',
+                'type_vehicule_id' => 'required|exists:type_vehicules,id',
+                'couleur' => 'required|string|max:255',
+                'etat' => 'required',
+            ]);
 
-        return redirect()->route('vehicule.index')->with('success', 'Véhicule créé avec succès.');
+
+            Vehicule::create($request->all());
+
+            return redirect()->back()->with('success', 'Véhicule créé avec succès.');
         } catch (\Exception $e) {
 
             return redirect()->back()->with('error', $e);
@@ -77,7 +77,7 @@ class VehiculeController extends Controller
         $modeleVehicules = Modele_vehicule::all();
         $typeVehicules = Type_vehicule::all();
 
-        return view('vehicule.edit', compact('vehicule',  'typeVehicules'));
+        return view('vehicule.edit', compact('vehicule', 'typeVehicules'));
     }
 
     /**
@@ -92,10 +92,11 @@ class VehiculeController extends Controller
                 'couleur' => 'required|string|max:255',
                 'etat' => 'required',
             ]);
+            dd($request->etat);
 
             $vehicule->update($request->all());
 
-            return redirect()->route('vehicule.index')->with('success', 'Véhicule mis à jour avec succès.');
+            return redirect()->back()->with('success', 'Véhicule mis à jour avec succès.');
         } catch (\Exception $e) {
 
             return redirect()->back()->with('error', $e);
