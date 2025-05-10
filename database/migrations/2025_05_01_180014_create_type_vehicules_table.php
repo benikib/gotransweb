@@ -13,6 +13,8 @@ return new class extends Migration {
         Schema::create('type_vehicules', function (Blueprint $table) {
             $table->id();
             $table->string('nom_type');
+            $table->string('kilo_initial');
+            $table->string('kilo_final');
             $table->timestamps();
         });
     }

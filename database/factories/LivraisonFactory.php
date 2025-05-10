@@ -30,7 +30,12 @@ class LivraisonFactory extends Factory
             'status' => fake()->randomElement(['en_attente', 'en_cours', 'livree', 'annulee']),
             'code' => fake()->lexify('???-4555-???-77'),
             'montant' => fake()->randomFloat(2, 10, 1000),
-            
+            'kilo_total' => fake()->numberBetween(10, 1000),
+            'photo' => fake()->name(),
+            'moyen_transport' => fake()->randomElement(['moto', 'mini_voiture', 'moyen_voiture', 'grand_voiture']),
+
+
+   
             //pour les cles etranger  
             'expedition_id' => Expedition::inRandomOrder()->first()->id,
             'destination_id' => Destination::inRandomOrder()->first()->id,

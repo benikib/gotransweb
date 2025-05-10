@@ -16,7 +16,12 @@ return new class extends Migration {
             $table->date('date');
             $table->enum('status', ['en_attente','en_cours', 'livree', 'annulee']);
             $table->string('code');
-            $table->float('montant');
+            $table->integer('kilo_total')->nullable();
+            $table->string('photo')->nullable();
+            $table->float('montant')->nullable();
+
+            $table->string('moyen_transport')->nullable();
+           
             $table->foreignId('expedition_id')->constrained('expeditions')->onDelete('cascade');
             $table->foreignId('destination_id')->constrained('destinations')->onDelete('cascade');
 

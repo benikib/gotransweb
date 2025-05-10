@@ -2,8 +2,6 @@
 @section('title', 'all_livraison')
 @section('content') 
 
-
-
 @php
 function getBadgeClass($status) {
         return 'badge badge-sm ' . match ($status) {
@@ -22,7 +20,10 @@ function getBadgeClass($status) {
           <div class="card my-4">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                <h6 class="text-white text-capitalize ps-3">Liste des livraison</h6>
+                <h6 class="text-white text-capitalize ps-3">Liste des livraisons</h6>
+                <a href="{{ route('livraison.create') }}">
+                  <div class="btn btn-primary">Creer une livraison(teste)</div>
+                </a>
               </div>
             </div>
             <div class="card-body px-0 pb-2">
@@ -35,7 +36,6 @@ function getBadgeClass($status) {
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date de livraison</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">vihicule</th>
-
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Info Destination</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Info Expedition</th>
                       <th class="text-secondary opacity-7"></th>
@@ -62,7 +62,7 @@ function getBadgeClass($status) {
                             <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{$livraison->Expediteur->User->name }} </h6>
+                            <h6 class="mb-0 text-sm">{{$livraison->Expediteur->User->name}} </h6>
                             <p class="text-xs text-secondary mb-0"></p>
                           </div>
                         </div>
@@ -89,9 +89,15 @@ function getBadgeClass($status) {
                         <span class="text-secondary text-xs font-weight-bold">{{$livraison->Expedition->adresse ?? 'N/A'}},{{$livraison->Expedition->tel_expedition?? 'N/A'}}</span>
                       </td>
                       <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Voir plus
+                        <a href="{{ route('livraison.edit', ['id'=>$livraison->id]) }}" >
+                         
+                        <div class="btn btn-info btn-sm" type="button" >Modifier</div>
                         </a>
+                        <a href="{{ route('livraison.delete', ['id'=>$livraison->id]) }}">
+                        <div class="btn btn-primary btn-sm" type="button" >Suppimer</div>
+                        </a>
+                        
+                        </div>
                       </td>
                     </tr>
 
