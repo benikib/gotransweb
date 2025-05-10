@@ -9,8 +9,9 @@ Route::prefix("livraison")->name("livraison.")->group( function () {
     
     Route::post("/save", [LivraisonController::class, "store"])->name("store");
 
-   
+    Route::get("/changeStatus/{id}", [LivraisonController::class, "changeStatus"])->name("changeStatus");
 
+   
     Route::get("/edit/{id}", [LivraisonController::class, "edit"])->name("edit");
     Route::post("/update", [LivraisonController::class, "update"])->name("update");
 

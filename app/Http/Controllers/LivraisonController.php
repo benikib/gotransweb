@@ -156,4 +156,24 @@ class LivraisonController extends Controller
 
         return redirect()->route('livraison.index')->with('success', 'Livraison deleted successfully');
     }
+
+    public function changeStatus($id)
+    {
+
+        $livraison = Livraison::find($id);
+
+        $etat= $livraison->status;
+        if ($etat == 'en_attente') {
+            $livraison->status = 'en_cours';
+        } elseif ($etat == 'en_cours') {
+            $livraison->status = 'livree';
+        } elseif ($etat == 'livree') {
+            $livraison->status = 'annulee';
+        } else {
+            $livraison->status = 'en_attente';
+        }
+        $livraison->save();
+
+        return  redirect()->route('livraison.index')->with('success', 'Livraison edit successfully');
+    }
 }

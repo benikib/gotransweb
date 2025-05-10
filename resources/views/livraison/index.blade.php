@@ -96,6 +96,10 @@ function getBadgeClass($status) {
                         <a href="{{ route('livraison.delete', ['id'=>$livraison->id]) }}">
                         <div class="btn btn-primary btn-sm" type="button" >Suppimer</div>
                         </a>
+
+                        <a href="{{ route('livraison.changeStatus', ['id'=>$livraison->id]) }}">
+                        <div class="btn btn-success btn-sm" type="button" >accepter</div>
+                        </a>
                         
                         </div>
                       </td>

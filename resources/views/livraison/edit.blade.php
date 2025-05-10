@@ -20,6 +20,9 @@
                         <div class="input-group input-group-outline ">
                             <input type="text"  name="code" value="{{$donnees['livraison']->code}}" class="form-control">
                         </div>
+                        @error('code')
+                                <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="col">
@@ -27,6 +30,9 @@
                         <div class="input-group input-group-outline ">
                             <input type="text"  name="kilo_total" value="{{$donnees['livraison']->kilo_total ?? ''}}" class="form-control">
                         </div>
+                        @error('kilo_total')
+                                <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
@@ -36,6 +42,9 @@
                         <div class="input-group input-group-outline " >
                             <input type="text" name="moyen_transport" value="{{$donnees['livraison']->moyen_transport}}" class="form-control">
                         </div>
+                        @error('moyen_transport')
+                                <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="col">
