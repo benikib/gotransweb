@@ -28,9 +28,20 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('login', absolute: false));
     }
-
+    public function connecter(SuperAdminRequest $request)
+    {
+        $superadmin = $request->validated();
+        dd($superadmin);
+        if(Auth::attempt($superadmin)) {
+            $request->session()->regenerate();
+            return redirect()->intended(route('users.index')); 
+        }
+        return to_route('auth.login')->withErrors([
+                'email' => "Email ou Mot de passe incorrect !!!"
+        ])->onlyInput('email');
+    }
     /**
      * Destroy an authenticated session.
      */

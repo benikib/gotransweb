@@ -6,15 +6,14 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/pour', function () {
-    return view('forms.login');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/logins',[AdminController::class,'login'])->name('login');
-Route::post('/logins',[AdminController::class,'connecter']);
+
+Route::get('/',[AdminController::class,'login'])->name('login');
+Route::post('/',[AdminController::class,'connecter']);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
