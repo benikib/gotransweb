@@ -18,14 +18,17 @@ function getBadgeClass($status) {
         <div class="col-12">
          
           <div class="card my-4">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-              <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                <h6 class="text-white text-capitalize ps-3">Liste des livraisons</h6>
-                <a href="{{ route('livraison.create') }}">
-                  <div class="btn btn-primary">Creer une livraison(teste)</div>
-                </a>
-              </div>
-            </div>
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+  <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 px-3">
+    <div class="d-flex justify-content-between align-items-center">
+      <h6 class="text-white text-capitalize m-0">Liste des livraisons</h6>
+      <a href="{{ route('livraison.create') }}" class="btn btn-primary">
+        Créer une livraison (test)
+      </a>
+    </div>
+  </div>
+</div>
+
             <div class="card-body px-0 pb-2">
               <div class="table-responsive p-0">
                 <table class="table align-items-center mb-0">

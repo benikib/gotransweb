@@ -43,6 +43,7 @@ class LivraisonController extends Controller
      */
     public function store(CreateLivraisaonRequest $request)
     {
+           try {
 
         $expedition =  Expedition::create([
             'adresse'=> $request->input("adresse_expedition"),
@@ -71,11 +72,16 @@ class LivraisonController extends Controller
             'expedition_id' => $expedition->id,
             'moyen_transport' => $request->input('moyen_transport'),
             'vehicule_id' => 0,
+            'kilo_total'=>0,
         ]);
 
         return redirect()->route('livraison.index')->with('success', 'Livraison created successfully');
 
-        
+     } catch (\Exception $e) {
+        dd($e);
+
+            return redirect()->back()->with('error', $e);
+        }
 
 
 

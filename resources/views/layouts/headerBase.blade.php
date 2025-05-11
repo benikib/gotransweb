@@ -12,8 +12,8 @@
   <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('dashbord.views') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
-          href="{{ route('dashbord.views') }}">
+        <a class="nav-link {{ request()->routeIs('dashboard') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
+          href="{{ route('dashboard') }}">
           <i class="material-symbols-rounded opacity-5">dashboard</i>
           <span class="nav-link-text ms-1">Tableau de bord</span>
         </a>
@@ -22,19 +22,27 @@
       
 
       <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('dashbord.views.*') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
-          href="{{ route('livraison.index') }}">
-          <i class="material-symbols-rounded opacity-5">event_seat</i>
-          <span class="nav-link-text ms-1">Gestion  des livraisons</span>
+        <a class="nav-link {{ request()->routeIs('dashbord.*') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
+          href="{{ route('dashbord.views') }}">
+          <i class="material-symbols-rounded text-sm opacity-75">summarize</i>
+
+          <span class="nav-link-text ms-1">Overviews</span>
         </a>
       </li>
       <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('livraison.index') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
+          href="{{ route('livraison.index') }}">
+          <i class="material-symbols-rounded opacity-5">event_seat</i>
+          <span class="nav-link-text ms-1">Livraison </span>
+        </a>
+      </li>
+      {{-- <li class="nav-item">
         <a class="nav-link {{ request()->routeIs('dashbord.views.*') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
           href="{{ route('dashbord.views') }}">
           <i class="material-symbols-rounded opacity-5">chat</i>
           <span class="nav-link-text ms-1">Messages</span>
         </a>
-      </li>
+      </li> --}}
       <li class="nav-item mt-3">
         <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Compte</h6>
       </li>
