@@ -28,21 +28,16 @@ class CreateLivraisaonRequest extends FormRequest
             'montant' => 'required|min:0',
             'status' => 'required',
             'date' => 'required|date',
-<<<<<<< HEAD
-=======
-    
->>>>>>> 7a280642b4eba661f9a5eebdbbf73fb4888c0255
+
             'adresse_destination' => 'required|max:255',
             'tel_destination' => 'required|max:255',
             'client_destinateur_id' => 'required|exists:clients,id',
             'adresse_expedition' => 'required|max:255',
             'tel_expedition' => 'required|max:255',
-<<<<<<< HEAD
-            'client_expediteur_id' => 'required|exists:clients,id'
-=======
+
             'client_expediteur_id' => 'required|exists:clients,id',
->>>>>>> 7a280642b4eba661f9a5eebdbbf73fb4888c0255
-            
+
+
         ];
     }
 }

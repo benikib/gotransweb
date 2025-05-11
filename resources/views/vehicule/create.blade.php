@@ -39,7 +39,7 @@
                   </select>
                   </div>
                   <div class="mb-3">
-                 <input type="boolean" name="etat" value="true" id="" hidden>
+                
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
