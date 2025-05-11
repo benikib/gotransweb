@@ -9,4 +9,12 @@ class Destination extends Model
 {
     /** @use HasFactory<\Database\Factories\DestinationFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'id',
+        'adresse',
+        'longitude',
+        'latitude',
+        'tel_destination'
+    ];
 }

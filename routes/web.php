@@ -32,3 +32,5 @@ require __DIR__.'/users.php';
 require __DIR__.'/vehicule.php';
 
 require __DIR__.'/auth.php';
+
+require __DIR__.'/routeWeb/livraison.php';

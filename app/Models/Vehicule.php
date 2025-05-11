@@ -9,6 +9,7 @@ class Vehicule extends Model
 {
     /** @use HasFactory<\Database\Factories\VehiculeFactory> */
     use HasFactory;
+
     protected $fillable = [
         'immatriculation',
         'modele_vehicule_id',
@@ -25,5 +26,6 @@ class Vehicule extends Model
 {
     return $this->hasMany(Livreur_Vehicule::class, 'vehicule_id');
 }
+
 
 }
