@@ -1,20 +1,20 @@
 @extends("layouts.base")
 @section('title', 'creation livraison')
-@section('content') 
+@section('content')
 
 <div class="page-header align-items-start min-vh-100" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');">
       <span class="mask bg-gradient-dark opacity-6"></span>
       <div class="container my-auto">
         <div class="row">
-       
+
           <div class="col-lg-12 col-md-8 col-12 mx-auto">
             <div class="card z-index-0 fadeIn3 fadeInBottom">
-           
+
               <div class="card-body">
                 <form role="form" method="post" action="{{route('livraison.store')}}" class="text-start">
                     @csrf
                 <div class="row">
-                    <div class="col"> 
+                    <div class="col">
                         <label class="form-label">Code de livraison</label>
                         <div class="input-group input-group-outline ">
                             <input type="text"  name="code" value="" class="form-control">
@@ -37,15 +37,19 @@
                 </div>
 
                 <div class="row">
-                    <div class="col"> 
+                    <div class="col">
                         <label class="form-label">Moyen tansport</label>
                         <div class="input-group input-group-outline " >
-                        <select id="status" name="moyen_transport" class="form-control">
-                                <option value="moto" >moto</option>
-                                <option value="mini_voiture" >mini voiture</option>
-                                <option value="moyen_voiture" >moyen voiture</option>
-                                <option value="grand_voiture" >grand voiture</option>
-                        </select>
+                            <select id="id_type_vehicule" name="moyen_transport" class="form-control">
+                        @forelse ($donnees['Type_vehicules'] as $type )
+                        
+                            <option value="{{ $type->nom_type }}" >{{ $type->nom_type }}</option>
+
+                        @empty
+                            <option value="" >Aucun moyen de transport disponible</option>
+                        @endforelse
+                            </select>
+                           
                         </div>
                         @error('moyen_transport')
                             <div class="text-danger">{{ $message }}</div>
@@ -64,22 +68,22 @@
                 </div>
 
                 <div class="row">
-                
-                    <div class="col"> 
+
+                    <div class="col">
                         <label class="form-label">Status</label>
                         <div class="input-group input-group-outline " >
                             <select id="status"  name="status" class="form-control">
-                                
+
                                     <option value="livree" >livree</option>
                                     <option value="en_attente" selected>en_attente</option>
                                     <option value="annulee" >annulee</option>
                                     <option value="en_cours" >en_cours</option>
-                                
+
                             </select>
                             @error('status')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
-                           
+
                         </div>
                     </div>
 
@@ -91,18 +95,18 @@
                     </div>
                 </div>
 
-                
+
 
                 <fieldset class="border p-3 mb-4 mt-3">
                     <legend class="w-auto px-2">Information destination </legend>
 
                     <div class="row">
                         <div class="col">
-                        
+
                             <label for="id_type_vehicule" class="form-label">Adresse</label>
                             <div class="input-group input-group-outline">
                                 <input type="text"  name="adresse_destination" value="" class="form-control">
-                            
+
                             </div>
                         </div>
 
@@ -122,7 +126,7 @@
                                             <option value="{{ $client->id }}" >{{ $client->User->name }}</option>
                                         @endforeach
                                     </select>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -133,13 +137,13 @@
                     <legend class="w-auto px-2">Information sur l'expedition </legend>
 
                     <div class="row">
-                        
+
                         <div class="col">
-                            
+
                             <label for="" class="form-label">Adresse</label>
                             <div class="input-group input-group-outline">
                                 <input type="text"  name="adresse_expedition" value="" class="form-control">
-                            
+
                             </div>
                         </div>
 
@@ -160,18 +164,18 @@
                                             <option value="{{ $client->id }}" >{{ $client->User->name }}</option>
                                         @endforeach
                                     </select>
-                                    
+
                                 </div>
                             </div>
                     </div>
                 </fieldset>
 
-                 
-                 
+
+
                   <div class="text-center">
                     <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Enregistrer</button>
                   </div>
-                  
+
                 </form>
               </div>
             </div>
