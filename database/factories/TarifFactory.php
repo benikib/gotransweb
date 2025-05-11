@@ -16,8 +16,10 @@ class TarifFactory extends Factory
      */
     public function definition(): array
     {
+      
         return [
-            //
+            'kilo_tarif' => 1,
+            'prix_tarif' => 1,
         ];
     }
 }

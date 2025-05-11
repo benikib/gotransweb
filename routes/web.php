@@ -27,10 +27,9 @@ Route::middleware('auth')->group(function () {
 });
 
 
-require __DIR__.'/users.php';
-
-require __DIR__.'/vehicule.php';
-
 require __DIR__.'/auth.php';
 
-require __DIR__.'/routeWeb/livraison.php';
+// Importation automatique des routes depuis le dossier routeWeb
+foreach (glob(__DIR__ . '/routeWeb/*.php') as $file) {
+    require $file;
+}

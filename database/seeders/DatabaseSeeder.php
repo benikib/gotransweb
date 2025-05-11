@@ -10,6 +10,7 @@ use App\Models\Livraison;
 use App\Models\Expedition;
 use App\Models\Destination;
 use App\Models\Livreur;
+use App\Models\Tarif;
 use App\Models\Type_vehicule;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -42,9 +43,9 @@ class DatabaseSeeder extends Seeder
 
          //Client::factory(10)->create();
 
-      //Type_vehicule::factory(10)->create();
+      Type_vehicule::factory(10)->create();
 
-        Livraison::factory(4)->create();
+       // Tarif::factory(1)->create();
 
 
 

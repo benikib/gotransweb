@@ -40,10 +40,12 @@ class AdminController extends Controller
         // Redirect to the admin index page
         return redirect()->route('admin.index')->with('success', 'Admin created successfully.');
     }
+
     public function login()
     {
         return view('auth.login');
     }
+    
     /**
      * Store a newly created resource in storage.
      */

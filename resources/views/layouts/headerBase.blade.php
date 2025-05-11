@@ -18,18 +18,14 @@
           <span class="nav-link-text ms-1">Tableau de bord</span>
         </a>
       </li>
+      
+      
+
       <li class="nav-item">
         <a class="nav-link {{ request()->routeIs('dashbord.views.*') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
-          href="{{ route('dashbord.views') }}">
-          <i class="material-symbols-rounded opacity-5">directions_car</i>
-          <span class="nav-link-text ms-1">Mes Trajets</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('dashbord.views.*') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
-          href="{{ route('dashbord.views') }}">
+          href="{{ route('livraison.index') }}">
           <i class="material-symbols-rounded opacity-5">event_seat</i>
-          <span class="nav-link-text ms-1">Mes Réservations</span>
+          <span class="nav-link-text ms-1">Gestion  des livraisons</span>
         </a>
       </li>
       <li class="nav-item">

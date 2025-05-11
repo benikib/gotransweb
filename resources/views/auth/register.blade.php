@@ -6,72 +6,70 @@
     <title>Inscription</title>
     <link rel="icon" href="{{ asset('assets/img/favicon.png') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}"> <!-- Tailwind CSS compilé -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+      <!-- Inclure Bootstrap via Vite -->
+    @vite(['resources/sass/appapp.scss', 'resources/js/appapp.js'])
 </head>
-<body class="bg-gray-100 font-inter">
+<body style="font-family: 'Inter', sans-serif;" class="bg-light">
 
-    <div class="min-h-screen flex items-center justify-center px-4">
-        <div class="w-full max-w-md bg-white rounded-2xl shadow-lg overflow-hidden animate__animated animate__fadeInDown">
-            <!-- Header illustration -->
-            <div class="bg-indigo-600 p-6 text-center">
-                <h2 class="text-2xl font-bold text-white">Créer un compte</h2>
-                <p class="text-indigo-100 text-sm">Créer un SuperAdmin</p>
+    <div class="min-vh-100 d-flex justify-content-center align-items-center p-3">
+        <div class="card shadow-lg rounded-4 w-100" style="max-width: 450px;">
+            <div class="card-header bg-primary tex t-white text-center p-4 animate__animated animate__fadeInDown">
+                <h2 class="fw-bold mb-0">Créer un compte</h2>
+                <p class="text-light mb-0">Créer un SuperAdmin</p>
             </div>
 
-            <!-- Formulaire -->
-            <div class="p-6">
+            <div class="card-body p-4">
                 <form method="POST" action="">
                     @csrf
 
                     <!-- Nom -->
-                    <div class="mb-4">
-                        <x-input-label for="name" :value="__('Nom complet')" />
-                        <x-text-input id="name" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
-                                      type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-                        <x-input-error :messages="$errors->get('name')" class="mt-2 text-red-500 text-sm" />
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nom complet</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required autofocus>
+                        @error('name')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <!-- Email -->
-                    <div class="mb-4">
-                        <x-input-label for="email" :value="__('Adresse email')" />
-                        <x-text-input id="email" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
-                                      type="email" name="email" :value="old('email')" required autocomplete="username" />
-                        <x-input-error :messages="$errors->get('email')" class="mt-2 text-red-500 text-sm" />
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Adresse email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
+                        @error('email')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <!-- Mot de passe -->
-                    <div class="mb-4">
-                        <x-input-label for="password" :value="__('Mot de passe')" />
-                        <x-text-input id="password" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
-                                      type="password" name="password" required autocomplete="new-password" />
-                        <x-input-error :messages="$errors->get('password')" class="mt-2 text-red-500 text-sm" />
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Mot de passe</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                        @error('password')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
                     </div>
 
-                    <!-- Confirmation mot de passe -->
-                    <div class="mb-6">
-                        <x-input-label for="password_confirmation" :value="__('Confirmer le mot de passe')" />
-                        <x-text-input id="password_confirmation" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
-                                      type="password" name="password_confirmation" required autocomplete="new-password" />
-                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-red-500 text-sm" />
+                    <!-- Confirmation -->
+                    <div class="mb-4">
+                        <label for="password_confirmation" class="form-label">Confirmer le mot de passe</label>
+                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+                        @error('password_confirmation')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <!-- Boutons -->
-                    <div class="flex items-center justify-between">
-                        <a class="text-sm text-gray-600 hover:text-indigo-600 underline" href="{{ route('login') }}">
-                            Déjà inscrit ?
-                        </a>
-
-                        <x-primary-button class="ml-4">
-                            {{ __('S\'inscrire') }}
-                        </x-primary-button>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{{ route('login') }}" class="text-decoration-underline text-secondary small">Déjà inscrit ?</a>
+                        <button type="submit" class="btn btn-primary">S'inscrire</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
