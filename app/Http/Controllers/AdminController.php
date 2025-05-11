@@ -9,9 +9,12 @@ use App\Http\Requests\CreateAdminRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\SuperAdminRequest;
+use App\Models\Livraison;
 use App\Models\Livreur;
+use App\Models\Livreur_Vehicule;
 use App\Models\Tarif;
 use App\Models\Vehicule;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -102,5 +105,40 @@ class AdminController extends Controller
         $tarifs = Tarif::latest()->take(3)->get();;
 
         return view('dashbord.views', compact('livreurs','typeVehicules','livreurs','vehicules','admins','tarifs'));
+    }
+    public function dashboard()
+    {
+         $livreurs=Livreur::all();
+        $typeVehicules = Type_vehicule::all();
+        $vehicules = Vehicule::all();
+        $admins = Admin::all();
+        $tarifs = Tarif::all();
+        $users = User::all();
+        $livraisons = Livraison::all();
+         $now = Carbon::now();
+         $livreur_vehicules = Livreur_Vehicule::all();
+
+    // Livraisons
+    $thisWeek = Livraison::whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])->count();
+    $lastWeek = Livraison::whereBetween('created_at', [now()->subWeek()->startOfWeek(), now()->subWeek()->endOfWeek()])->count();
+    $livraisonsPourcentage = $lastWeek > 0 ? round((($thisWeek - $lastWeek) / $lastWeek) * 100) : 0;
+
+    // Utilisateurs
+    $today = User::whereDate('created_at', today())->count();
+    $yesterday = User::whereDate('created_at', today()->subDay())->count();
+    $usersPourcentage = $yesterday > 0 ? round((($today - $yesterday) / $yesterday) * 100) : 0;
+        return view('dashboard', 
+         [
+        'livraisonsThisWeek' => $thisWeek,
+        'livraisonsPourcentage' => $livraisonsPourcentage,
+        'usersToday' => $today,
+        'usersPourcentage' => $usersPourcentage,
+        'livreurs'=>$livreurs,
+        'typeVehicules'=>$typeVehicules,
+        'vehicules'=>$vehicules,
+        'livraisons'=>$livraisons,
+        'tarifs'=>$tarifs,  
+        'livreur_vehicules'=>$livreur_vehicules,
+         ]);
     }
 }

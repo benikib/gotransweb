@@ -43,7 +43,7 @@ class LivreurVehiculeController extends Controller
 
             Livreur_Vehicule::create($request->all());
 
-            return redirect()->route('livreurVehicule.index')->with('success', 'Affectation créée avec succès.');
+            return redirect()->back()->with('success', 'Affectation créée avec succès.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Erreur de validation.');
         }
