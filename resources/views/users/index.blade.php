@@ -76,7 +76,7 @@
                           <td class="align-middle">
                             <div class="d-flex px-2 py-1">
                               <div class="d-flex flex-column justify-content-center">
-                                <h6 class="mb-0 text-sm">{{ $admin->id }}</h6>
+                                <h6 class="mb-0 text-sm">{{ $count++ }}</h6>
                               </div>
                             </div>
                           </td>
@@ -170,13 +170,16 @@
                            
                             {{-- /livreur --}}
                             <tbody>
+                                  @php
+                                      $count = 1;
+                                  @endphp
                                 @forelse ($livreurs as $livreur)
                                 <tr>
                                   <!-- ID -->
                                   <td class="align-middle">
                                     <div class="d-flex px-2 py-1">
                                       <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 text-sm">{{ $livreur->id }}</h6>
+                                        <h6 class="mb-0 text-sm">{{ $count++ }}</h6>
                                       </div>
                                     </div>
                                   </td>
@@ -265,13 +268,16 @@
                                    
                                     {{-- /client --}}
                                     <tbody>
+                                          @php
+                                              $count = 1;
+                                          @endphp
                                         @forelse ($clients as $client)
                                         <tr>
                                           <!-- ID -->
                                           <td class="align-middle">
                                             <div class="d-flex px-2 py-1">
                                               <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">{{ $client->id }}</h6>
+                                                <h6 class="mb-0 text-sm">{{ $count++ }}</h6>
                                               </div>
                                             </div>
                                           </td>
