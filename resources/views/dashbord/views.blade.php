@@ -49,6 +49,7 @@
                       
                     <div class="card-body p-3">
                         <div class="row">
+                            
                             @foreach ($typeVehicules as $type)
                                 <div class="col-md-4 p-2 mb-md-0 mb-3">
                                     <div

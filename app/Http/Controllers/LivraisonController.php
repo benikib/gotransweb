@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Http\Requests\CreateLivraisaonRequest;
 use App\Http\Requests\UpdateLivraisonRequest;
+use Illuminate\Support\Facades\DB;
 
 
 class LivraisonController extends Controller
@@ -182,4 +183,54 @@ class LivraisonController extends Controller
 
         return  redirect()->route('livraison.index')->with('success', 'Livraison edit successfully');
     }
+
+    public function affectation( Request $request)
+    {
+        $types = Type_vehicule::all(); // Récupère tous les types
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Livraison affectée avec succès.',
+            'data' => $types // Envoie les types dans la réponse
+        ]);
+
+    }
+
+    public function selectAffectation($id)
+        {
+            $vehiculesLibres = DB::table('vehicules')
+                ->leftJoin('livraisons', 'vehicules.id', '=', 'livraisons.vehicule_id')
+                ->where(function ($query) {
+                    $query->whereNull('livraisons.id')
+                        ->orWhere('livraisons.status', '=', 'validee');
+                })
+                ->select('vehicules.*', 'livraisons.id as livraison_id') // <- ici on injecte $id
+                ->select('vehicules.*')
+                ->groupBy('vehicules.id')
+                ->get();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Véhicules libres',
+                'data' => $vehiculesLibres
+            ]);
+        }
+
+
+     public function saveAffectation( Request $request)
+    {
+        $livraison = Livraison::find($request->input('id_livraison'));
+        if (!$livraison) {
+            return redirect()->route('livraison.index')->with('error', 'Livraison not found');
+        }
+
+        $livraison->update([
+            'vehicule_id' => $request->input('id_vehicule'),
+        ]);
+
+        return redirect()->route('livraison.index')->with('success', 'Livraison updated successfully');
+    }
+   
+
+
 }

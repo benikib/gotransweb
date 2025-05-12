@@ -9,3 +9,9 @@ import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 
 Alpine.start();
+
+
+
+
+//Les fonctions js pour l'affectation vehicule
+

@@ -18,7 +18,7 @@
                     <div class="col"> 
                         <label class="form-label">Code de livraison</label>
                         <div class="input-group input-group-outline ">
-                            <input type="text"  name="code" value="{{$donnees['livraison']->code}}" class="form-control">
+                            <input readonly  type="text"  name="code" value="{{$donnees['livraison']->code}}" class="form-control">
                         </div>
                         @error('code')
                                 <div class="text-danger">{{ $message }}</div>
@@ -28,7 +28,7 @@
                     <div class="col">
                         <label class="form-label">Kilo total</label>
                         <div class="input-group input-group-outline ">
-                            <input type="text"  name="kilo_total" value="{{$donnees['livraison']->kilo_total ?? ''}}" class="form-control">
+                            <input readonly  type="text"  name="kilo_total" value="{{$donnees['livraison']->kilo_total ?? ''}}" class="form-control">
                         </div>
                         @error('kilo_total')
                                 <div class="text-danger">{{ $message }}</div>
@@ -40,7 +40,7 @@
                     <div class="col"> 
                         <label class="form-label">Moyen tansport</label>
                         <div class="input-group input-group-outline " >
-                            <input type="text" name="moyen_transport" value="{{$donnees['livraison']->moyen_transport}}" class="form-control">
+                            <input readonly  type="text" name="moyen_transport" value="{{$donnees['livraison']->moyen_transport}}" class="form-control">
                         </div>
                         @error('moyen_transport')
                                 <div class="text-danger">{{ $message }}</div>
@@ -50,7 +50,7 @@
                     <div class="col">
                         <label class="form-label">Montant</label>
                         <div class="input-group input-group-outline ">
-                            <input type="text"   name="montant" value="{{$donnees['livraison']->montant ?? ''}}" class="form-control">
+                            <input readonly  type="text"   name="montant" value="{{$donnees['livraison']->montant ?? ''}}" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -59,14 +59,14 @@
                     <div class="col"> 
                         <label class="form-label">Status</label>
                         <div class="input-group input-group-outline ">
-                            <input type="text"  name="status" value="{{$donnees['livraison']->status}}" class="form-control">
+                            <input readonly  type="text"  name="status" value="{{$donnees['livraison']->status}}" class="form-control">
                         </div>
                     </div>
 
                     <div class="col">
                         <label class="form-label">Date de livraison</label>
                         <div class="input-group input-group-outline ">
-                            <input type="date" name="date" value="{{$donnees['livraison']->date ?? ''}}" class="form-control">
+                            <input readonly  type="date" name="date" value="{{$donnees['livraison']->date ?? ''}}" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -77,7 +77,10 @@
                     <div class="input-group input-group-outline">
                         <select id="status" name="id_type_vehicule" class="form-control">
                             @foreach ($donnees['Type_vehicules'] as $type_vehicule)
+
+                          
                                 <option value="{{ $type_vehicule->id }}" >{{ $type_vehicule->nom_type }}</option>
+                            
                             @endforeach
                         </select>
                     </div>

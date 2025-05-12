@@ -21,7 +21,6 @@ class UserController extends Controller
         $livreurs = Livreur::all();
         #dd($admins);
         return view('users.index', compact('users', 'admins', 'clients', 'livreurs'));
-
     }
 
 
@@ -48,6 +47,8 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
+
+      
 
        /* try {
 

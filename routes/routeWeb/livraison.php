@@ -17,5 +17,11 @@ Route::prefix("livraison")->name("livraison.")->group( function () {
 
     Route::get("/delete/{id}", [LivraisonController::class, "destroy"])->name("delete");
 
+     Route::get("/affecte/{id}", [LivraisonController::class, "affectation"])->name("affectation");
+
+
+      Route::get("/selectAffectation/{id}", [LivraisonController::class, "selectAffectation"])->name("selectAffectation");
+
+
 
 });

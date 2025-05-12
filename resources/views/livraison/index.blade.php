@@ -100,9 +100,11 @@ function getBadgeClass($status) {
                         <div class="btn btn-primary btn-sm" type="button" >Suppimer</div>
                         </a>
 
-                        <a href="{{ route('livraison.changeStatus', ['id'=>$livraison->id]) }}">
-                        <div class="btn btn-success btn-sm" type="button" >accepter</div>
-                        </a>
+                      
+                        <button type="button" class="btn btn-primary" onclick="showLivraisonModal(1)">
+                          accepter
+                        </button>
+                      
                         
                         </div>
                       </td>
@@ -119,4 +121,95 @@ function getBadgeClass($status) {
           </div>
         </div>
       </div>
+    
+      <!-- Bouton pour ouvrir la modal -->
+
+
+
+<!-- Modal -->
+   @include('livraison.affecterVehiculeLivreur')
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+ 
+  function showLivraisonModal(id) {
+      $.ajax({
+          url: "{{ route('livraison.affectation', ['id' => ':id']) }}".replace(':id', id),
+          type: "GET",
+          success: function (data) {
+              // Vérifiez si la réponse est un succès
+   
+              if (data.status === 'success') {
+                  const select = document.getElementById('type_vehicule');
+
+                  // Vide le select d'abord
+                  select.innerHTML = '';
+
+                  let valuePardefaut=data["data"][0]["id"];
+                  selectVehicule(valuePardefaut);
+
+                  data["data"].forEach(vehicule => {
+                      const option = document.createElement('option');
+                      option.value = vehicule["id"];
+                      option.textContent = vehicule.nom_type;
+                      select.appendChild(option);
+                  });
+
+                  select.addEventListener('change', function () {
+                      const selectedId = this.value;
+                      selectVehicule(selectedId);
+                  });
+
+                    
+              }
+
+              // Affiche le modal
+              var modal = new bootstrap.Modal(document.getElementById('modalLivraison'));
+              modal.show();
+          },
+          error: function (xhr, status, error) {
+              console.error('Erreur :', error);
+          }
+      });
+  }
+
+
+    function selectVehicule(id) {
+     
+       $.ajax({
+          url: "{{ route('livraison.selectAffectation', ['id' => ':id']) }}".replace(':id', id),
+          type: "GET",
+          success: function (data) {
+
+              if (data.status === 'success') {
+                  const select = document.getElementById('vehicule');
+
+                  // Vide le select d'abord
+                  select.innerHTML = '';
+
+                  data["data"].forEach(vehicule => {
+                      const option = document.createElement('option');
+                      option.value = vehicule["vehicule.id"];
+                      option.textContent = vehicule.immatriculation;
+                      select.appendChild(option);
+
+                  
+                  });
+
+                 
+              }
+         
+
+            
+          },
+          error: function (xhr, status, error) {
+              console.error('Erreur :', error);
+          }
+      });
+
+
+      
+    }
+</script>
+
 @endsection()
