@@ -45,8 +45,8 @@ function getBadgeClass($status) {
   </p>
 </div>
 
-        
-        
+
+
        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
          <div class="card">
             <div class="card-header p-3 pb-2">
@@ -259,7 +259,7 @@ function getBadgeClass($status) {
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                     </tr>
                   </thead>
-                  
+
                     <tbody>
                     @forelse ($livraisons as $livraison)
                     <tr>
@@ -272,7 +272,7 @@ function getBadgeClass($status) {
                       </td>
                       <td>
                         <div class="avatar-group mt-2">
-                          
+
                           <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Alexander Smith">
                             <img src="../assets/img/team-3.jpg" alt="team3">
                           </a>
@@ -295,11 +295,11 @@ function getBadgeClass($status) {
                       <td colspan="4" class="text-center">Aucune livraison récente</td>
                     </tr>
                     @endforelse
-                  
+
                   </tbody>
-                    
-                  
-                  
+
+
+
                 </table>
               </div>
             </div>
@@ -309,7 +309,7 @@ function getBadgeClass($status) {
           <div class="card h-100">
     <div class="card-header pb-0 d-flex justify-content-between align-items-center">
   <h6 class="mb-0">Affectation Véhicule</h6>
-  
+
   <a href="" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
     Affecter
   </a>
@@ -331,15 +331,15 @@ function getBadgeClass($status) {
 <h6 class="text-dark text-sm font-weight-bold mb-0">
   {{ $lv->livreur->user->name }}
 </h6>
-<p class="text-secondary font-weight-bold text-xs mt-1 mb-0"> type véhicule 
-  {{ $lv->vehicule->type_vehicule->nom_type }} 
+<p class="text-secondary font-weight-bold text-xs mt-1 mb-0"> type véhicule
+  {{ $lv->vehicule->type_vehicule->nom_type }}
   {{ $lv->vehicule->immatriculation }}
 </p>
 
 
       </div>
     </div>
-    
+
     <!-- Icône d'édition -->
     <a href="{{ route('livreurVehicule.edit', $lv->id) }}" class="text-secondary">
       <i class="material-symbols-rounded">edit</i>
@@ -356,13 +356,13 @@ function getBadgeClass($status) {
   </div>
 @endforelse
 
-            
+
               </div>
             </div>
           </div>
         </div>
       </div>
-      
+
     </div>
  </div>
  @include('livreurVehicule.create')
