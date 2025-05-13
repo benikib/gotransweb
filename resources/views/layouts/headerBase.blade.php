@@ -3,81 +3,107 @@
   <div class="sidenav-header">
     <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
       aria-hidden="true" id="iconSidenav"></i>
-    <a class="navbar-brand px-4 py-3 m-0" href="{{ route('dashbord.views') }}">
-      <img src="{{ asset('assets/img/logo.png') }}" class="navbar-brand-img" width="26" height="26" alt="logo">
+    <a class="navbar-brand px-4 py-3 m-0" href="{{ route('dashboard') }}">
+      <img src="{{ asset('assets/img/logo-ct.png') }}" class="navbar-brand-img" width="26" height="26" alt="logo">
       <span class="ms-1 text-sm text-dark">GoTrans</span>
     </a>
   </div>
   <hr class="horizontal dark mt-0 mb-2">
-  <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
+  
+ <div class="collapse navbar-collapse w-auto h-auto" id="sidenav-collapse-main">
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('dashboard') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
-          href="{{ route('dashboard') }}">
-          <i class="material-symbols-rounded opacity-5">dashboard</i>
-          <span class="nav-link-text ms-1">Tableau de bord</span>
+      <li class="nav-item mb-1">
+        <a class="nav-link py-2 px-3 {{ request()->routeIs('dashboard') ? 'active bg-light text-primary border-start border-primary border-3' : 'text-dark opacity-8' }}" 
+           href="{{ route('dashboard') }}">
+          <div class="d-flex align-items-center">
+            <i class="material-symbols-rounded me-3">dashboard</i>
+            <span class="nav-link-text">Tableau de bord</span>
+          </div>
         </a>
       </li>
       
+      <!-- Autres éléments du menu -->
+      <li class="nav-item mb-1">
+        <a class="nav-link py-2 px-3 {{ request()->routeIs('dashbord.*') ? 'active bg-light text-primary border-start border-primary border-3' : 'text-dark opacity-8' }}" 
+           href="{{ route('dashbord.views') }}">
+          <div class="d-flex align-items-center">
+            <i class="material-symbols-rounded me-3">summarize</i>
+            <span class="nav-link-text">Overviews</span>
+          </div>
+        </a>
+      </li>
       
-
-      <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('dashbord.*') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
-          href="{{ route('dashbord.views') }}">
-          <i class="material-symbols-rounded text-sm opacity-75">summarize</i>
-
-          <span class="nav-link-text ms-1">Overviews</span>
+      <li class="nav-item mb-1">
+        <a class="nav-link py-2 px-3 {{ request()->routeIs('livraison.index') ? 'active bg-light text-primary border-start border-primary border-3' : 'text-dark opacity-8' }}" 
+           href="{{ route('livraison.index') }}">
+          <div class="d-flex align-items-center">
+            <i class="material-symbols-rounded me-3">event_seat</i>
+            <span class="nav-link-text">Livraison</span>
+            <span class="badge bg-primary ms-auto">New</span>
+          </div>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('livraison.index') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
-          href="{{ route('livraison.index') }}">
-          <i class="material-symbols-rounded opacity-5">event_seat</i>
-          <span class="nav-link-text ms-1">Livraison </span>
+      
+      <!-- Section compte -->
+      <li class="nav-item mt-3 mb-1">
+        <h6 class="ps-4 ms-2 text-uppercase text-xs text-muted font-weight-bolder">Compte</h6>
+      </li>
+      
+      <li class="nav-item mb-1">
+        <a class="nav-link py-2 px-3 {{ request()->routeIs('profile.*') ? 'active bg-light text-primary border-start border-primary border-3' : 'text-dark opacity-8' }}" 
+           href="{{ route('profile.edit') }}">
+          <div class="d-flex align-items-center">
+            <i class="material-symbols-rounded me-3">person</i>
+            <span class="nav-link-text">Mon Profil</span>
+          </div>
         </a>
       </li>
-      {{-- <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('dashbord.views.*') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
-          href="{{ route('dashbord.views') }}">
-          <i class="material-symbols-rounded opacity-5">chat</i>
-          <span class="nav-link-text ms-1">Messages</span>
-        </a>
-      </li> --}}
-      <li class="nav-item mt-3">
-        <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Compte</h6>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('profile.*') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
-          href="{{ route('profile.edit') }}">
-          <i class="material-symbols-rounded opacity-5">person</i>
-          <span class="nav-link-text ms-1">Mon Profil</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('vehicules.*') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
-          href="{{ route('vehicule.index') }}">
-          <i class="material-symbols-rounded opacity-5">directions_car_filled</i>
-          <span class="nav-link-text ms-1">Mes Véhicules</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('dashbord.views.*') ? 'active bg-gradient-dark text-white' : 'text-dark' }}"
-          href="{{ route('dashbord.views') }}">
-          <i class="material-symbols-rounded opacity-5">payments</i>
-          <span class="nav-link-text ms-1">Paiements</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <form method="POST" action="{{ route('logout') }}">
-          @csrf
-          <a class="nav-link text-dark" href="{{ route('logout') }}"
-            onclick="event.preventDefault(); this.closest('form').submit();">
-            <i class="material-symbols-rounded opacity-5">logout</i>
-            <span class="nav-link-text ms-1">Déconnexion</span>
-          </a>
-
-        </form>
-      </li>
+      
+      <!-- Autres éléments... -->
     </ul>
+    
+    <!-- Bouton Déconnexion -->
+    <div class="mt-auto px-3 py-3">
+      <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button class="btn btn-light text-danger d-flex align-items-center w-100 py-2 px-3 rounded" 
+                type="submit">
+          <i class="material-symbols-rounded me-2">logout</i>
+          <span>Déconnexion</span>
+        </button>
+      </form>
+    </div>
   </div>
+<style>
+.nav-link {
+  transition: all 0.2s ease;
+  border-radius: 0.25rem;
+}
+
+.nav-link:hover:not(.active) {
+  background-color: rgba(0,0,0,0.03);
+  transform: translateX(2px);
+}
+
+.active {
+  font-weight: 500;
+}
+
+.sidenav {
+  transition: all 0.3s ease;
+}
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const iconSidenav = document.getElementById("iconSidenav");
+    const sidenav = document.getElementById("sidenav-main");
+
+    if (iconSidenav && sidenav) {
+      iconSidenav.addEventListener("click", function () {
+        sidenav.classList.toggle("g-sidenav-hidden");
+      });
+    }
+  });
+</script>
+
 </aside>
