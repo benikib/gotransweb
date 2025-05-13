@@ -43,7 +43,11 @@ function getBadgeClass($status) {
   <p class="text-sm text-muted mb-0">
     Consultez les Livraisons
   </p>
-</div> <!-- Page Header with Breadcrumb -->
+
+</div>
+<div class="container-fluid py-4">
+    <!-- Page Header with Breadcrumb -->
+
     <div class="row mb-4">
         <div class="col-12">
             <div class="page-header min-height-300 border-radius-xl" style="background-image: url('https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');>
