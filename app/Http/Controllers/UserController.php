@@ -19,8 +19,10 @@ class UserController extends Controller
         $admins = Admin::all();
         $clients = Client::all();
         $livreurs = Livreur::all();
-        #dd($admins);
-        return view('users.index', compact('users', 'admins', 'clients', 'livreurs'));
+        $count = 1;
+        #dd(count(Admin::all()));
+        return view('users.index', compact('users', 'admins', 'clients', 'livreurs', 'count'));
+
     }
 
 
@@ -75,7 +77,7 @@ class UserController extends Controller
         #($validated['role']);
         // Assigner le rôle
 
-
+        
         // Insérer dans la bonne table selon le rôle
         switch ($validated['role']) {
             case 'admin':
