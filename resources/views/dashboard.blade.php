@@ -255,10 +255,9 @@ function getBadgeClass($status) {
                     <div class="d-flex justify-content-between align-items-center">
                         <h6 class="mb-0">Livraisons récentes</h6>
                         <div>
-                            <button class="btn btn-sm btn-outline-primary">
-                
-                                <i class="material-symbols-rounded">list_alt</i> Voir tout
-                            </button>
+                           <a href="{{ route('livraison.index') }}" class="btn btn-sm btn-outline-primary">
+    <i class="material-symbols-rounded">list_alt</i> Voir tout
+</a>
                         </div>
                     </div>
                 </div>
