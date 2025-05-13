@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
       <!-- Inclure Bootstrap via Vite -->
-    @vite(['resources/sass/appapp.scss', 'resources/js/appapp.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body style="font-family: 'Inter', sans-serif;" class="bg-light">
 
