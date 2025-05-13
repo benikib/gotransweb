@@ -38,7 +38,7 @@ function getBadgeClass($status) {
 <<<<<<< HEAD
 
 @section('content')
-
+<div class="container-fluid py-4">
    <div class="container-fluid py-2">
       <div class="row">
         <div class="ms-3">
@@ -46,6 +46,7 @@ function getBadgeClass($status) {
   <p class="text-sm text-muted mb-0">
     Consultez les Livraisons
   </p>
+
 </div>
 
         
@@ -252,6 +253,7 @@ function getBadgeClass($status) {
 =======
 <div class="container-fluid py-4">
     <!-- Page Header with Breadcrumb -->
+
     <div class="row mb-4">
         <div class="col-12">
             <div class="page-header min-height-300 border-radius-xl" style="background-image: url('https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');>
@@ -471,6 +473,7 @@ function getBadgeClass($status) {
                         <h6 class="mb-0">Livraisons récentes</h6>
                         <div>
                             <button class="btn btn-sm btn-outline-primary">
+                
                                 <i class="material-symbols-rounded">list_alt</i> Voir tout
                             </button>
                         </div>
