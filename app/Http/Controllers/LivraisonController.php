@@ -7,8 +7,8 @@ use App\Models\Type_vehicule;
 use App\Models\expedition;
 use App\Models\destination;
 
-use App\Models\vehicule;
-use App\Models\client;
+use App\Models\Vehicule;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Http\Requests\CreateLivraisaonRequest;
