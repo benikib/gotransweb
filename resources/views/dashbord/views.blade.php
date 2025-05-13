@@ -287,7 +287,7 @@
                         <ul class="list-group">
                             @forelse ($admins as $admin)
                                 <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2 hover-scale transition-all">
-                                    <div >
+                                    <div>
                                          <span class="avatar-initial rounded-circle d-inline-flex align-items-center justify-content-center bg-gradient-warning text-white shadow me-3" style="width: 40px; height: 40px;">
                                         <span class="avatar-initial rounded-circle bg-gradient-warning shadow">
                                             {{ substr($admin->user->name, 0, 1) }}

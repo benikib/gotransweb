@@ -41,7 +41,7 @@ function getBadgeClass($status) {
     <!-- Page Header with Breadcrumb -->
     <div class="row mb-4">
         <div class="col-12">
-            <div class="page-header min-height-300 border-radius-xl" style="background-image: url('../assets/img/curved-images/curved0.jpg'); background-position-y: 50%;">
+            <div class="page-header min-height-300 border-radius-xl" style="background-image: url('https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');>
                 <span class="mask bg-gradient-dark opacity-6"></span>
             </div>
             <div class="card card-body mx-3 mx-md-4 mt-n6">
@@ -288,7 +288,7 @@ function getBadgeClass($status) {
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="avatar-group me-3">
-                                                <a href="#" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $livraison->expediteur }}">
+                                                <a href="#" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $livraison->expedition->tel_expedition }}">
                                                     <img src="../assets/img/team-3.jpg" alt="expediteur">
                                                 </a>
                                                 <a href="#" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $livraison->destinataire }}">
@@ -296,8 +296,8 @@ function getBadgeClass($status) {
                                                 </a>
                                             </div>
                                             <div>
-                                                <p class="text-xs font-weight-bold mb-0">Exp: {{ Str::limit($livraison->expediteur, 10) }}</p>
-                                                <p class="text-xs text-secondary mb-0">Dest: {{ Str::limit($livraison->destinataire, 10) }}</p>
+                                                <p class="text-xs font-weight-bold mb-0">Exp: {{ Str::limit($livraison->expedition->tel_expedition, 10) }}</p>
+                                                <p class="text-xs text-secondary mb-0">Dest: {{ Str::limit($livraison->destination->tel_destination, 10) }}</p>
                                             </div>
                                         </div>
                                     </td>
