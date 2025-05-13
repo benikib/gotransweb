@@ -53,9 +53,11 @@ function getBadgeClass($status) {
                         </p>
                     </div>
                     <div>
-                        <button class="btn btn-sm btn-outline-primary">
-                            <i class="material-symbols-rounded">refresh</i> Actualiser
-                        </button>
+                       
+                        <a href="{{ route('dashboard') }}" class="btn btn-sm btn-outline-primary">
+    <i class="material-symbols-rounded">refresh</i> Actualiser
+</a>
+
                     </div>
                 </div>
             </div>
@@ -173,79 +175,7 @@ function getBadgeClass($status) {
         </div>
     </div>
 
-    <!-- Charts Section - Improved layout -->
-    <div class="row g-4 mb-4">
-        <!-- Livraisons cette semaine -->
-        <div class="col-lg-4 col-md-6">
-            <div class="card h-100">
-                <div class="card-header p-3 pb-2">
-                    <h6 class="mb-0">Livraisons cette semaine</h6>
-                    <p class="text-sm mb-0 text-secondary">Comparé à la semaine dernière</p>
-                </div>
-                <div class="card-body p-3 pt-0">
-                    <div class="chart">
-                        <canvas id="chart-bars" class="chart-canvas" height="200"></canvas>
-                    </div>
-                </div>
-                <div class="card-footer bg-transparent border-top">
-                    <div class="d-flex align-items-center">
-                        <i class="material-symbols-rounded text-sm me-1 text-{{ $livraisonsPourcentage >= 0 ? 'success' : 'danger' }}">trending_{{ $livraisonsPourcentage >= 0 ? 'up' : 'down' }}</i>
-                        <p class="mb-0 text-sm">
-                            <span class="font-weight-bolder">{{ $livraisonsPourcentage >= 0 ? '+' : '' }}{{ $livraisonsPourcentage }}%</span>
-                            par rapport à la semaine dernière
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Utilisateurs aujourd'hui -->
-        <div class="col-lg-4 col-md-6">
-            <div class="card h-100">
-                <div class="card-header p-3 pb-2">
-                    <h6 class="mb-0">Activité des utilisateurs</h6>
-                    <p class="text-sm mb-0 text-secondary">Évolution sur 7 jours</p>
-                </div>
-                <div class="card-body p-3 pt-0">
-                    <div class="chart">
-                        <canvas id="chart-line" class="chart-canvas" height="200"></canvas>
-                    </div>
-                </div>
-                <div class="card-footer bg-transparent border-top">
-                    <div class="d-flex align-items-center">
-                        <i class="material-symbols-rounded text-sm me-1 text-{{ $usersPourcentage >= 0 ? 'success' : 'danger' }}">trending_{{ $usersPourcentage >= 0 ? 'up' : 'down' }}</i>
-                        <p class="mb-0 text-sm">
-                            <span class="font-weight-bolder">{{ $usersPourcentage >= 0 ? '+' : '' }}{{ $usersPourcentage }}%</span>
-                            par rapport à hier
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Affectations Livreurs -->
-        <div class="col-lg-4">
-            <div class="card h-100">
-                <div class="card-header p-3 pb-2">
-                    <h6 class="mb-0">Affectations livreurs</h6>
-                    <p class="text-sm mb-0 text-secondary">Répartition par type de véhicule</p>
-                </div>
-                <div class="card-body p-3 pt-0">
-                    <div class="chart">
-                        <canvas id="chart-line-tasks" class="chart-canvas" height="200"></canvas>
-                    </div>
-                </div>
-                <div class="card-footer bg-transparent border-top">
-                    <div class="d-flex align-items-center">
-                        <i class="material-symbols-rounded text-sm me-1">local_shipping</i>
-                        <p class="mb-0 text-sm">
-                            Total: <span class="font-weight-bolder">{{ count($livreur_vehicules) }}</span> affectations
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 
     <!-- Main Content Section -->
     <div class="row g-4">
@@ -257,8 +187,8 @@ function getBadgeClass($status) {
                         <h6 class="mb-0">Livraisons récentes</h6>
                         <div>
                            <a href="{{ route('livraison.index') }}" class="btn btn-sm btn-outline-primary">
-    <i class="material-symbols-rounded">list_alt</i> Voir tout
-</a>
+                         <i class="material-symbols-rounded">list_alt</i> Voir tout
+                                </a>
                         </div>
                     </div>
                 </div>
@@ -393,6 +323,79 @@ function getBadgeClass($status) {
                         <a href="{{ route('livreurVehicule.index') }}" class="text-sm font-weight-bold">
                             <i class="material-symbols-rounded text-sm">list</i> Voir toutes les affectations
                         </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- Charts Section - Improved layout -->
+    <div class="row g-4 mb-4 p-3">
+        <!-- Livraisons cette semaine -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100">
+                <div class="card-header p-3 pb-2">
+                    <h6 class="mb-0">Livraisons cette semaine</h6>
+                    <p class="text-sm mb-0 text-secondary">Comparé à la semaine dernière</p>
+                </div>
+                <div class="card-body p-3 pt-0">
+                    <div class="chart">
+                        <canvas id="chart-bars" class="chart-canvas" height="200"></canvas>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top">
+                    <div class="d-flex align-items-center">
+                        <i class="material-symbols-rounded text-sm me-1 text-{{ $livraisonsPourcentage >= 0 ? 'success' : 'danger' }}">trending_{{ $livraisonsPourcentage >= 0 ? 'up' : 'down' }}</i>
+                        <p class="mb-0 text-sm">
+                            <span class="font-weight-bolder">{{ $livraisonsPourcentage >= 0 ? '+' : '' }}{{ $livraisonsPourcentage }}%</span>
+                            par rapport à la semaine dernière
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Utilisateurs aujourd'hui -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100">
+                <div class="card-header p-3 pb-2">
+                    <h6 class="mb-0">Activité des utilisateurs</h6>
+                    <p class="text-sm mb-0 text-secondary">Évolution sur 7 jours</p>
+                </div>
+                <div class="card-body p-3 pt-0">
+                    <div class="chart">
+                        <canvas id="chart-line" class="chart-canvas" height="200"></canvas>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top">
+                    <div class="d-flex align-items-center">
+                        <i class="material-symbols-rounded text-sm me-1 text-{{ $usersPourcentage >= 0 ? 'success' : 'danger' }}">trending_{{ $usersPourcentage >= 0 ? 'up' : 'down' }}</i>
+                        <p class="mb-0 text-sm">
+                            <span class="font-weight-bolder">{{ $usersPourcentage >= 0 ? '+' : '' }}{{ $usersPourcentage }}%</span>
+                            par rapport à hier
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Affectations Livreurs -->
+        <div class="col-lg-4">
+            <div class="card h-100">
+                <div class="card-header p-3 pb-2">
+                    <h6 class="mb-0">Affectations livreurs</h6>
+                    <p class="text-sm mb-0 text-secondary">Répartition par type de véhicule</p>
+                </div>
+                <div class="card-body p-3 pt-0">
+                    <div class="chart">
+                        <canvas id="chart-line-tasks" class="chart-canvas" height="200"></canvas>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top">
+                    <div class="d-flex align-items-center">
+                        <i class="material-symbols-rounded text-sm me-1">local_shipping</i>
+                        <p class="mb-0 text-sm">
+                            Total: <span class="font-weight-bolder">{{ count($livreur_vehicules) }}</span> affectations
+                        </p>
                     </div>
                 </div>
             </div>
