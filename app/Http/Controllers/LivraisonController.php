@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Livraison;
 use App\Models\Livreur;
 use App\Models\Type_vehicule;
-use App\Models\expedition;
-use App\Models\destination;
-
+use App\Models\Expedition;
+use App\Models\Destination;
 use App\Models\Vehicule;
 use App\Models\Client;
 use Illuminate\Http\Request;

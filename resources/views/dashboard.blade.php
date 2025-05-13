@@ -36,16 +36,6 @@ function getBadgeClass($status) {
 @endphp
 @section('content')
 <div class="container-fluid py-4">
-   <div class="container-fluid py-2">
-      <div class="row">
-        <div class="ms-3">
-  <h3 class="h4 font-weight-bold mb-1">Tableau de bord</h3>
-  <p class="text-sm text-muted mb-0">
-    Consultez les Livraisons
-  </p>
-
-</div>
-<div class="container-fluid py-4">
     <!-- Page Header with Breadcrumb -->
 
     <div class="row mb-4">
