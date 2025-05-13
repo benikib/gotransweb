@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Livraison;
+use App\Models\Livreur;
 use App\Models\Type_vehicule;
 use App\Models\expedition;
 use App\Models\destination;
@@ -24,7 +25,10 @@ class LivraisonController extends Controller
     {
     
         return view('livraison.index', [
-            'livraisons' => Livraison::all()
+            'livraisons' => Livraison::all(),
+           
+            'vehicules' => Vehicule::all(),
+             'livreurs' => Livreur::all(),
         ]);
     }
 
@@ -184,12 +188,13 @@ class LivraisonController extends Controller
         return  redirect()->route('livraison.index')->with('success', 'Livraison edit successfully');
     }
 
-    public function affectation( Request $request)
+    public function affectation( $id)
     {
         $types = Type_vehicule::all(); // Récupère tous les types
 
         return response()->json([
             'status' => 'success',
+             'id' =>$id,
             'message' => 'Livraison affectée avec succès.',
             'data' => $types // Envoie les types dans la réponse
         ]);
@@ -204,32 +209,71 @@ class LivraisonController extends Controller
                     $query->whereNull('livraisons.id')
                         ->orWhere('livraisons.status', '=', 'validee');
                 })
-                ->select('vehicules.*', 'livraisons.id as livraison_id') // <- ici on injecte $id
+                ->select('vehicules.id as vehicule_id', 'livraisons.id as livraison_id') // <- ici on injecte $id
                 ->select('vehicules.*')
+                 ->where('vehicules.type_vehicule_id', '=', $id)
                 ->groupBy('vehicules.id')
                 ->get();
+               
+
+              
 
             return response()->json([
                 'status' => 'success',
                 'message' => 'Véhicules libres',
+                
                 'data' => $vehiculesLibres
             ]);
         }
 
 
      public function saveAffectation( Request $request)
-    {
-        $livraison = Livraison::find($request->input('id_livraison'));
-        if (!$livraison) {
-            return redirect()->route('livraison.index')->with('error', 'Livraison not found');
+
+        {
+        
+            $livraison = Livraison::find($request->input('id_livraison'));
+            if (!$livraison) {
+                return redirect()->route('livraison.index')->with('error', 'Livraison not found');
+            }
+
+            $livraison->update([
+                'vehicule_id' => $request->input('vehicule_id'),
+                'status' => "en_cours",
+            ]);
+            return redirect()->route('livraison.index')->with('success', 'Livraison updated successfully');
         }
 
-        $livraison->update([
-            'vehicule_id' => $request->input('id_vehicule'),
-        ]);
+        
+     public function selectLivreur($id )
 
-        return redirect()->route('livraison.index')->with('success', 'Livraison updated successfully');
-    }
+        {
+          
+
+            $vehiculesAvecLivreurs = DB::table('vehicules')
+                ->join('livreur__vehicules', 'vehicules.id', '=', 'livreur__vehicules.vehicule_id')
+                ->join('livreurs', 'livreur__vehicules.livreur_id', '=', 'livreurs.id')
+                ->join('users', 'users.id', '=', 'livreurs.user_id')
+
+                ->where('livreur__vehicules.vehicule_id', '=', $id)
+                ->select(
+                    'livreurs.id as livreur_id',
+                    'users.name as livreur_name',
+                    'users.number_phone as livreur_telephone',
+                    'users.email as livreur_email'
+                   
+                )
+                ->get();
+                
+
+                 return response()->json([
+                'status' => 'success',
+                'message' => 'livreurs affectés',
+                'data' =>  $vehiculesAvecLivreurs
+            ]);
+
+        }
+
+        
    
 
 

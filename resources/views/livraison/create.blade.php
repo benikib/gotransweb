@@ -17,7 +17,7 @@
                     <div class="col">
                         <label class="form-label">Code de livraison</label>
                         <div class="input-group input-group-outline ">
-                            <input type="text"  name="code" value="" class="form-control">
+                            <input type="text"  readonly   name="code" value="{{ old('code', uniqid('COD-')) }}" class="form-control">
                         </div>
                         @error('code')
                             <div class="text-danger">{{ $message }}</div>

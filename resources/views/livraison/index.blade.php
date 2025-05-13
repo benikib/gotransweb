@@ -100,10 +100,10 @@ function getBadgeClass($status) {
                         <div class="btn btn-primary btn-sm" type="button" >Suppimer</div>
                         </a>
 
-                      
-                        <button type="button" class="btn btn-primary" onclick="showLivraisonModal(1)">
-                          accepter
-                        </button>
+                      <button type="button" class="btn btn-primary" onclick="showLivraisonModal({{ $livraison->id }})">
+  Accepter
+</button>
+
                       
                         
                         </div>
@@ -141,7 +141,9 @@ function getBadgeClass($status) {
    
               if (data.status === 'success') {
                   const select = document.getElementById('type_vehicule');
-
+                  let id_livraison = document.getElementById('id_livraison');
+                    id_livraison.value = data["id"];
+                   
                   // Vide le select d'abord
                   select.innerHTML = '';
 
@@ -186,21 +188,53 @@ function getBadgeClass($status) {
 
                   // Vide le select d'abord
                   select.innerHTML = '';
+                    let valuePardefaut=data["data"][0]["id"];
+                  selectLivreur(valuePardefaut);
 
                   data["data"].forEach(vehicule => {
                       const option = document.createElement('option');
-                      option.value = vehicule["vehicule.id"];
+                      option.value =  vehicule.id;
                       option.textContent = vehicule.immatriculation;
                       select.appendChild(option);
-
-                  
                   });
-
-                 
+                    select.addEventListener('change', function () {
+                      const selectedId = this.value;
+                      selectLivreur(selectedId);
+                  });
               }
-         
+          },
+          error: function (xhr, status, error) {
+              console.error('Erreur :', error);
+          }
+      });
 
-            
+    }
+
+    function selectLivreur(id) {
+     
+       $.ajax({
+          url: "{{ route('livraison.selectLivreur', ['id' => ':id']) }}".replace(':id', id),
+          type: "GET",
+          success: function (data) {
+
+        
+
+               const select = document.getElementById('livreur');
+
+                  //  'livreurs.id as livreur_id',
+                    // 'users.name as livreur_name',
+                    // 'users.number_phone as livreur_telephone',
+                    // 'users.email as livreur_email'
+
+
+                  select.innerHTML = '';
+
+                  data["data"].forEach(livreur => {
+                      const option = document.createElement('option');
+                      option.value =  livreur["livreur_id"];
+                      option.textContent =livreur["livreur_name"] + ' - ' + livreur["livreur_telephone"]; 
+                      select.appendChild(option);
+                  });
           },
           error: function (xhr, status, error) {
               console.error('Erreur :', error);

@@ -77,7 +77,6 @@
                     <div class="input-group input-group-outline">
                         <select id="status" name="id_type_vehicule" class="form-control">
                             @foreach ($donnees['Type_vehicules'] as $type_vehicule)
-
                           
                                 <option value="{{ $type_vehicule->id }}" >{{ $type_vehicule->nom_type }}</option>
                             
