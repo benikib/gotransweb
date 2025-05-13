@@ -41,7 +41,7 @@ class AuthenticatedSessionController extends Controller
 
         if(Auth::attempt($superadmin)) {
             $request->session()->regenerate();
-            return redirect()->intended(route('users.index'));
+            return  redirect(url('/dashboard'));
         }
         return to_route('auth.login')->withErrors([
             'email' => "Email ou Mot de passe incorrect !!!"
