@@ -24,9 +24,8 @@ class LivraisonController extends Controller
     
         return view('livraison.index', [
             'livraisons' => Livraison::all(),
-           
             'vehicules' => Vehicule::all(),
-             'livreurs' => Livreur::all(),
+             'livreurs' => Livreur::all()
         ]);
     }
 
@@ -45,7 +44,11 @@ class LivraisonController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(CreateLivraisaonRequest $request)
+
+
     {
+
+        
            try {
 
         $expedition =  Expedition::create([
@@ -75,7 +78,7 @@ class LivraisonController extends Controller
             'expedition_id' => $expedition->id,
             'moyen_transport' => $request->input('moyen_transport'),
             'vehicule_id' => 0,
-            'kilo_total'=>0,
+            'kilo_total'=>$request->input('Kilo_total')
         ]);
 
         return redirect()->route('livraison.index')->with('success', 'Livraison created successfully');
