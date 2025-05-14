@@ -14,7 +14,6 @@ use App\Http\Requests\CreateLivraisaonRequest;
 use App\Http\Requests\UpdateLivraisonRequest;
 use Illuminate\Support\Facades\DB;
 
-
 class LivraisonController extends Controller
 {
     /**
