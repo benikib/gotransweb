@@ -1,7 +1,7 @@
 <div class="modal fade" id="modalLivraison" tabindex="-1" aria-labelledby="modalLivraisonLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      
+
       <!-- En-tête -->
       <div class="modal-header">
         <h5 class="modal-title" id="modalLivraisonLabel">Nouvelle Livraison</h5>
