@@ -67,7 +67,7 @@ class LivraisonController extends Controller
               'kilo_total'=>$request->input('Kilo_total')
           ]);
 
-         return  json_encode( $livraison );
+          return response()->json(['message' => 'demande de livraison envoyer avec succes']);
 
     }
 
