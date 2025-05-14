@@ -20,7 +20,8 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        $fields = $request->validate([
+        try {
+             $fields = $request->validate([
             'name'     => 'required|string|max:255',
             'email'    => 'required|string|email|unique:users,email',
             'password' => 'required|string|confirmed|min:6',
@@ -39,11 +40,23 @@ class AuthController extends Controller
             'client' => $clientt,
             'user'  => $user,
             'token' => $token
-        ], 201);
+        ], 200);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Les informations fournies sont invalides.',
+                'details' => $e->errors(),
+            ], 422);
+        }  catch (\Throwable $th) {
+            return response()->json([
+                'error' => 'Une erreur est survenue lors de l inscription.',
+            ], 500);
+        }
+
     }
 
     public function login(Request $request)
     {
+       try {
         $fields = $request->validate([
             'email'    => 'required|string|email',
             'password' => 'required|string',
@@ -66,30 +79,48 @@ if ($roleInfo) {
  return response()->json([
             'user'  => $user,
             'token' => $token
-        ], 201);
+        ], 200);
 } else {
       return response()->json([
             'error'  =>'Aucun user trouvé pour cet utilisateur.',
 
         ], 201);
 }
-
+        //return response()->json(['user' => $user, 'token' => $token], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Une erreur est survenue lors de la connexion.',
+            ], 500);
+       }
 
 
     }
 
     public function logout(Request $request)
     {
-        $request->user()->tokens()->delete(); // Supprime tous les tokens
+      try {
+          $request->user()->tokens()->delete(); // Supprime tous les tokens
 
         return response()->json([
             'message' => 'Déconnexion réussie'
         ],201);
+      } catch (\Throwable $th) {
+        return response()->json([
+            'error' => 'Une erreur est survenue lors de la déconnexion.',
+        ], 500);
+      }
     }
     public function getTypeVehicule(){
-       $typeVehicule = Type_vehicule::all();
-        return response()->json([
-            'typeVehicule' => $typeVehicule
-        ], 200);
+        try {
+            $typeVehicule = Type_vehicule::all();
+            return response()->json([
+                'typeVehicule' => $typeVehicule
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error' => 'Une erreur est survenue lors de la récupération des types de véhicules.',
+            ], 500);
+        }
+
     }
 }
