@@ -6,11 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use  HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -54,7 +55,7 @@ class User extends Authenticatable
     public function client(){
         return $this->hasMany(Client::class);
     }
-   
+
 
     public function livreur()
     {
@@ -65,4 +66,33 @@ class User extends Authenticatable
         return $this->hasManyThrough(Livreur_Vehicule::class, Livreur::class, 'user_id', 'livreur_id', 'id', 'id');
 
     }
+    public function getRoleInfo(): ?array
+{
+    if ($this->livreur) {
+        return [
+            'id' => $this->livreur->id,
+            'role' => 'livreur',
+        ];
+    }
+
+    if ($this->client()->exists()) {
+        $client = $this->client()->first();
+        return [
+            'id' => $client->id,
+            'role' => 'client',
+        ];
+    }
+
+    if ($this->admin()->exists()) {
+        $admin = $this->admin()->first();
+        return [
+            'id' => $admin->id,
+            'role' => 'admin',
+        ];
+    }
+
+    return null;
+}
+
+
 }
