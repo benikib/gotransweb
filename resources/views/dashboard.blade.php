@@ -53,7 +53,7 @@ function getBadgeClass($status) {
                         </p>
                     </div>
                     <div>
-                       
+
                         <a href="{{ route('dashboard') }}" class="btn btn-sm btn-outline-primary">
     <i class="material-symbols-rounded">refresh</i> Actualiser
 </a>
@@ -175,7 +175,7 @@ function getBadgeClass($status) {
         </div>
     </div>
 
-   
+
 
     <!-- Main Content Section -->
     <div class="row g-4">
@@ -299,7 +299,7 @@ function getBadgeClass($status) {
                                 <div class="d-flex flex-column flex-grow-1">
                                     <h6 class="mb-1 text-sm font-weight-bold">{{ $lv->livreur->user->name }}</h6>
                                     <div class="d-flex align-items-center">
-                                        <span class="text-xs me-2"><i class="material-symbols-rounded text-xs">directions_car</i> {{ $lv->vehicule->type_vehicule->nom_type }}</span>
+                                        <span class="text-xs me-2"><i class="material-symbols-rounded text-xs">directions_car</i> {{ $lv->vehicule->type_vehicule->nom_type ?? "A/N" }}</span>
                                         <span class="text-xs"><i class="material-symbols-rounded text-xs">badge</i> {{ $lv->vehicule->immatriculation }}</span>
                                     </div>
                                 </div>
