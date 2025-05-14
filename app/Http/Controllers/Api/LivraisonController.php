@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class LivraisonController extends Controller
 {
-    public function index($idClient)
+    public function index()
 
     {
        
