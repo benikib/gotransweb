@@ -105,10 +105,10 @@
 
                     <div class="row">
                         <div class="col">
-                        <input  type="text" name="id_destination"  style="display:none" value="{{$donnees['livraison']->destination->id}}">
+                        <input  type="text" name="id_destination"  style="display:none" value="{{$donnees['livraison']->Destination->id}}">
                             <label for="id_type_vehicule" class="form-label">Adresse</label>
                             <div class="input-group input-group-outline">
-                                <input type="text"  name="adresse_destination" value="{{$donnees['livraison']->destination->adresse ?? ''}}" class="form-control">
+                                <input type="text"  name="adresse_destination" value="{{$donnees['livraison']->Destination->adresse ?? ''}}" class="form-control">
                             
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                         <div class="col">
                             <label for="id_vehicule" class="form-label">Telephone</label>
                             <div class="input-group input-group-outline">
-                                <input type="text" name="tel_destination"   name="date" value="{{$donnees['livraison']->destination->tel_destination ?? ''}}" class="form-control">
+                                <input type="text" name="tel_destination"   name="date" value="{{$donnees['livraison']->Destination->tel_destination ?? ''}}" class="form-control">
                             </div>
                         </div>
                         <div class="row">
@@ -141,10 +141,10 @@
                     <div class="row">
                         
                         <div class="col">
-                          <input  type="text" name="id_expedition"  style="display:none" value="{{$donnees['livraison']->expedition->id}}">
+                          <input  type="text" name="id_expedition"  style="display:none" value="{{$donnees['livraison']->Expedition->id}}">
                           <label for="id_type_vehicule" class="form-label">Adresse expedition</label>
                           <div class="input-group input-group-outline">
-                              <input type="text"  name="adresse_expedition" value="{{$donnees['livraison']->expedition->adresse ?? ''}}" class="form-control">
+                              <input type="text"  name="adresse_expedition" value="{{$donnees['livraison']->Expedition->adresse ?? ''}}" class="form-control">
                             
                           </div>
                         </div>
@@ -152,7 +152,7 @@
                         <div class="col">
                           <label for="id_vehicule" class="form-label">telephone</label>
                           <div class="input-group input-group-outline">
-                          <input type="text"  name="tel_expedition" value="{{$donnees['livraison']->expedition->tel_expedition ?? ''}}" class="form-control">
+                          <input type="text"  name="tel_expedition" value="{{$donnees['livraison']->Expedition->tel_expedition ?? ''}}" class="form-control">
                           </div>
                         </div>
                         <div class="row">

@@ -27,7 +27,7 @@ class Livraison extends Model
         'client_destinateur_id',
         'vehicule_id',
         'moyen_transport',
-        'Kilo_total',
+        'kilo_total',
         
     ];
 
