@@ -82,13 +82,13 @@
                       </a>
 
 
-                        <form action="{{ route('livreurVehicule.destroy', $livreurVehicule->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce type de véhicule ?');" style="display:inline;">
+                        {{-- <form action="{{ route('livreurVehicule.destroy', $livreurVehicule->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce type de véhicule ?');" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-link text-danger text-xs p-0 m-0" style="text-decoration: none;" title="Supprimer">
                                 Supprimer
                             </button>
-                        </form>
+                        </form> --}}
                     </td>
 
                   </tr>

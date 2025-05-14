@@ -80,7 +80,7 @@
                         Éditer
                       </a>
                     </td>
-                    <td class="align-middle text-start">
+                    {{-- <td class="align-middle text-start">
                         <form action="{{ route('tarifs.destroy', $tarif->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce type de véhicule ?');" style="display:inline;">
                             @csrf
                             @method('DELETE')
@@ -88,7 +88,7 @@
                                 Supprimer
                             </button>
                         </form>
-                    </td>
+                    </td> --}}
 
                   </tr>
 

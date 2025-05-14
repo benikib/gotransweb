@@ -241,13 +241,13 @@
                                                 <a href="{{ route('vehicule.edit', $vehicule->id) }}" class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="tooltip" title="Modifier">
                                                     <i class="material-symbols-rounded text-sm">edit</i>
                                                 </a>
-                                                <form action="{{ route('vehicule.destroy', $vehicule->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Confirmer la suppression ?');">
+                                                {{-- <form action="{{ route('vehicule.destroy', $vehicule->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Confirmer la suppression ?');">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-link text-danger px-2 mb-0" data-bs-toggle="tooltip" title="Supprimer">
                                                         <i class="material-symbols-rounded text-sm">delete</i>
                                                     </button>
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @empty
