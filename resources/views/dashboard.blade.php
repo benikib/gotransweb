@@ -300,7 +300,7 @@ function getBadgeClass($status) {
                                     <h6 class="mb-1 text-sm font-weight-bold">{{ $lv->livreur->user->name }}</h6>
                                     <div class="d-flex align-items-center">
                                         <span class="text-xs me-2"><i class="material-symbols-rounded text-xs">directions_car</i> {{ $lv->vehicule->type_vehicule->nom_type ?? "A/N" }}</span>
-                                        <span class="text-xs"><i class="material-symbols-rounded text-xs">badge</i> {{ $lv->vehicule->immatriculation }}</span>
+                                        <span class="text-xs"><i class="material-symbols-rounded text-xs">badge</i> {{ $lv->vehicule->immatriculation ?? "A/N" }}</span>
                                     </div>
                                 </div>
                                 <div class="ms-auto text-end">
