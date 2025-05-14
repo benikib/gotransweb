@@ -5,19 +5,17 @@ use App\Http\Controllers\Api\LivraisonController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('/livraison')->name('livraison.')->group(function () {
-    
-    // Liste des livraisons
-    Route::get('/', [LivraisonController::class, 'index'])->name('index');
-    
-    // Livraisons en tant qu'expéditeur
-    Route::get('/expediteur/{idClient}', [LivraisonController::class, 'getLivraisonExpediteur'])->name('expediteur');
-    
-    // Livraisons en tant que destinataire
-    Route::get('/destinataire/{idClient}', [LivraisonController::class, 'getLivraisonDestinateur'])->name('destinataire');
-    
-    // Création d'une livraison
-    Route::post('/store', [LivraisonController::class, 'store'])->name('store');
+
+Route::prefix('livraison')->name("livraison.")->group(function () {
+
+   Route::get('getLivraisonExpediteur/{idClient}', [LivraisonController::class, 'getLivraisonExpediteur'])->name('getLivraisonExpediteur');
+   Route::get('getLivraisonDestinateur/{idClient}', [LivraisonController::class, 'getLivraisonDestinateur'])->name('getLivraisonDestinateur');
+   Route::get('show/{id}', [LivraisonController::class, 'store'])->name('store');
+   Route::post('/update', [LivraisonController::class, 'update'])->name('update');
+   Route::post('/store', [LivraisonController::class, 'store'])->name('store');
+   Route::get('/cancel/{id}', [LivraisonController::class, 'cancel'])->name('cancel');
+   Route::get('/finish/{id}', [LivraisonController::class, 'finish'])->name('finish');
+
 });
 
 
