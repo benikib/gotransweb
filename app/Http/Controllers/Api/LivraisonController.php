@@ -9,19 +9,67 @@ use Illuminate\Http\Request;
 
 class LivraisonController extends Controller
 {
-    public function index()
+    public function index($idClient)
+
     {
-        return LivraisonResource::collection(Livraison::all());
+       
     }
 
+    public function getLivraisonExpediteur($idClient)
+    {
+        $livraison = Livraison::where('client_expediteur_id', $idClient)->get();
+        
+        return LivraisonResource::collection($livraison);
+    }
 
+    public function getLivraisonDestinateur($idClient)
+    {
+        $livraison = Livraison::where('client_destinateur_id', $idClient)->get();
+        
+        return LivraisonResource::collection($livraison);
+    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+
+        dd($request->all());
+      
+
+        $expedition =  Expedition::create([
+            'adresse'=> $request->input("adresse_expedition"),
+            'tel_expedition'=> $request->input("tel_expedition"),
+            'longitude'=> 456.77,
+            'latitude'=> 456.7
+        ]);
+
+        $destination =  Destination::create([
+            'adresse'=> $request->input("adresse_expedition"),
+            'tel_expedition'=> $request->input("tel_expedition"),
+            'longitude'=> 458.7,
+            'latitude'=> 456.7
+        ]);
+
+      
+        $livraison = Livraison::create([
+            'date' => $request->input('date'),
+            'status' => $request->input('status'),
+            'code' => $request->input('code'),
+            'montant' => $request->input('montant'),
+            'client_expediteur_id' => $request->input('client_expediteur_id'),
+            'client_destinateur_id' => $request->input('client_destinateur_id'),
+            'destination_id' => $destination->id,
+            'expedition_id' => $expedition->id,
+            'moyen_transport' => $request->input('moyen_transport'),
+            'vehicule_id' => 0,
+            'kilo_total'=>$request->input('Kilo_total')
+        ]);
+
+        return ;
+
+    
     }
 
     /**
@@ -29,7 +77,14 @@ class LivraisonController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+        $livraison = Livraison::find($id);
+        if ($livraison) {
+            return new LivraisonResource($livraison);
+        } else {
+            return response()->json(['message' => 'Livraison not found'], 404);
+        }
+        
     }
 
     /**

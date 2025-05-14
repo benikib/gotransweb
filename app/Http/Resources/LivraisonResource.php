@@ -15,16 +15,7 @@ class LivraisonResource extends JsonResource
     public function toArray(Request $request): array
     {
         //parent::toArray($request)
-        return [
-            'id' => $this->id,
-            'adresse_expedition' => $this->adresse_expedition,
-            'tel_expedition' => $this->tel_expedition,
-            'longitude' => $this->longitude,
-            'latitude' => $this->latitude,
-            'vehicule_id' => $this->vehicule_id,
-            'client_id' => $this->client_id,
-            'livreur_id' => $this->livreur_id,
-        ];
+        return parent::toArray($request);
     } 
     
 }
