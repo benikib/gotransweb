@@ -20,7 +20,7 @@
         <div class="mb-3">
             <label for="nomModeleVehicule" class="form-label"> Type du véhicule</label>
             <select  name="tarif_id"class="form-select" aria-label="Default select example" >
-              <option  selected >Selectionner un tarif</option>
+              <option  selected value={{ $typeVehicule->$tarif->id}} >{{ $typeVehicule->$tarif->kilo_tarif. '  kilo / $ ' .$typeVehicule->$tarif->prix_tarif  }}</option>
               @forelse ($tarifs as $tarif )
               <option  value={{ $tarif->id}} > {{ $tarif->kilo_tarif. '  kilo / $ ' . $tarif->prix_tarif  }}</option>
               @empty
@@ -41,9 +41,9 @@
                 </div>
               </div>
         </div>
-        
+
           </div>
-          
+
       </form>
     </div>
   </div>

@@ -14,7 +14,7 @@
         <div class="mb-3">
             <label for="nomModeleVehicule" class="form-label"> Type du véhicule</label>
             <select  name="type_vehicule_id"class="form-select" aria-label="Default select example" >
-              <option  selected >{{ $vehicule->type_vehicule->nom_type }}</option>
+              <option  selected value={{ $vehicule->type_vehicule->id}} >{{ $vehicule->type_vehicule->nom_type }}</option>
               @forelse ($typeVehicules as $typeVehicule )
               <option  value={{ $typeVehicule->id}} name="id_type_vehicule"> {{ $typeVehicule->nom_type }}</option>
               @empty
@@ -36,7 +36,7 @@
             </select>
             </div>
             <div class="mb-3">
-                <select name="etat" class="form-select" aria-label="Default select example">
+                <select  name="etat" class="form-select" aria-label="Default select example">
                   <option selected>Etat du vehicule</option>
                   <option value="1">Bon</option>
                   <option value="0">Mauvais</option>
