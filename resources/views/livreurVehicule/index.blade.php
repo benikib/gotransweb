@@ -65,7 +65,7 @@
                     </td>
 
                     <td class="align-middle">
-                        <p class="text-xs font-weight-bold mb-0">{{ $livreurVehicule->vehicule->immatriculation }}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{ $livreurVehicule->vehicule->immatriculation ?? "A/N" }}</p>
                       </td>
 
 
