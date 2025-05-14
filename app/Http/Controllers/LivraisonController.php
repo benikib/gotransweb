@@ -59,8 +59,8 @@ class LivraisonController extends Controller
         ]);
 
         $destination =  Destination::create([
-            'adresse'=> $request->input("adresse_expedition"),
-            'tel_expedition'=> $request->input("tel_expedition"),
+            'adresse'=> $request->input("adresse_destination"),
+            'tel_expedition'=> $request->input("tel_destination"),
             'longitude'=> 458.7,
             'latitude'=> 456.7
         ]);
