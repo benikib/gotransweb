@@ -18,7 +18,7 @@
                   <select  name="type_vehicule_id"class="form-select" aria-label="Default select example" >
                     <option  selected >Open this select menu</option>
                     @forelse ($typeVehicules as $typeVehicule )
-                    <option  value={{ $typeVehicule->id}} name="id_type_vehicule"> {{ $typeVehicule->nom_type }}</option>
+                    <option  value="{{ $typeVehicule->id}}" name="id_type_vehicule"> {{ $typeVehicule->nom_type }}</option>
                     @empty
 
                     @endforelse
@@ -39,7 +39,7 @@
                   </select>
                   </div>
                   <div class="mb-3">
-                 <input type="boolean" name="etat" value="true" id="" hidden>
+                
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>

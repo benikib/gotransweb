@@ -55,7 +55,7 @@
                     <td class="align-middle">
                       <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{ $typeVehicule->id }}</h6>
+                          <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
                         </div>
                       </div>
                     </td>
@@ -83,7 +83,7 @@
                         {{ $typeVehicule->created_at->format('d/m/Y H:i') }}
                       </span>
                     </td>
-                    
+
 
                     <!-- Bouton Edit -->
                     <td class="align-middle text-begin">
@@ -91,7 +91,7 @@
                         Éditer
                       </a>
                     </td>
-                    <td class="align-middle text-start">
+                    {{-- <td class="align-middle text-start">
                         <form action="{{ route('typeVehicule.destroy', $typeVehicule->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce type de véhicule ?');" style="display:inline;">
                             @csrf
                             @method('DELETE')
@@ -99,7 +99,7 @@
                                 Supprimer
                             </button>
                         </form>
-                    </td>
+                    </td> --}}
 
                   </tr>
 

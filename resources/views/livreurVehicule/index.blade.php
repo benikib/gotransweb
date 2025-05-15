@@ -54,7 +54,7 @@
                     <td class="align-middle">
                       <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{ $livreurVehicule->id }}</h6>
+                          <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
                         </div>
                       </div>
                     </td>
@@ -65,7 +65,7 @@
                     </td>
 
                     <td class="align-middle">
-                        <p class="text-xs font-weight-bold mb-0">{{ $livreurVehicule->vehicule->immatriculation }}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{ $livreurVehicule->vehicule->immatriculation ?? "A/N" }}</p>
                       </td>
 
 
@@ -82,13 +82,13 @@
                       </a>
 
 
-                        <form action="{{ route('livreurVehicule.destroy', $livreurVehicule->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce type de véhicule ?');" style="display:inline;">
+                        {{-- <form action="{{ route('livreurVehicule.destroy', $livreurVehicule->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce type de véhicule ?');" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-link text-danger text-xs p-0 m-0" style="text-decoration: none;" title="Supprimer">
                                 Supprimer
                             </button>
-                        </form>
+                        </form> --}}
                     </td>
 
                   </tr>

@@ -56,7 +56,7 @@
     <div class="card-body collapse" id="adminCollapse">
         <div class="table-responsive p-0">
             <table class="table align-items-center mb-0">
-                
+
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">N°</th>
@@ -67,7 +67,7 @@
                         <th class="text-secondary opacity-7"></th>
                       </tr>
                     </thead>
-                   
+
                     {{-- /Admin --}}
                     <tbody>
                         @forelse ($admins as $admin)
@@ -80,12 +80,12 @@
                               </div>
                             </div>
                           </td>
-  
+
                           <!-- Nom -->
                           <td class="align-middle">
                             <p class="text-xs font-weight-bold mb-0">{{ $admin->user->name }}</p>
                           </td>
-                          
+
                           <!-- Email -->
                           <td class="align-middle">
                             <p class="text-xs font-weight-bold mb-0">{{ $admin->user->email }}</p>
@@ -100,16 +100,16 @@
                               {{ $admin->created_at->format('d/m/Y H:i') }}
                             </span>
                           </td>
-  
+
                           <!-- Bouton Edit -->
                           <td class="align-middle text-begin">
                             <a href="{{route('users.edit', ['user'=>$admin->user->id]) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
                                 Éditer
                             </a>
                         </td>
-                        
+
                         <!-- Bouton Supprimer -->
-                        <td class="align-middle text-start">
+                        {{-- <td class="align-middle text-start">
                             <form action="{{route('users.destroy', $admin->user)}}" method="POST" onsubmit="return confirm('Êtes-vous sûr ?');" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
@@ -117,20 +117,20 @@
                                     Supprimer
                                 </button>
                             </form>
-                          
-                        </td>
-  
+
+                        </td> --}}
+
                         </tr>
-  
+
                         @empty
                           <tr>
                               <td colspan="5" class="text-center">
                               <p class="text-xs font-weight-bold mb-0">Aucun Admin enregistrer.</p>
                               </td>
                         @endforelse
-  
+
                       </tbody>
-                  
+
             </table>
         </div>
     </div>
@@ -156,7 +156,7 @@
             <div class="card-body collapse" id="livreurCollapse">
                 <div class="table-responsive p-0">
                     <table class="table align-items-center mb-0">
-                        
+
                             <thead>
                               <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">N°</th>
@@ -167,7 +167,7 @@
                                 <th class="text-secondary opacity-7"></th>
                               </tr>
                             </thead>
-                           
+
                             {{-- /livreur --}}
                             <tbody>
                                   @php
@@ -183,12 +183,12 @@
                                       </div>
                                     </div>
                                   </td>
-                
+
                                   <!-- Nom -->
                                   <td class="align-middle">
                                     <p class="text-xs font-weight-bold mb-0">{{ $livreur->user->name }}</p>
                                   </td>
-                                  
+
                                   <!-- Email -->
                                   <td class="align-middle">
                                     <p class="text-xs font-weight-bold mb-0">{{ $livreur->user->email }}</p>
@@ -203,16 +203,16 @@
                                       {{ $livreur->created_at->format('d/m/Y H:i') }}
                                     </span>
                                   </td>
-                
+
                                   <!-- Bouton Edit -->
                                   <td class="align-middle text-begin">
                                     <a href="{{route('users.edit', $livreur->user->id) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
                                         Éditer
                                     </a>
                                 </td>
-                                
+
                                 <!-- Bouton Supprimer -->
-                                <td class="align-middle text-start">
+                                {{-- <td class="align-middle text-start">
                                     <form action="{{route('users.destroy', $livreur->user->id)}}" method="POST" onsubmit="return confirm('Êtes-vous sûr ?');" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
@@ -220,27 +220,27 @@
                                             Supprimer
                                         </button>
                                     </form>
-                                </td>
-                
+                                </td> --}}
+
                                 </tr>
-                
+
                                 @empty
                                   <tr>
                                       <td colspan="5" class="text-center">
                                       <p class="text-xs font-weight-bold mb-0">Aucun livreur enregistrer.</p>
                                       </td>
                                 @endforelse
-                
+
                               </tbody>
-                          
+
                     </table>
                 </div>
             </div>
         </div>
-        
-       
+
+
               {{-- clients --}}
-              
+
                 <div class="card my-4">
                     <div class="card-header p-0 mt-n4 mx-3 z-index-2">
                         <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 d-flex justify-content-between align-items-center px-3">
@@ -254,7 +254,7 @@
                     <div class="card-body collapse" id="clientCollapse">
                         <div class="table-responsive p-0">
                             <table class="table align-items-center mb-0">
-                               
+
                                     <thead>
                                       <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">N°</th>
@@ -265,7 +265,7 @@
                                         <th class="text-secondary opacity-7"></th>
                                       </tr>
                                     </thead>
-                                   
+
                                     {{-- /client --}}
                                     <tbody>
                                           @php
@@ -281,12 +281,12 @@
                                               </div>
                                             </div>
                                           </td>
-                  
+
                                           <!-- Nom -->
                                           <td class="align-middle">
                                             <p class="text-xs font-weight-bold mb-0">{{ $client->user->name }}</p>
                                           </td>
-                                          
+
                                           <!-- Email -->
                                           <td class="align-middle">
                                             <p class="text-xs font-weight-bold mb-0">{{ $client->user->email }}</p>
@@ -295,14 +295,14 @@
                                           <td class="align-middle">
                                             <p class="text-xs font-weight-bold mb-0">{{ $client->user->number_phone }}</p>
                                           </td>
-                  
+
                                           <!-- Timestamp -->
                                           <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold">
                                               {{ $client->created_at->format('d/m/Y H:i') }}
                                             </span>
                                           </td>
-                  
+
                                           <!-- Bouton Edit -->
                                      <!-- Bouton Edit -->
 <td class="align-middle text-begin">
@@ -312,7 +312,7 @@
 </td>
 
 <!-- Bouton Supprimer -->
-<td class="align-middle text-start">
+{{-- <td class="align-middle text-start">
     <form action="{{route('users.destroy', $client->user->id)}}" method="POST" onsubmit="return confirm('Êtes-vous sûr ?');" style="display:inline;">
         @csrf
         @method('DELETE')
@@ -320,22 +320,22 @@
             Supprimer
         </button>
     </form>
-</td>
+</td> --}}
 
-                  
+
                                         @empty
                                           <tr>
                                               <td colspan="5" class="text-center">
                                               <p class="text-xs font-weight-bold mb-0">Aucun enregistrer.</p>
                                               </td>
                                         @endforelse
-                  
+
                                       </tbody>
-                                  
+
                             </table>
                         </div>
                     </div>
                 </div>
-                
+
  @include('users.create')
       @endsection

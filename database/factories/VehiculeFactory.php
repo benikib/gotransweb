@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Factories;
+use App\Models\Type_vehicule;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,9 +19,10 @@ class VehiculeFactory extends Factory
     {
         return [
 
-            'type_vehicule_id' => fake()->numberBetween(1, 20),
-            'modele_vehicule_id' => fake()->numberBetween(1, 20),
+            'type_vehicule_id' => Type_vehicule::inRandomOrder()->first()->id,
+          
             'immatriculation' => fake()->lexify('???-444-???'),
+            'etat' => true,
             'couleur' =>  fake()->randomElement(['rouge', 'bleu', 'vert', 'noir', 'blanc']),
             
         ];

@@ -50,6 +50,8 @@ class UserController extends Controller
     public function store(CreateUserRequest $request)
     {
 
+      
+
        /* try {
 
              $validated = $request->validated([

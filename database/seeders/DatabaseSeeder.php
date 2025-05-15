@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
 
 
 
-           //Vehicule::factory(4)->create();
+           //Vehicule::factory(2)->create();
 
 
         //Expedition::factory(4)->create();
@@ -43,9 +43,11 @@ class DatabaseSeeder extends Seeder
 
          //Client::factory(10)->create();
 
-      Type_vehicule::factory(10)->create();
+      // Type_vehicule::factory(3)->create();
 
        // Tarif::factory(1)->create();
+
+        Livraison::factory(1)->create();
 
 
 
