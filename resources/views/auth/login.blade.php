@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <title>Connexion</title>
     <!-- Inclure Bootstrap via Vite -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -48,6 +50,6 @@
             Pas encore inscrit ? <a href="{{ route('register') }}" class="text-decoration-none">Créer un compte</a>
         </p>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
