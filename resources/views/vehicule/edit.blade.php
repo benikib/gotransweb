@@ -7,7 +7,7 @@
 
         @csrf
         <div class="mb-3">
-            <label for="Immatriculation" class="form-label">Immatriculation</label>
+            <label for="Immatriculation" class="form-label">Numéro d'immatriculation</label>
             <input type="text" class="form-control" id="immatriculation" name="immatriculation" value="{{ $vehicule->immatriculation }}" placeholder="Ex: 09BER">
           </div>
 
@@ -27,14 +27,14 @@
 
 
 
-            <div class="mb-3">
+            {{-- <div class="mb-3">
             <select name="couleur" class="form-select" aria-label="Default select example">
               <option selected>{{ $vehicule->couleur }}</option>
               <option value="bleu">Blue</option>
               <option value="jaune">Jaune</option>
               <option value="blanc">Blanc</option>
             </select>
-            </div>
+            </div> --}}
             <div class="mb-3">
                 <select  name="etat" class="form-select" aria-label="Default select example">
                   <option selected>Etat du vehicule</option>

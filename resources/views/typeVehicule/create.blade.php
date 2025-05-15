@@ -13,10 +13,10 @@
                   <input type="text" class="form-control" id="nomTypeVehicule" name="nom_type" placeholder="Ex: Camion, Moto, etc.">
                 </div>
                 <div class="mb-3">
-                    <label for="nomtarif" class="form-label"> Tarif Kilo  initial</label>
+                    <label for="nomtarif" class="form-label"> Kilo  initial</label>
                     <input type="number" class="form-control" id="nomtarif" name="kilo_initiale" placeholder="Ex: 1 , 2, 3">
                   </div>
-                  <label for="tarif" class="form-label"> Tarif Kilo final</label>
+                  <label for="tarif" class="form-label">Kilo final</label>
                   <input type="number" class="form-control" id="tarif" name="kilo_final" placeholder="Ex: 2 , 3 , 10 ">
                 <div class="mb-3">
                     <label for="nomModeleVehicule" class="form-label"> Type du véhicule</label>

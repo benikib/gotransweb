@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-lg"> <!-- Plus large pour un meilleur affichage -->
     <div class="modal-content border-0 shadow-lg rounded-4">
       <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title" id="exampleModalLabel">Créer un livreur</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Créer un utilisateur</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body px-4 py-4">

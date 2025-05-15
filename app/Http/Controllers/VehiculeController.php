@@ -42,7 +42,6 @@ class VehiculeController extends Controller
             $request->validate([
                 'immatriculation' => 'required|string|max:255',
                 'type_vehicule_id' => 'required|exists:type_vehicules,id',
-                'couleur' => 'required|string|max:255',
                 
             ]);
 
@@ -90,7 +89,6 @@ class VehiculeController extends Controller
             $request->validate([
                 'immatriculation' => 'required|string|max:255',
                 'type_vehicule_id' => 'required|exists:type_vehicules,id',
-                'couleur' => 'required|string|max:255',
                 'etat' => 'required',
             ]);
 

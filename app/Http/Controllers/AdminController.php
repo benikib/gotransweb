@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CreateAdminRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\SuperAdminRequest;
+use App\Http\Requests\Auth\SuperAdminRequest;
 use App\Models\Livraison;
 use App\Models\Livreur;
 use App\Models\Livreur_Vehicule;
@@ -101,10 +101,11 @@ class AdminController extends Controller
     public function views(Admin $admin)
     {
         $livreurs=Livreur::latest()->take(3)->get();
-        $typeVehicules = Type_vehicule::latest()->take(3)->get();;
-        $vehicules = Vehicule::latest()->take(3)->get();;
-        $admins = Admin::latest()->take(3)->get();;
-        $tarifs = Tarif::latest()->take(3)->get();;
+        $typeVehicules = Type_vehicule::latest()->take(3)->get();
+        $vehicules = Vehicule::latest()->take(3)->get();
+        $admins = Admin::latest()->take(3)->get();
+        $tarifs = Tarif::latest()->take(3)->get();
+       #  dd($tarifs);
 
         return view('dashbord.views', compact('livreurs','typeVehicules','livreurs','vehicules','admins','tarifs'));
     }

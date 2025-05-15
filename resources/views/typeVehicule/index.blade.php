@@ -43,7 +43,7 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type de vehicule</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tarif Kilo initial</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tarif Kilo final</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">TTarification</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tarification</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Creation</th>
                     <th class="text-secondary opacity-7"></th>
                   </tr>

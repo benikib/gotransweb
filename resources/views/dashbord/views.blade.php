@@ -24,6 +24,20 @@
         </div>
     @endif
 
+    {{-- Script pour faire disparaître les messages après 5 secondes --}}
+    <script>
+    setTimeout(() => {
+        let alerts = document.querySelectorAll('.alert');
+        alerts.forEach((alert) => {
+            // Démarre l'effet de disparition Bootstrap
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            // Supprime l'élément du DOM après la transition
+            setTimeout(() => alert.remove(), 500); // temps pour l'animation fade
+        });
+    }, 3000); // 5000ms = 5 secondes
+    </script>
+
     <div class="container-fluid py-4">
         <!-- Header with Stats -->
         <div class="row mb-4">
@@ -106,15 +120,15 @@
                                         <div class="mt-auto pt-2">
                                             <div class="d-flex justify-content-between border-bottom py-1">
                                                 <span class="text-xs">Tarif initial:</span>
-                                                <span class="text-xs font-weight-bold">{{ $type->kilo_initiale * $type->tarif->prix_tarif }} $</span>
+                                                <span class="text-xs font-weight-bold">{{ $type->kilo_initiale * $type->tarif->prix_tarif ?? 1 }} $</span>
                                             </div>
                                             <div class="d-flex justify-content-between border-bottom py-1">
                                                 <span class="text-xs">Tarif final:</span>
-                                                <span class="text-xs font-weight-bold">{{ $type->kilo_final * $type->tarif->prix_tarif }} $</span>
+                                                <span class="text-xs font-weight-bold">{{ $type->kilo_final * $type->tarif->prix_tarif ?? 1 }} $</span>
                                             </div>
                                             <div class="d-flex justify-content-between pt-1">
                                                 <span class="text-xs">Tarif/kilo:</span>
-                                                <span class="text-xs font-weight-bold">{{ $type->tarif->prix_tarif }}$ / {{ $type->tarif->kilo_tarif }}km</span>
+                                                <span class="text-xs font-weight-bold">{{ $type->tarif->prix_tarif ?? 1 }}$ / {{ $type->tarif->kilo_tarif }}km</span>
                                             </div>
                                         </div>
                                     </div>
@@ -229,7 +243,7 @@
                                             <td>
                                                 <div class="d-flex flex-column">
                                                     <span class="text-xs text-secondary">Immat: {{ $vehicule->immatriculation }}</span>
-                                                    <span class="text-xs text-secondary">Couleur: {{ $vehicule->couleur }}</span>
+                                                    {{-- <span class="text-xs text-secondary">Couleur: {{ $vehicule->couleur }}</span> --}}
                                                 </div>
                                             </td>
                                             <td class="align-middle text-center">

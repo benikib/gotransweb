@@ -38,7 +38,7 @@ class UserController extends Controller
         $admin = User::create($validated);
 
         // Redirect to the admin index page
-        return redirect()->route('admin.index')->with('success', 'Admin created successfully.');
+        return redirect()->route('admin.index')->with('success', 'Admin créé avec succès');
     }
     public function login()
     {
@@ -83,17 +83,17 @@ class UserController extends Controller
             case 'admin':
                 Admin::create(['user_id' => $user->id]);
                  // Redirect to the user index page
-                return redirect()->route('users.index')->with('success', 'Admin created successfully.');
+                return redirect()->route('users.index')->with('success', 'Admin créé avec succès.');
                 break;
             case 'client':
                Client::create(['user_id' => $user->id]);
                 // Redirect to the user index page
-                return redirect()->route('users.index')->with('success', 'Client created successfully.');
+                return redirect()->route('users.index')->with('success', 'Client créé avec succès.');
                 break;
             case 'livreur':
                 Livreur::create(['user_id' => $user->id]);
                  // Redirect to the user index page
-                return redirect()->route('users.index')->with('success', 'Livreur created successfully.');
+                return redirect()->route('users.index')->with('success', 'Livreur créé avec succès.');
                 break;
         }
 
