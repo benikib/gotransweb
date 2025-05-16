@@ -15,12 +15,12 @@ Route::get('typevehicule/{type_vehicule}',  [TypeVehiculeController::class, 'edi
 Route::post('typevehicule/{type_vehicule}',  [TypeVehiculeController::class, 'update'])->name('typeVehicule.update');
 Route::delete('typevehicule/{type_vehicule}',  [TypeVehiculeController::class, 'destroy'])->name('typeVehicule.destroy');
 //      */
-Route::get('tarif',  [tarifController::class, 'index'])->name('tarifs.index');
-Route::get('tarif/create',  [tarifController::class, 'create']);
-Route::post('tarif',  [tarifController::class, 'store'])->name('tarifs.store');
-Route::get('tarif/{tarif}',  [tarifController::class, 'edit'])->name('tarifs.edit');
-Route::post('tarif/{tarif}',  [tarifController::class, 'update'])->name('tarifs.update');
-Route::delete('tarif/{tarif}',  [tarifController::class, 'destroy'])->name('tarifs.destroy');
+Route::get('tarif',  [TarifController::class, 'index'])->name('tarifs.index');
+Route::get('tarif/create',  [TarifController::class, 'create']);
+Route::post('tarif',  [TarifController::class, 'store'])->name('tarifs.store');
+Route::get('tarif/{tarif}',  [TarifController::class, 'edit'])->name('tarifs.edit');
+Route::post('tarif/{tarif}',  [TarifController::class, 'update'])->name('tarifs.update');
+Route::delete('tarif/{tarif}',  [TarifController::class, 'destroy'])->name('tarifs.destroy');
 
 
 Route::get('vehicule',  [VehiculeController::class, 'index'])->name('vehicule.index');
