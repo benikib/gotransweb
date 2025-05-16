@@ -103,25 +103,7 @@
   </div>
 </div>
 
-<style>
-.nav-link {
-  transition: all 0.2s ease;
-  border-radius: 0.25rem;
-}
 
-.nav-link:hover:not(.active) {
-  background-color: rgba(0,0,0,0.03);
-  transform: translateX(2px);
-}
-
-.active {
-  font-weight: 500;
-}
-
-.sidenav {
-  transition: all 0.3s ease;
-}
-</style>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const toggleButton = document.getElementById("toggleSidenav");
