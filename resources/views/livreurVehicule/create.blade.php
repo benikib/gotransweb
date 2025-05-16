@@ -9,7 +9,7 @@
             <form action="{{ route('livreurVehicule.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                  <label for="nomModeleVehicule" class="form-label"> Véhicule</label>
+                  <label for="nomModeleVehicule" class="form-label input-group input-group-outline"> Véhicule</label>
                   <select  name="vehicule_id"class="form-select" aria-label="Default select example" >
                     <option  selected >Open this select menu</option>
                     @forelse ($vehicules as $vehicule )

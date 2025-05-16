@@ -49,3 +49,10 @@
     </div>
   </div>
 </div>
+ <style>
+  .form-control, select.form-select {
+  border: 1px solid #000; /* bordure noire 1px */
+  border-radius: 4px; /* coins légèrement arrondis */
+}
+
+</style>

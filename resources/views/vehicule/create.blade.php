@@ -6,39 +6,46 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('vehicule.store') }}" method="POST">
-                @csrf
-                <div class="mb-3">
-                    <label for="Immatriculation" class="form-label">Numéro immatriculation</label>
-                    <input type="text" class="form-control" id="immatriculation" name="immatriculation" placeholder=" Entrez le numéro d'immatriculation du véhicule. Ex: 09BER">
-                </div>
+           <form action="{{ route('vehicule.store') }}" method="POST">
+    @csrf
 
-                <div class="mb-3">
-                  <label for="nomModeleVehicule" class="form-label"> Type du véhicule</label>
-                  <select  name="type_vehicule_id"class="form-select" aria-label="Default select example" >
-                    <option  selected >Selectionnez une catégorie</option>
-                    @forelse ($typeVehicules as $typeVehicule )
-                    <option  value="{{ $typeVehicule->id}}" name="id_type_vehicule"> {{ $typeVehicule->nom_type }}</option>
-                    @empty
-                    @endforelse
-                  </select>
-                </div>
-                  {{-- </select>
+    <div class="mb-3">
+        <label for="immatriculation" class="form-label">Numéro d'immatriculation</label>
+    <input type="text" class="form-control" id="immatriculation" name="immatriculation" placeholder="Ex: 09BER" style="border: 1px solid ;">
 
-                  <div class="mb-3">
-                  <select name="couleur" class="form-select" aria-label="Default select example">
-                    <option selected>Couleur du vehicule</option>
-                    <option value="bleu">Blue</option>
-                    <option value="jaune">Jaune</option>
-                    <option value="blanc">Blanc</option>
-                  </select> --}}
-                </div>
+    </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <button type="submit" class="btn btn-success">Valider</button>
-                  </div>
-              </form>
+    <div class="mb-3">
+        <label for="type_vehicule_id" class="form-label">Type du véhicule</label>
+        <select name="type_vehicule_id" class="form-select" id="type_vehicule_id">
+            <option selected disabled>-- Sélectionnez une catégorie --</option>
+            @forelse ($typeVehicules as $typeVehicule)
+                <option value="{{ $typeVehicule->id }}">{{ $typeVehicule->nom_type }}</option>
+            @empty
+                <option disabled>Aucun type disponible</option>
+            @endforelse
+        </select>
+    </div>
+
+    {{-- Pour ajouter la couleur, décommente cette section si besoin --}}
+    {{--
+    <div class="mb-3">
+        <label for="couleur" class="form-label">Couleur du véhicule</label>
+        <select name="couleur" class="form-select" id="couleur">
+            <option selected disabled>-- Choisissez une couleur --</option>
+            <option value="bleu">Bleu</option>
+            <option value="jaune">Jaune</option>
+            <option value="blanc">Blanc</option>
+        </select>
+    </div>
+    --}}
+
+    <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="submit" class="btn btn-success">Valider</button>
+    </div>
+</form>
+
 
         </div>
 

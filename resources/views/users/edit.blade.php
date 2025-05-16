@@ -83,6 +83,13 @@
   <script src="{{asset('assets/js/plugins/perfect-scrollbar.min.js')}}"></script>
   <script src="{{asset('assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
   <script>
+     
+  .form-control, select.form-select {
+  border: 1px solid #000; /* bordure noire 1px */
+  border-radius: 4px; /* coins légèrement arrondis */
+}
+
+
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
       var options = {
