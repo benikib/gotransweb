@@ -22,6 +22,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Importation automatique des routes depuis le dossier routeWeb
+foreach (glob(__DIR__ . '/routeWeb/*.php') as $file) {
+    require $file;
+}
 });
 
 Route::get('/email-sent', function () {return view('auth.email-sent');})->name('password.sent');
@@ -30,7 +34,4 @@ Route::get('/email-sent', function () {return view('auth.email-sent');})->name('
 
 require __DIR__.'/auth.php';
 
-// Importation automatique des routes depuis le dossier routeWeb
-foreach (glob(__DIR__ . '/routeWeb/*.php') as $file) {
-    require $file;
-}
+
