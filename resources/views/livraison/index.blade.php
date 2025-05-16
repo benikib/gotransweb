@@ -1,6 +1,6 @@
 @extends("layouts.base")
-@section('title', 'all_livraison')
-@section('content') 
+@section('title', 'livraisons')
+@section('content')
 
 @php
 function getBadgeClass($status) {
@@ -16,7 +16,7 @@ function getBadgeClass($status) {
 <div class="container-fluid py-2">
       <div class="row">
         <div class="col-12">
-         
+
           <div class="card my-4">
           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
   <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 px-3">
@@ -76,10 +76,10 @@ function getBadgeClass($status) {
                       </td>
 
                       <td class="align-middle text-center text-sm">
-                      
+
                         <span class="badge badge-sm {{ getBadgeClass($livraison->status) }}">{{$livraison->status}}</span>
                       </td>
-                   
+
                       <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{$livraison->Vehicule->immatriculation?? ''}}</span>
                       </td>
@@ -93,7 +93,7 @@ function getBadgeClass($status) {
                       </td>
                       <td class="align-middle">
                         <a href="{{ route('livraison.edit', ['id'=>$livraison->id]) }}" >
-                         
+
                         <div class="btn btn-info btn-sm" type="button" >Modifier</div>
                         </a>
                         <a href="{{ route('livraison.delete', ['id'=>$livraison->id]) }}">
@@ -104,8 +104,8 @@ function getBadgeClass($status) {
   Accepter
 </button>
 
-                      
-                        
+
+
                         </div>
                       </td>
                     </tr>
@@ -121,7 +121,7 @@ function getBadgeClass($status) {
           </div>
         </div>
       </div>
-    
+
       <!-- Bouton pour ouvrir la modal -->
 
 
@@ -131,19 +131,19 @@ function getBadgeClass($status) {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
- 
+
   function showLivraisonModal(id) {
       $.ajax({
           url: "{{ route('livraison.affectation', ['id' => ':id']) }}".replace(':id', id),
           type: "GET",
           success: function (data) {
               // Vérifiez si la réponse est un succès
-   
+
               if (data.status === 'success') {
                   const select = document.getElementById('type_vehicule');
                   let id_livraison = document.getElementById('id_livraison');
                     id_livraison.value = data["id"];
-                   
+
                   // Vide le select d'abord
                   select.innerHTML = '';
 
@@ -162,7 +162,7 @@ function getBadgeClass($status) {
                       selectVehicule(selectedId);
                   });
 
-                    
+
               }
 
               // Affiche le modal
@@ -177,7 +177,7 @@ function getBadgeClass($status) {
 
 
     function selectVehicule(id) {
-     
+
        $.ajax({
           url: "{{ route('livraison.selectAffectation', ['id' => ':id']) }}".replace(':id', id),
           type: "GET",
@@ -211,13 +211,13 @@ function getBadgeClass($status) {
     }
 
     function selectLivreur(id) {
-     
+
        $.ajax({
           url: "{{ route('livraison.selectLivreur', ['id' => ':id']) }}".replace(':id', id),
           type: "GET",
           success: function (data) {
 
-        
+
 
                const select = document.getElementById('livreur');
 
@@ -232,7 +232,7 @@ function getBadgeClass($status) {
                   data["data"].forEach(livreur => {
                       const option = document.createElement('option');
                       option.value =  livreur["livreur_id"];
-                      option.textContent =livreur["livreur_name"] + ' - ' + livreur["livreur_telephone"]; 
+                      option.textContent =livreur["livreur_name"] + ' - ' + livreur["livreur_telephone"];
                       select.appendChild(option);
                   });
           },
@@ -242,7 +242,7 @@ function getBadgeClass($status) {
       });
 
 
-      
+
     }
 </script>
 

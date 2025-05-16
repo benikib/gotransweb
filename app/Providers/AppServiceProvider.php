@@ -19,10 +19,11 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-   
+
     public function boot(): void
     {
-        ResetPassword::createUrlUsing(function ($notifiable, string $token) {
+         Schema::defaultStringLength(191);
+            ResetPassword::createUrlUsing(function ($notifiable, string $token) {
             return url("/reset-password/{$token}?email=" . urlencode($notifiable->getEmailForPasswordReset()));
         });
     }
