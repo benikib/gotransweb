@@ -34,7 +34,7 @@ function getBadgeClass($status) {
     };
 }
 @endphp
-@section('title', 'Dashboard')
+@section('title', 'Tableau de bord')
 @section('content')
 <div class="container-fluid py-4">
     <!-- Page Header with Breadcrumb -->
