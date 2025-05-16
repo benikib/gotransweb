@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\LivreurVehiculeController;
-use App\Http\Controllers\tarifController;
+use App\Http\Controllers\TarifController;
 use App\Http\Controllers\TypeVehiculeController;
 use App\Http\Controllers\VehiculeController;
+
 use App\Models\Livreur;
 use Illuminate\Support\Facades\Route;
 use Mockery\Matcher\Type;
