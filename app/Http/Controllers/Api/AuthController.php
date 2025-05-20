@@ -39,8 +39,10 @@ class AuthController extends Controller
 
         $token = $user->createToken('api-token')->plainTextToken;
 
+        $roleInfo = $user->getRoleInfo();
+
         return response()->json([
-            'client' => $clientt,
+            'roleInfo' => $roleInfo,
             'user'  => $user,
             'token' => $token
         ], 200);
@@ -80,6 +82,7 @@ class AuthController extends Controller
 
 if ($roleInfo) {
  return response()->json([
+            'roleInfo'=>$roleInfo,
             'user'  => $user,
             'token' => $token
         ], 200);
