@@ -24,12 +24,15 @@ class AuthController extends Controller
              $fields = $request->validate([
             'name'     => 'required|string|max:255',
             'email'    => 'required|string|email|unique:users,email',
+            'number_phone' => 'required|string',
             'password' => 'required|string|min:6',
+            
         ]);
 
         $user = User::create([
             'name'     => $fields['name'],
             'email'    => $fields['email'],
+            'number_phone' => $fields['number_phone'],
             'password' => bcrypt($fields['password']),
         ]);
         $clientt= Client::create(['user_id' => $user->id]);
