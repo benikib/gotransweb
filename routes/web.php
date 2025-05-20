@@ -13,8 +13,7 @@ use App\Http\Controllers\UserController;
 
 Route::get('/',[AdminController::class,'login'])->name('login');
 Route::post('/',[AdminController::class,'connecter']);
-Route::get('/views',[AdminController::class,'views'])->name('dashbord.views');
-Route::get('/dashboard', [AdminController::class,'dashboard'])->name('dashboard');
+
 
 
 
@@ -22,6 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/views',[AdminController::class,'views'])->name('dashbord.views');
+    Route::get('/dashboard', [AdminController::class,'dashboard'])->name('dashboard');
     // Importation automatique des routes depuis le dossier routeWeb
 foreach (glob(__DIR__ . '/routeWeb/*.php') as $file) {
     require $file;
