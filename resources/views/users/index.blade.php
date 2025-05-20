@@ -277,14 +277,14 @@
                                           <td class="align-middle">
                                             <div class="d-flex px-2 py-1">
                                               <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">{{ $count++ }}</h6>
+                                                <h6 class="mb-0 text-sm">{{ $loop->itetration }}</h6>
                                               </div>
                                             </div>
                                           </td>
 
                                           <!-- Nom -->
                                           <td class="align-middle">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $client->user->name }}</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $client->user->name ?? " " }}</p>
                                           </td>
 
                                           <!-- Email -->
