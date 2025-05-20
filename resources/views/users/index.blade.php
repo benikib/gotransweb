@@ -83,7 +83,7 @@
 
                           <!-- Nom -->
                           <td class="align-middle">
-                            <p class="text-xs font-weight-bold mb-0">{{ $admin->user->name }}</p>
+                            <p class="text-xs font-weight-bold mb-0">{{ $admin->user->name ?? " " }}</p>
                           </td>
 
                           <!-- Email -->
