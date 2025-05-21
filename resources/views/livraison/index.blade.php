@@ -54,7 +54,7 @@ function getBadgeClass($status) {
                             <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{$livraison->Destinateur->User->name }}</h6>
+                            <h6 class="mb-0 text-sm">{{$livraison->Destinateur->User->name ?? ""}}</h6>
                             <p class="text-xs text-secondary mb-0"></p>
                           </div>
                         </div>
@@ -65,7 +65,7 @@ function getBadgeClass($status) {
                             <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{$livraison->Expediteur->User->name}} </h6>
+                            <h6 class="mb-0 text-sm">{{$livraison->Expediteur->User->name ?? ""}} </h6>
                             <p class="text-xs text-secondary mb-0"></p>
                           </div>
                         </div>

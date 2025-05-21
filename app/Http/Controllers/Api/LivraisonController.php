@@ -37,6 +37,7 @@ class LivraisonController extends Controller
      */
     public function store(Request $request)
     {
+        
 
           $expedition =  Expedition::create([
               'adresse'=> $request->input("adresse_expedition"),
