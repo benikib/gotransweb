@@ -7,6 +7,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -36,19 +37,47 @@ class UserController extends Controller
             'data' => $request->user()->fresh()
         ]);
     }
-
-    public function updatePassword(Request $request)
+ public function changePassword(Request $request)
     {
-        $request->validate([
-            'current_password' => ['required', 'current_password'],
-            'new_password' => ['required', Password::defaults() ],
+        // Validation des données
+        $validator = Validator::make($request->all(), [
+            'current_password' => ['required', 'string'],
+            'new_password' => [
+                'required',
+                'string',
+                
+                Password::min(8)
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()
+                    ->uncompromised(),
+            ],
         ]);
 
-        $request->user()->update([
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Validation error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $user = $request->user();
+
+        // Vérifie le mot de passe actuel
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json([
+                'message' => 'Le mot de passe actuel est incorrect'
+            ], 401);
+        }
+
+        // Met à jour le mot de passe
+        $user->update([
             'password' => Hash::make($request->new_password)
         ]);
 
-        return response()->json(['message' => 'Mot de passe mis à jour']);
+        return response()->json([
+            'message' => 'Mot de passe mis à jour avec succès'
+        ]);
     }
 
     public function updatePhoto(Request $request)
