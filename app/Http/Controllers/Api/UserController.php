@@ -1,50 +1,75 @@
 <?php
 
+
+
+
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\Password;
+
 
 class UserController extends Controller
 {
-    public function index(): JsonResponse
+    public function show(Request $request)
     {
-        return response()->json(User::all());
+        return response()->json([
+            'data' => $request->user()->loadMissing('profilePhoto')
+        ]);
     }
 
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function updateProfile(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'number_phone' => 'nullable|string|max:20',
+        ]);
+
+        $request->user()->update($validated);
+
+        return response()->json([
+            'message' => 'Profil mis à jour',
+            'data' => $request->user()->fresh()
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function updatePassword(Request $request)
     {
-        //
+        $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'new_password' => ['required', Password::defaults(), 'confirmed'],
+        ]);
+
+        $request->user()->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return response()->json(['message' => 'Mot de passe mis à jour']);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function updatePhoto(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'photo' => 'required|image|max:2048',
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $path = $request->file('photo')->store('profile-photos');
+
+        if ($oldPhoto = $request->user()->profile_photo_path) {
+            Storage::delete($oldPhoto);
+        }
+
+        $request->user()->update([
+            'profile_photo_path' => $path
+        ]);
+
+        return response()->json([
+            'message' => 'Photo de profil mise à jour',
+            'photo_url' => Storage::url($path)
+        ]);
     }
 }
