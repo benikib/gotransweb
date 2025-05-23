@@ -14,7 +14,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Mot de passe
     Route::post('user/change-password', [UserController::class, 'changePassword']);
-    Route::get('user/clients', [UserController::class, 'getClient']);
+    Route::get('user/clients', [UserController::class, 'getClients']);
 
     // Photo de profil
    // Route::post('user/profile-photo', [UserController::class, 'updatePhoto']);

@@ -1,9 +1,5 @@
 <?php
 
-
-
-
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -12,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
+use App\Http\Resources\ClientResource;
+use App\Http\Resources\UserResource;
 use App\Models\Client;
 
 class UserController extends Controller
@@ -37,70 +35,71 @@ class UserController extends Controller
             'data' => $request->user()->fresh()
         ]);
     }
-        public function changePassword(Request $request)
-            {
-                // Validation des données
-                $validator = Validator::make($request->all(), [
-                    'current_password' => ['required', 'string'],
-                    'new_password' => [
-                        'required','string'],
-                ]);
 
-                if ($validator->fails()) {
-                    return response()->json([
-                        'message' => 'Validation error',
-                        'errors' => $validator->errors()
-                    ], 422);
-                }
+    public function changePassword(Request $request)
+    {
+        // Validation des données
+        $validator = Validator::make($request->all(), [
+            'current_password' => ['required', 'string'],
+            'new_password' => ['required', 'string'],
+        ]);
 
-                $user = $request->user();
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Validation error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
-                // Vérifie le mot de passe actuel
-                if (!Hash::check($request->current_password, $user->password)) {
-                    return response()->json([
-                        'message' => 'Le mot de passe actuel est incorrect'
-                    ], 401);
-                }
+        $user = $request->user();
 
-                // Met à jour le mot de passe
-                $user->update([
-                    'password' => Hash::make($request->new_password)
-                ]);
+        // Vérifie le mot de passe actuel
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json([
+                'message' => 'Le mot de passe actuel est incorrect'
+            ], 401);
+        }
 
-                return response()->json([
-                    'message' => 'Mot de passe mis à jour avec succès'
-                ]);
-            }
+        // Met à jour le mot de passe
+        $user->update([
+            'password' => Hash::make($request->new_password)
+        ]);
 
-            public function updatePhoto(Request $request)
-            {
-                $request->validate([
-                    'photo' => 'required|image|max:2048',
-                ]);
+        return response()->json([
+            'message' => 'Mot de passe mis à jour avec succès'
+        ]);
+    }
 
-                $path = $request->file('photo')->store('profile-photos');
+    public function updatePhoto(Request $request)
+    {
+        $request->validate([
+            'photo' => 'required|image|max:2048',
+        ]);
 
-                if ($oldPhoto = $request->user()->profile_photo_path) {
-                    Storage::delete($oldPhoto);
-                }
+        $path = $request->file('photo')->store('profile-photos');
 
-                $request->user()->update([
-                    'profile_photo_path' => $path
-                ]);
+        if ($oldPhoto = $request->user()->profile_photo_path) {
+            Storage::delete($oldPhoto);
+        }
 
-                return response()->json([
-                    'message' => 'Photo de profil mise à jour',
-                    'photo_url' => Storage::url($path)
-                ]);
-            }
+        $request->user()->update([
+            'profile_photo_path' => $path
+        ]);
 
+        return response()->json([
+            'message' => 'Photo de profil mise à jour',
+            'photo_url' => Storage::url($path)
+        ]);
+    }
 
-            public function getClients()
-            {
-                
-                return response()->json([
-                    'message' => 'Tout les clients',
-                    'data' => Client::all()
-                ]);
-            }
+    public function getClients()
+    {
+        $clients = Client::with('user')->get();// relation directe
+
+        return response()->json([
+            'message' => 'Clients de l’utilisateur connecté',
+            'data' => ClientResource::collection($clients),
+        ]);
+        
+    }
 }
