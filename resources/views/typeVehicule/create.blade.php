@@ -16,12 +16,12 @@
 
     <div class="mb-3">
         <label for="nomtarif" class="form-label">Kilo initial</label>
-        <input type="number" class="form-control border border-secondary" id="nomtarif" name="kilo_initiale" placeholder="Ex: 1 , 2, 3">
+        <input type="number" class="form-control border border-secondary" id="nomtarif" min="1" name="kilo_initiale" placeholder="Ex: 1 , 2, 3">
     </div>
 
     <div class="mb-3">
         <label for="tarif" class="form-label">Kilo final</label>
-        <input type="number" class="form-control border border-secondary" id="tarif" name="kilo_final" placeholder="Ex: 2 , 3 , 10 ">
+        <input type="number" class="form-control border border-secondary" id="tarif" min="1" name="kilo_final" placeholder="Ex: 2 , 3 , 10 ">
     </div>
 
     <div class="mb-3">
