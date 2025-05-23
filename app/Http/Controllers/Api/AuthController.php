@@ -12,12 +12,45 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Client;
 use App\Models\Type_vehicule;
+use Google_Client;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+    public function handleGoogleLogin(Request $request)
+{
+    $token = $request->input('token');
+    
+    // Vérifier le token avec Google
+    $client = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]);
+    $payload = $client->verifyIdToken($token);
+    
+    if (!$payload) {
+        return response()->json(['error' => 'Token invalide'], 401);
+    }
+    
+    // Trouver ou créer l'utilisateur
+    $user = User::firstOrCreate(
+        ['email' => $payload['email']],
+        [
+            'name' => $payload['name'],
+            'password' => Hash::make(Str::random(24)),
+            'email_verified_at' => now(),
+        ]
+    );
+    
+    // Créer et retourner le token d'authentification
+    $token = $user->createToken('google-token')->plainTextToken;
+    
+    return response()->json([
+        'user' => $user,
+        'token' => $token
+    ]);
+}
     public function register(Request $request)
     {
         try {

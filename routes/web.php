@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -13,6 +15,10 @@ use App\Http\Controllers\UserController;
 
 Route::get('/',[AdminController::class,'login'])->name('login');
 Route::post('/',[AdminController::class,'connecter']);
+Route::get('/auth/redirect/google', function ( Request $request) {
+    return Socialite::driver('google')->redirect();
+});
+
 
 
 
