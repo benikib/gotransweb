@@ -15,6 +15,7 @@ class Destination extends Model
         'adresse',
         'longitude',
         'latitude',
+        'nom_destination',
         'tel_destination'
     ];
 }
