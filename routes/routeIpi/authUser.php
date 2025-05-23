@@ -16,7 +16,8 @@ Route::post('/auth/google', [GoogleAuthController::class, '__invoke']);
 
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink']);
 Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword']);
-
+// routes/api.php
+Route::post('auth/google', [AuthController::class, 'handleGoogleLogin']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
