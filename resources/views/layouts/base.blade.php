@@ -11,6 +11,8 @@
     @yield('title')
   </title>
   <!--     Fonts and icons     -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
   <!-- Nucleo Icons -->
   <link href="{{asset('assets/css/nucleo-icons.css" rel="stylesheet')}}" />
