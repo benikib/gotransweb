@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('adresse');
             $table->float('longitude');
+            $table->string('nom_destination')->nullable();
             $table->float('latitude');
             $table->string('tel_destination')->nullable();
             $table->timestamps();

@@ -48,6 +48,7 @@ class LivraisonController extends Controller
 
           $destination =  Destination::create([
               'adresse'=> $request->input("adresse_destination"),
+              'nom_destination'=> $request->input("nom_destination"),
               'tel_destinations'=> $request->input("tel_destination"),
               'longitude'=> 458.7,
               'latitude'=> 456.7
@@ -108,7 +109,7 @@ class LivraisonController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function cancel( $id)
+    public function cancel($id)
     {
          $livraison = Livraison::find($id);
      
