@@ -7,6 +7,7 @@ use App\Models\Type_vehicule;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateAdminRequest;
 use App\Models\User;
+use App\Models\Client;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth\SuperAdminRequest;
 use App\Models\Livraison;
@@ -105,9 +106,10 @@ class AdminController extends Controller
         $vehicules = Vehicule::latest()->take(3)->get();
         $admins = Admin::latest()->take(3)->get();
         $tarifs = Tarif::latest()->take(3)->get();
-       #  dd($tarifs);
+        $clients = Client::latest()->take(3)->get();
+        #dd($clients);
 
-        return view('dashbord.views', compact('livreurs','typeVehicules','livreurs','vehicules','admins','tarifs'));
+        return view('dashbord.views', compact('livreurs','typeVehicules','livreurs','vehicules','admins','tarifs','clients'));
     }
     public function dashboard()
     {
