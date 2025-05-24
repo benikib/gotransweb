@@ -1,9 +1,5 @@
 <?php
 
-
-
-
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -12,7 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
-
+use App\Http\Resources\ClientResource;
+use App\Http\Resources\UserResource;
+use App\Models\Client;
 
 class UserController extends Controller
 {
@@ -37,13 +35,13 @@ class UserController extends Controller
             'data' => $request->user()->fresh()
         ]);
     }
- public function changePassword(Request $request)
+
+    public function changePassword(Request $request)
     {
         // Validation des données
         $validator = Validator::make($request->all(), [
             'current_password' => ['required', 'string'],
-            'new_password' => [
-                'required','string'],
+            'new_password' => ['required', 'string'],
         ]);
 
         if ($validator->fails()) {
@@ -92,5 +90,16 @@ class UserController extends Controller
             'message' => 'Photo de profil mise à jour',
             'photo_url' => Storage::url($path)
         ]);
+    }
+
+    public function getClients()
+    {
+        $clients = Client::with('user')->get();// relation directe
+
+        return response()->json([
+            'message' => 'Clients de l’utilisateur connecté',
+            'data' => ClientResource::collection($clients),
+        ]);
+        
     }
 }

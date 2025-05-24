@@ -7,6 +7,7 @@ use App\Models\Type_vehicule;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateAdminRequest;
 use App\Models\User;
+use App\Models\Client;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth\SuperAdminRequest;
 use App\Models\Livraison;
@@ -48,11 +49,11 @@ class AdminController extends Controller
     {
         return view('auth.login');
     }
-    
+
     /**
      * Store a newly created resource in storage.
      */
-    public function connecter(SuperAdminRequest $request)
+    public function connecter(Request $request)
     {
         $superadmin = $request->validated();
         dd($superadmin);
@@ -105,9 +106,10 @@ class AdminController extends Controller
         $vehicules = Vehicule::latest()->take(3)->get();
         $admins = Admin::latest()->take(3)->get();
         $tarifs = Tarif::latest()->take(3)->get();
-       #  dd($tarifs);
+        $clients = Client::latest()->take(3)->get();
+        #dd($clients);
 
-        return view('dashbord.views', compact('livreurs','typeVehicules','livreurs','vehicules','admins','tarifs'));
+        return view('dashbord.views', compact('livreurs','typeVehicules','livreurs','vehicules','admins','tarifs','clients'));
     }
     public function dashboard()
     {
@@ -130,7 +132,7 @@ class AdminController extends Controller
     $today = User::whereDate('created_at', today())->count();
     $yesterday = User::whereDate('created_at', today()->subDay())->count();
     $usersPourcentage = $yesterday > 0 ? round((($today - $yesterday) / $yesterday) * 100) : 0;
-        return view('dashboard', 
+        return view('dashboard',
          [
         'livraisonsThisWeek' => $thisWeek,
         'livraisonsPourcentage' => $livraisonsPourcentage,
@@ -140,7 +142,7 @@ class AdminController extends Controller
         'typeVehicules'=>$typeVehicules,
         'vehicules'=>$vehicules,
         'livraisons'=>$livraisons,
-        'tarifs'=>$tarifs,  
+        'tarifs'=>$tarifs,
         'livreur_vehicules'=>$livreur_vehicules,
          ]);
     }

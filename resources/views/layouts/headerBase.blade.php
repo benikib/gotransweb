@@ -79,23 +79,23 @@
   <!-- Modal de confirmation de déconnexion -->
 <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
+    <div class="modal-content border-0 shadow-lg rounded-4">
 
-      <div class="modal-header">
-        <h5 class="modal-title" id="logoutModalLabel">Confirmer la déconnexion</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      <div class="modal-header bg-danger text-white rounded-top-4">
+        <h5 class="modal-title" id="logoutModalLabel">
+          <i class="bi bi-box-arrow-right me-2"></i>
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
 
-      <div class="modal-body">
-        Êtes-vous sûr de vouloir vous déconnecter ?
+      <div class="modal-body text-center fs-5 py-4">
+        <p class="mb-0">Êtes-vous sûr de vouloir vous déconnecter ?</p>
       </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-
+      <div class="modal-footer justify-content-center border-0 pb-4">
         <form method="POST" action="{{ route('logout') }}">
           @csrf
-          <button type="submit" class="btn btn-danger">Se déconnecter</button>
+          <button type="submit" class="btn btn-danger px-4">Confirmer</button>
         </form>
       </div>
 

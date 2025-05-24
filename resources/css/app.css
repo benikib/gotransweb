@@ -2,3 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+#password-criteria li.valid {
+    color: green;
+}
+#password-criteria li.invalid {
+    color: red;
+}
+
+

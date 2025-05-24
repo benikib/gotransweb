@@ -85,67 +85,121 @@
 
         <!-- Main Content -->
         <div class="row">
-            <!-- Types de Véhicules -->
-            <div class="col-lg-8">
-                <div class="card">
+    <!-- Types de Véhicules -->
+    <div class="col-12"> <!-- <-- MODIFICATION ICI -->
+        <div class="card">
+            <div class="card-header p-3 pb-2">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">Types de Véhicules</h6>
+                    <div>
+                        <button type="button" class="btn btn-sm bg-gradient-dark mb-0 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <i class="material-symbols-rounded text-sm">add</i>&nbsp;Ajouter
+                        </button>
+                        <a href="{{ route('typeVehicule.index') }}" class="btn btn-sm btn-outline-dark mb-0">
+                            <i class="material-symbols-rounded text-sm">list</i>&nbsp;Tout voir
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-3">
+                <div class="row">
+                    @forelse ($typeVehicules as $type)
+                        <div class="col-md-4 p-2 mb-md-0 mb-3">
+                            <div class="card card-body border card-plain border-radius-lg d-flex flex-column h-100 hover-scale transition-all">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="icon icon-sm icon-shape bg-gradient-primary shadow text-center rounded-circle me-2">
+                                        <i class="material-symbols-rounded text-white opacity-10">directions_car</i>
+                                    </div>
+                                    <h6 class="mb-0">{{ $type->nom_type }}</h6>
+                                    <a class="btn btn-link btn-sm ms-auto text-dark px-1 mb-0"
+                                        data-bs-toggle="tooltip" href="{{ route('typeVehicule.edit', $type->id) }}"
+                                        data-bs-placement="top" title="Modifier">
+                                        <i class="material-symbols-rounded text-sm">edit</i>
+                                    </a>
+                                </div>
+                                <div class="mt-auto pt-2">
+                                    <div class="d-flex justify-content-between border-bottom py-1">
+                                        <span class="text-xs">Tarif initial:</span>
+                                        <span class="text-xs font-weight-bold">{{ $type->kilo_initiale * $type->tarif->prix_tarif ?? 1 }} $</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between border-bottom py-1">
+                                        <span class="text-xs">Tarif final:</span>
+                                        <span class="text-xs font-weight-bold">{{ $type->kilo_final * $type->tarif->prix_tarif ?? 1 }} $</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between pt-1">
+                                        <span class="text-xs">Tarif/kilo:</span>
+                                        <span class="text-xs font-weight-bold">{{ $type->tarif->prix_tarif ?? 1 }}$ / {{ $type->tarif->kilo_tarif }}km</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="col-12 text-center py-4">
+                            <i class="material-symbols-rounded text-secondary opacity-10" style="font-size: 3rem">directions_car_off</i>
+                            <p class="text-sm text-secondary mt-2">Aucun type de véhicule enregistré</p>
+                        </div>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="row mt-4">
+            
+             <!-- Clients -->
+            <div class="col-lg-6">
+                <div class="card h-100">
                     <div class="card-header p-3 pb-2">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="mb-0">Types de Véhicules</h6>
+                            <h6 class="mb-0">Clients</h6>
                             <div>
-                                <button type="button" class="btn btn-sm bg-gradient-dark mb-0 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    <i class="material-symbols-rounded text-sm">add</i>&nbsp;Ajouter
+                                <button data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                    class="btn btn-sm btn-outline-primary mb-0 me-2">
+                                    <i class="material-symbols-rounded text-sm">add</i> Ajouter
                                 </button>
-                                <a href="{{ route('typeVehicule.index') }}" class="btn btn-sm btn-outline-dark mb-0">
-                                    <i class="material-symbols-rounded text-sm">list</i>&nbsp;Tout voir
+                                <a href="{{ route('users.index') }}" class="btn btn-sm btn-outline-primary mb-0">
+                                    <i class="material-symbols-rounded text-sm">list</i> Tout voir
                                 </a>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body p-3">
-                        <div class="row">
-                            @forelse ($typeVehicules as $type)
-                                <div class="col-md-4 p-2 mb-md-0 mb-3">
-                                    <div class="card card-body border card-plain border-radius-lg d-flex flex-column h-100 hover-scale transition-all">
-                                        <div class="d-flex align-items-center mb-2">
-                                            <div class="icon icon-sm icon-shape bg-gradient-primary shadow text-center rounded-circle me-2">
-                                                <i class="material-symbols-rounded text-white opacity-10">directions_car</i>
-                                            </div>
-                                            <h6 class="mb-0">{{ $type->nom_type }}</h6>
-                                            <a class="btn btn-link btn-sm ms-auto text-dark px-1 mb-0"
-                                                data-bs-toggle="tooltip" href="{{ route('typeVehicule.edit', $type->id) }}"
-                                                data-bs-placement="top" title="Modifier">
-                                                <i class="material-symbols-rounded text-sm">edit</i>
-                                            </a>
-                                        </div>
-                                        <div class="mt-auto pt-2">
-                                            <div class="d-flex justify-content-between border-bottom py-1">
-                                                <span class="text-xs">Tarif initial:</span>
-                                                <span class="text-xs font-weight-bold">{{ $type->kilo_initiale * $type->tarif->prix_tarif ?? 1 }} $</span>
-                                            </div>
-                                            <div class="d-flex justify-content-between border-bottom py-1">
-                                                <span class="text-xs">Tarif final:</span>
-                                                <span class="text-xs font-weight-bold">{{ $type->kilo_final * $type->tarif->prix_tarif ?? 1 }} $</span>
-                                            </div>
-                                            <div class="d-flex justify-content-between pt-1">
-                                                <span class="text-xs">Tarif/kilo:</span>
-                                                <span class="text-xs font-weight-bold">{{ $type->tarif->prix_tarif ?? 1 }}$ / {{ $type->tarif->kilo_tarif }}km</span>
-                                            </div>
+                    <div class="card-body p-3 pt-0">
+                        <ul class="list-group">
+                            @forelse ($clients as $client)
+                                <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2 hover-scale transition-all">
+                                    <div>
+                                         <span class="avatar-initial rounded-circle d-inline-flex align-items-center justify-content-center bg-gradient-warning text-white shadow me-3" style="width: 40px; height: 40px;">
+                                        <span class="avatar-initial rounded-circle bg-gradient-warning shadow">
+                                            {{ substr($client->user->name, 0, 1) }}
+                                        </span>
+                                    </div>
+                                    <div class="d-flex flex-column flex-grow-1">
+                                        <h6 class="mb-1 text-sm font-weight-bold">{{ $client->user->name }}</h6>
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <span class="badge badge-sm bg-gradient-secondary">{{ $client->user->email }}</span>
+                                            <span class="badge badge-sm bg-gradient-info">{{ $client->user->number_phone }}</span>
                                         </div>
                                     </div>
-                                </div>
+                                    <a href="{{ route('users.edit', $client->id) }}"
+                                        class="btn btn-link text-dark text-sm mb-0 px-0">
+                                        <i class="material-symbols-rounded text-lg">edit</i>
+                                    </a>
+                                </li>
                             @empty
-                                <div class="col-12 text-center py-4">
-                                    <i class="material-symbols-rounded text-secondary opacity-10" style="font-size: 3rem">directions_car_off</i>
-                                    <p class="text-sm text-secondary mt-2">Aucun type de véhicule enregistré</p>
-                                </div>
+                                <li class="list-group-item border-0 text-center py-4">
+                                    <i class="material-symbols-rounded text-secondary opacity-10" style="font-size: 3rem">person_off</i>
+                                    <p class="text-sm text-secondary mt-2">Aucun livreur enregistré</p>
+                                </li>
                             @endforelse
-                        </div>
+                        </ul>
                     </div>
                 </div>
             </div>
 
             <!-- Livreurs -->
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="card h-100">
                     <div class="card-header p-3 pb-2">
                         <div class="d-flex justify-content-between align-items-center">
@@ -172,7 +226,7 @@
                                         </span>
                                     </div>
                                     <div class="d-flex flex-column flex-grow-1">
-                                        <h6 class="mb-1 text-sm font-weight-bold">{{ $livreur->user->nom }}</h6>
+                                        <h6 class="mb-1 text-sm font-weight-bold">{{ $livreur->user->name }}</h6>
                                         <div class="d-flex flex-wrap gap-2">
                                             <span class="badge badge-sm bg-gradient-secondary">{{ $livreur->user->email }}</span>
                                             <span class="badge badge-sm bg-gradient-info">{{ $livreur->user->number_phone }}</span>
@@ -193,7 +247,16 @@
                     </div>
                 </div>
             </div>
-        </div>
+    </div>
+
+
+
+
+
+
+
+
+
 
         <div class="row mt-4">
             <!-- Véhicules -->
