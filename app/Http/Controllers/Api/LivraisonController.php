@@ -34,7 +34,7 @@ class LivraisonController extends Controller
 
     public function getLivraisonLivreur($idLivreur)
     {
-        $livraisons = Livraison::with(['Vehicule.Livreur'])->get();
+       // $livraisons = Livraison::with(['Vehicule.Livreur'])->get();
         return response()->json(['message' => 'Livraison annulee successfully']);
 
         
