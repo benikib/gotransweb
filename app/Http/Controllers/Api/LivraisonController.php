@@ -102,9 +102,9 @@ class LivraisonController extends Controller
 
         ->where('livreurs.id', '=', $idLivreur) // ← condition ici
         ->select(
-            'livraisons.id as id_livraison ',
-            'livraisons.date as date ',
-            'livraisons.status as status ',
+            'livraisons.id as id_livraison',
+            'livraisons.date as date',
+            'livraisons.status as status',
             'v.id as vehicule_id',
             'v.immatriculation as immatriculation',
             'livreurs.id as livreur_id',
