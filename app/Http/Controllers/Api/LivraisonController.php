@@ -11,6 +11,7 @@ use App\Http\Resources\ExpeditionResource;
 use Illuminate\Http\Request;
 use App\Models\Vehicule;
 use App\Models\Livreur;
+use Illuminate\Support\Facades\DB;
 
 class LivraisonController extends Controller
 {
@@ -34,22 +35,94 @@ class LivraisonController extends Controller
         return LivraisonResource::collection($livraison);
     }
 
-    public function getLivraisonLivreur($idLivreur)
+
+
+
+    public function showLivraisonLivreur($idLivreur,$idLivraison)
     {
-            $livraisons = DB::table('livraisons')
-                ->leftJoin('vehicules', 'livraisons.vehicule_id', '=', 'vehicules.id')
-               
-                ->select(
-                    'livraisons.*'
-                )
-                ->get();
-        return response()->json(['message' => 'Livraison annulee successfully', 'data' => $livraisons]);
-
-        
-        
-
+        $livraisons = DB::table('livraisons')
+            ->leftJoin('vehicules as v', 'livraisons.vehicule_id', '=', 'v.id')
+            ->leftJoin('livreur__vehicules as lv', 'lv.vehicule_id', '=', 'v.id')
+            ->leftJoin('livreurs', 'lv.livreur_id', '=', 'livreurs.id')
+            ->leftJoin('expeditions', 'expeditions.id', '=', 'livraisons.expedition_id')
+            ->leftJoin('destinations', 'destinations.id', '=', 'livraisons.destination_id')
     
+            ->leftJoin('clients as exp', 'exp.id', '=', 'livraisons.client_expediteur_id')
+            ->leftJoin('clients as dest', 'dest.id', '=', 'livraisons.client_destinateur_id')
+        
+            // Joindre les utilisateurs liés aux clients
+            ->leftJoin('users as user_exp', 'user_exp.id', '=', 'exp.user_id')
+            ->leftJoin('users as user_dest', 'user_dest.id', '=', 'dest.user_id')
+            ->leftJoin('users as user_livreur', 'user_livreur.id', '=', 'livreurs.user_id')
+    
+            ->where('livreurs.id', '=', $idLivreur)
+            ->where('livraison.id', '=', $idLivraison) // ← condition ici
+            ->select(
+                'livraisons.id as id_livraison ',
+                'v.id as vehicule_id',
+                'v.immatriculation as immatriculation',
+                'livreurs.id as livreur_id',
+    
+                'user_exp.name as nom_expediteur',
+                'user_dest.name as nom_destinateur',
+                'user_livreur.name as nom_livreur',
+              
+                'expeditions.*',
+               
+                'destinations.*'
+            )
+            ->get();
+    
+        return response()->json([
+            'message' => 'Livraisons du livreur récupérées avec succès',
+            'data' => $livraisons
+        ]);
     }
+
+
+
+
+    public function getLivraisonLivreur($idLivreur)
+{
+    $livraisons = DB::table('livraisons')
+        ->leftJoin('vehicules as v', 'livraisons.vehicule_id', '=', 'v.id')
+        ->leftJoin('livreur__vehicules as lv', 'lv.vehicule_id', '=', 'v.id')
+        ->leftJoin('livreurs', 'lv.livreur_id', '=', 'livreurs.id')
+        ->leftJoin('expeditions', 'expeditions.id', '=', 'livraisons.expedition_id')
+        ->leftJoin('destinations', 'destinations.id', '=', 'livraisons.destination_id')
+
+        ->leftJoin('clients as exp', 'exp.id', '=', 'livraisons.client_expediteur_id')
+        ->leftJoin('clients as dest', 'dest.id', '=', 'livraisons.client_destinateur_id')
+    
+        // Joindre les utilisateurs liés aux clients
+        ->leftJoin('users as user_exp', 'user_exp.id', '=', 'exp.user_id')
+        ->leftJoin('users as user_dest', 'user_dest.id', '=', 'dest.user_id')
+        ->leftJoin('users as user_livreur', 'user_livreur.id', '=', 'livreurs.user_id')
+       
+
+        ->where('livreurs.id', '=', $idLivreur) // ← condition ici
+        ->select(
+            'livraisons.id as id_livraison ',
+            'v.id as vehicule_id',
+            'v.immatriculation as immatriculation',
+            'livreurs.id as livreur_id',
+
+            'user_exp.name as nom_expediteur',
+            'user_dest.name as nom_destinateur',
+            'user_livreur.name as nom_livreur',
+          
+            'expeditions.id as exp',
+           
+            'destinations.id as des'
+        )
+        ->get();
+
+    return response()->json([
+        'message' => 'Livraisons du livreur récupérées avec succès',
+        'data' => $livraisons
+    ]);
+}
+
 
     /**
      * Store a newly created resource in storage.
