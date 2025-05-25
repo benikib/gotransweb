@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/typeVehicule', [AuthController::class, 'getTypeVehicule']);
      Route::get('user/profile', [UserController::class, 'profile']);
     Route::put('user/profile', [UserController::class, 'changePassword']);
+    Route::put('user/clients', [UserController::class, 'getClients']);
 
     // Mot de passe
     Route::post('user/change-password', [UserController::class, 'changePassword']);
