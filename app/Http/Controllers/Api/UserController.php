@@ -97,7 +97,8 @@ class UserController extends Controller
         $clients = Client::with('user')->get();// relation directe
 
         return response()->json([
-            'message' => 'Clients de l’utilisateur connecté'
+            'message' => 'Clients de l’utilisateur connecté',
+            'data' =>Client::all(),
         ]);
         
     }
