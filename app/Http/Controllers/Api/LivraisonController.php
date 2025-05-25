@@ -67,9 +67,12 @@ class LivraisonController extends Controller
                 'user_dest.name as nom_destinateur',
                 'user_livreur.name as nom_livreur',
               
-                'expeditions.*',
+                'expeditions.adresse as adresse_expedition',
+                'expeditions.tel_expedition as tel_expedition',
                
-                'destinations.*'
+                'destinations.adresse as adresse_destination',
+                'destinations.tel_destination as tel_destination',
+
             )
             ->get();
     
