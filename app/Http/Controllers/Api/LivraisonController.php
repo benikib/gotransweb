@@ -154,7 +154,7 @@ class LivraisonController extends Controller
 
           $livraison = Livraison::create([
               'date' => $request->input('date'),
-              'status' => $request->input('status'),
+              'status' => "en_attente",
               'code' => $request->input('code'),
               'montant' => $request->input('montant'),
               'client_expediteur_id' => $request->input('client_expediteur_id'),

@@ -5,11 +5,11 @@
 @php
 function getBadgeClass($status) {
           return 'badge badge-sm ' . match ($status) {
-            'livree'     => 'bg-gradient-success',
+            'terminee'     => 'bg-gradient-success',
             'en_attente' => 'bg-gradient-warning',
             'annulee'    => 'bg-gradient-danger',
             'en_cours'   => 'bg-gradient-info',
-            default      => 'bg-gradient-secondary', // couleur par défaut
+            'validee'    => 'bg-gradient-secondary', // couleur par défaut
         };
 
     }
