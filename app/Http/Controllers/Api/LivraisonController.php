@@ -9,6 +9,8 @@ use App\Models\Destination;
 use App\Http\Resources\LivraisonResource;
 use App\Http\Resources\ExpeditionResource;
 use Illuminate\Http\Request;
+use App\Models\Vehicule;
+use App\Models\Livreur;
 
 class LivraisonController extends Controller
 {
