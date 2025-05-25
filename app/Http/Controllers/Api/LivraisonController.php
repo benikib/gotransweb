@@ -36,7 +36,13 @@ class LivraisonController extends Controller
 
     public function getLivraisonLivreur($idLivreur)
     {
-        $livraisons = Livraison::with(['vehicule.livreur'])->get();
+            $livraisons = DB::table('livraisons')
+                ->leftJoin('vehicules', 'livraisons.vehicule_id', '=', 'vehicules.id')
+               
+                ->select(
+                    'livraisons.*'
+                )
+                ->get();
         return response()->json(['message' => 'Livraison annulee successfully', 'data' => $livraisons]);
 
         
