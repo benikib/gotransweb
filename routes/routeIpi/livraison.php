@@ -18,9 +18,9 @@ Route::prefix('livraison')->name("livraison.")->group(function () {
    Route::post('/store', [LivraisonController::class, 'store'])->name('store');
    Route::get('/cancel/{id}', [LivraisonController::class, 'cancel'])->name('cancel');
 
-   Route::get('/en_cours/{id}/{montant}/{poid}', [LivraisonController::class, 'en_cours'])->name('en_cours');
+   Route::post('/en_cours', [LivraisonController::class, 'en_cours'])->name('en_cours');
 
-   Route::get('/terminer/{id}/{codeLivraison}', [LivraisonController::class, 'terminer'])->name('terminer');
+   Route::post('/terminer', [LivraisonController::class, 'terminer'])->name('terminer');
 
 });
 

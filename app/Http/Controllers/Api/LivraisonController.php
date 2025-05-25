@@ -219,33 +219,51 @@ class LivraisonController extends Controller
         return response()->json(['message' => 'Livraison annulee successfully']);
     }
 
-     public function en_cours(string $id,string $montant,string $poid)
+     public function en_cours(Request $request)
     {
         // confirmer les information du livreur poid et montant recu et changer le status en en_cours
-       $livraison = Livraison::find($id);
+       $livraison = Livraison::find($request->input("id"));
      
-         $livraison->update([
+      $livraison->update([
 
             'status' => "en_cours",
-            'montant' => "5555555",
-            'poid' => "44454",
+            'montant' =>$request->input("montant"),
+             'kilo_total' =>$request->input("poid"),
           
-        ]);
+         ]);
 
-        return response()->json(['message' => 'Livraison ok ']);
+        return response()->json(['message' => 'Livraison ok ','data'=>[$request->input("id"),$request->input("montant"),
+        $request->input("poid")
+        ]]);
     }
 
-    public function terminer(string $id,string $codeLivraison)
+    public function terminer(Request $request)
     {
-        // verifiction si le code correspond avant de passer la status a terminee
-       $livraison = Livraison::find($id);
-     
-         $livraison->update([
-
-            'status' => "terminee",
-          
+        // Recherche de la livraison
+        $livraison = Livraison::find($request->input("id"));
+    
+        // Vérifier si la livraison existe
+        if (!$livraison) {
+            return response()->json([
+                'message' => 'Livraison introuvable'
+            ], 404);
+        }
+    
+        // Vérifier que le code correspond
+        if ($livraison->code !== $request->input("codeLivraison")) {
+            return response()->json([
+                'message' => 'Code de livraison incorrect'
+            ], 400);
+        }
+    
+        // Mettre à jour le statut
+        $livraison->update([
+            'status' => 'terminee',
         ]);
-
-        return response()->json(['message' => 'Livraison ok ']);
+    
+        return response()->json([
+            'message' => 'Livraison terminée avec succès'
+        ], 200);
     }
+    
 }
