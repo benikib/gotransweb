@@ -98,7 +98,7 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'Clients de l’utilisateur connecté',
-            'data' =>Client::all(),
+            'data' => ClientResource::collection($clients),
         ]);
         
     }
