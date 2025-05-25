@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('livraison')->name("livraison.")->group(function () {
-
+   
+   Route::get('getLivraisonLivreur/{idLivreur}', [LivraisonController::class, 'getLivraisonLivreur'])->name('getLivraisonLivreur');
    Route::get('getLivraisonExpediteur/{idClient}', [LivraisonController::class, 'getLivraisonExpediteur'])->name('getLivraisonExpediteur');
    Route::get('getLivraisonDestinateur/{idClient}', [LivraisonController::class, 'getLivraisonDestinateur'])->name('getLivraisonDestinateur');
    Route::get('show/{id}', [LivraisonController::class, 'store'])->name('store');

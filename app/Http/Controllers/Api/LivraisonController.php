@@ -32,6 +32,17 @@ class LivraisonController extends Controller
         return LivraisonResource::collection($livraison);
     }
 
+    public function getLivraisonLivreur($idLivreur)
+    {
+        $livraisons = Livraison::with(['Vehicule.Livreur'])->get();
+        return response()->json(['message' => 'Livraison annulee successfully', 'data' => $livraisons]);
+
+        
+        
+
+    
+    }
+
     /**
      * Store a newly created resource in storage.
      */
