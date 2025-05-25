@@ -56,7 +56,7 @@ class LivraisonController extends Controller
             ->leftJoin('users as user_livreur', 'user_livreur.id', '=', 'livreurs.user_id')
     
             ->where('livreurs.id', '=', $idLivreur)
-            ->where('livraison.id', '=', $idLivraison) // ← condition ici
+            ->where('livraisonS.id', '=', $idLivraison) // ← condition ici
             ->select(
                 'livraisons.id as id_livraison ',
                 'v.id as vehicule_id',
