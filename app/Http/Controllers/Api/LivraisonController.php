@@ -219,13 +219,30 @@ class LivraisonController extends Controller
         return response()->json(['message' => 'Livraison annulee successfully']);
     }
 
-     public function finish(string $id)
+     public function en_cours(string $id,string $montant,string $poid)
     {
+        // confirmer les information du livreur poid et montant recu et changer le status en en_cours
        $livraison = Livraison::find($id);
      
          $livraison->update([
 
-            'status' => "validee",
+            'status' => "en_cours",
+            'montant' => "5555555",
+            'poid' => "44454",
+          
+        ]);
+
+        return response()->json(['message' => 'Livraison ok ']);
+    }
+
+    public function terminer(string $id,string $codeLivraison)
+    {
+        // verifiction si le code correspond avant de passer la status a terminee
+       $livraison = Livraison::find($id);
+     
+         $livraison->update([
+
+            'status' => "terminee",
           
         ]);
 

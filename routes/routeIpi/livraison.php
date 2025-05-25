@@ -17,7 +17,10 @@ Route::prefix('livraison')->name("livraison.")->group(function () {
    Route::post('/update', [LivraisonController::class, 'update'])->name('update');
    Route::post('/store', [LivraisonController::class, 'store'])->name('store');
    Route::get('/cancel/{id}', [LivraisonController::class, 'cancel'])->name('cancel');
-   Route::get('/finish/{id}', [LivraisonController::class, 'finish'])->name('finish');
+
+   Route::get('/en_cours/{id}/{montant}/{poid}', [LivraisonController::class, 'en_cours'])->name('en_cours');
+
+   Route::get('/terminer/{id}/{codeLivraison}', [LivraisonController::class, 'terminer'])->name('terminer');
 
 });
 
