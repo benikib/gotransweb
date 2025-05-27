@@ -60,7 +60,8 @@ class LivraisonController extends Controller
 
         $destination =  Destination::create([
             'adresse'=> $request->input("adresse_destination"),
-            'tel_expedition'=> $request->input("tel_destination"),
+          
+            'tel_destination'=> $request->input("tel_destination"),
             'longitude'=> 458.7,
             'latitude'=> 456.7
         ]);
@@ -69,7 +70,7 @@ class LivraisonController extends Controller
 
         $livraison = Livraison::create([
             'date' => $request->input('date'),
-            'status' => $request->input('status'),
+            'status' => "en_attente",
             'code' => $request->input('code'),
             'montant' => $request->input('montant'),
             'client_expediteur_id' => $request->input('client_expediteur_id'),
@@ -239,7 +240,7 @@ class LivraisonController extends Controller
 
             $livraison->update([
                 'vehicule_id' => $request->input('vehicule_id'),
-                'status' => "en_cours",
+                'status' => "validee",
             ]);
             return redirect()->route('livraison.index')->with('success', 'Livraison updated successfully');
         }
