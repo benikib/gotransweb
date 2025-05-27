@@ -23,16 +23,21 @@ class LivraisonController extends Controller
 
     public function getLivraisonExpediteur($idClient)
     {
-        $livraison = Livraison::where('client_expediteur_id', $idClient)->get();
-        
-        return LivraisonResource::collection($livraison);
+        //ici j'affiche les informations du livraison en fonction de l'expediteur
+        $livraisons = Livraison::with(['Destination', 'Expedition','expediteur.user','destinateur.user'
+        ,'Vehicule.livreurs.vehicule','Vehicule.livreurs.livreur.user'])->where('client_expediteur_id', $idClient)->get();
+
+        return LivraisonResource::collection($livraisons);
     }
 
     public function getLivraisonDestinateur($idClient)
     {
-        $livraison = Livraison::where('client_destinateur_id', $idClient)->get();
+     //ici j'affiche les informations du livraison en fonction du destinateur
+        $livraisons = Livraison::with(['Destination', 'Expedition','expediteur.user','destinateur.user'
+        ,'Vehicule.livreurs.vehicule','Vehicule.livreurs.livreur.user'])->where('client_destinateur_id', $idClient)->get();
+
         
-        return LivraisonResource::collection($livraison);
+        return LivraisonResource::collection($livraisons);
     }
 
 
