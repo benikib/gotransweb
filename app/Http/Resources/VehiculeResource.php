@@ -14,6 +14,12 @@ class VehiculeResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return array_merge(
+            parent::toArray($request),  // toutes les données par défaut du modèle Livraison
+            [
+               
+                'type_vehicule' => new TypeVehiculeResource($this->whenLoaded('type_vehicule'))
+            ]
+        );
     }
 }
