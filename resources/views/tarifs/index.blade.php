@@ -28,7 +28,7 @@
                 <h6 class="text-white text-capitalize m-0">Tarifs</h6>
 
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrops">
                   Ajouter  Tarif du Type Vehicule
                 </button>
               </div>

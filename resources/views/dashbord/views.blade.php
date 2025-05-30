@@ -251,13 +251,6 @@
 
 
 
-
-
-
-
-
-
-
         <div class="row mt-4">
             <!-- Véhicules -->
             <div class="col-md-7">
@@ -395,7 +388,81 @@
             </div>
         </div>
     </div>
-
+    <div class="row mt-4">  
+            <!-- Tarifs -->
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-header p-3 pb-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">Tarifs</h6>
+                            <div>
+                                <button data-bs-toggle="modal" data-bs-target="#staticBackdrops" class="btn btn-sm btn-outline-primary mb-0 me-2">
+                                    <i class="material-symbols-rounded text-sm">add</i> Ajouter
+                                </button>
+                                <a href="{{ route('tarifs.index') }}" class="btn btn-sm btn-outline-primary mb-0">
+                                    <i class="material-symbols-rounded text-sm">list</i> Tout voir
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-3 pt-0">
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <!-- <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">N°</th> -->
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Tarif Kilo</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Prix par unitiale</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Modifier</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($tarifs as $tarif)
+                                        <tr class="hover-scale transition-all">
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">{{ $tarif ->kilo_tarif }} kilo</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">{{ $tarif ->kilo_tarif }} kilo</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-start">
+                                                <a href="{{ route('tarifs.edit', $tarif->id) }}" class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="tooltip" title="Modifier">
+                                                    <i class="material-symbols-rounded text-sm">edit</i>
+                                                </a>
+                                                {{-- <form action="{{ route('tarifs.destroy', $tarif->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Confirmer la suppression ?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-link text-danger px-2 mb-0" data-bs-toggle="tooltip" title="Supprimer">
+                                                        <i class="material-symbols-rounded text-sm">delete</i>
+                                                    </button>
+                                                </form> --}}
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="4" class="text-center py-4">
+                                                <i class="material-symbols-rounded text-secondary opacity-10" style="font-size: 3rem">car_crash</i>
+                                                <p class="text-sm text-secondary mt-2">Aucun véhicule enregistré</p>
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+   </div>
+   <!-- Modal -->
+    @include('tarifs.create')
     @include('users.create')
     @include('typeVehicule.create')
     @include('vehicule.create')

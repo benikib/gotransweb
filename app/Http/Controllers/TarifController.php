@@ -65,11 +65,15 @@ class TarifController extends Controller
             'kilo_tarif' => 'required|integer',
             'prix_tarif' => 'required|integer',
         ]);
-
-        $tarif->update($request->all());
-
-        return redirect()->route('tarifs.index')->with('success', 'Tarif updated successfully.');
+    
+        $tarif->update([
+            'kilo_tarif' => $request->input('kilo_tarif'),
+            'prix_tarif' => $request->input('prix_tarif'),
+        ]);
+    
+        return redirect()->route('tarifs.index')->with('success', 'Tarif modifié avec succès.');
     }
+    
 
     /**
      * Remove the specified resource from storage.
