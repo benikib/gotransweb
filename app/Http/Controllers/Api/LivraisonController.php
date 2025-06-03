@@ -99,16 +99,16 @@ class LivraisonController extends Controller
           $expedition =  Expedition::create([
               'adresse'=> $request->input("adresse_expedition"),
               'tel_expedition'=> $request->input("tel_expedition"),
-              'longitude'=> 456.77,
-              'latitude'=> 456.7
+              'longitude'=> $request->input("longitude_expedition"),
+              'latitude'=> $request->input("latitude_expedition")
           ]);
 
           $destination =  Destination::create([
               'adresse'=> $request->input("adresse_destination"),
               'nom_destination'=> $request->input("nom_destination"),
               'tel_destinations'=> $request->input("tel_destination"),
-              'longitude'=> 458.7,
-              'latitude'=> 456.7
+              'longitude'=> $request->input("longitude_destination"),
+              'latitude'=> $request->input("latitude_destination")
           ]);
         
 
