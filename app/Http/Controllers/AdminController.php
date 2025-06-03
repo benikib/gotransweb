@@ -113,15 +113,16 @@ class AdminController extends Controller
     }
     public function dashboard()
     {
-         $livreurs=Livreur::all();
+        $livreurs=Livreur::all();
         $typeVehicules = Type_vehicule::all();
         $vehicules = Vehicule::all();
         $admins = Admin::all();
         $tarifs = Tarif::all();
         $users = User::all();
         $livraisons = Livraison::all();
-         $now = Carbon::now();
-         $livreur_vehicules = Livreur_Vehicule::all();
+        $now = Carbon::now();
+        $livreur_vehicules = Livreur_Vehicule::all();
+        $client = Client::all()->count();
 
     // Livraisons
     $thisWeek = Livraison::whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])->count();
@@ -144,6 +145,7 @@ class AdminController extends Controller
         'livraisons'=>$livraisons,
         'tarifs'=>$tarifs,
         'livreur_vehicules'=>$livreur_vehicules,
+        'client'=>$client
          ]);
     }
 }

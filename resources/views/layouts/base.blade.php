@@ -7,6 +7,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="{{asset('assets/img/apple-icon.png')}}">
   <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
+  <style>
+    .card-custom {
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        border-radius: 1rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        animation: fadeIn 0.6s ease-in-out;
+    }
+
+    .card-custom:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+        color: #6c757d;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #343a40;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .hover-scale {
+  transition: transform 0.2s ease;
+}
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+</style>
   <title>
     @yield('title')
   </title>

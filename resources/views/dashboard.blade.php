@@ -23,6 +23,7 @@
     </div>
 @endif
 
+
 @php
 function getBadgeClass($status) {
     return 'badge badge-sm ' . match ($status) {
@@ -39,141 +40,63 @@ function getBadgeClass($status) {
 <div class="container-fluid py-4">
     <!-- Page Header with Breadcrumb -->
 
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="page-header min-height-300 border-radius-xl" style="background-image: url('https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');>
-                <span class="mask bg-gradient-dark opacity-6"></span>
-            </div>
-            <div class="card card-body mx-3 mx-md-4 mt-n6">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h3 class="mb-0">Tableau de bord</h3>
-                        <p class="text-sm text-muted mb-0">
-                            Statistiques et gestion des livraisons
-                        </p>
-                    </div>
-                    <div>
-
-                        <a href="{{ route('dashboard') }}" class="btn btn-sm btn-outline-primary">
-    <i class="material-symbols-rounded">refresh</i> Actualiser
-</a>
-
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="row mb-2">
+  <div class="col-12">
+    <div class="page-header border-radius-xl py-2 bg-light">
+      <!-- En-tête simplifié sans image ni masque -->
     </div>
+    <div class="card card-body mx-2 mx-md-3 mt-n3">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h4 class="mb-1">Tableau de bord</h4>
+          <p class="text-sm text-muted mb-0">
+            Statistiques et gestion des livraisons
+          </p>
+        </div>
+        <!-- <div>
+          <a href="{{ route('dashboard') }}" class="btn btn-sm btn-outline-primary">
+            <i class="material-symbols-rounded">refresh</i> Actualiser
+          </a>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
 
     <!-- Stats Cards - Improved layout and colors -->
     <div class="row g-4 mb-4">
-        <!-- Total Livraisons -->
-        <div class="col-xl-3 col-sm-6">
-            <div class="card card-stats h-100">
-                <div class="card-header p-3 pt-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="icon icon-lg icon-shape bg-gradient-primary shadow text-center border-radius-xl mt-n4 position-absolute">
-                            <i class="material-symbols-rounded text-white">local_shipping</i>
-                        </div>
-                        <div class="text-end pt-1 ms-auto">
-                            <p class="text-sm mb-0 text-capitalize">Livraisons cette semaine</p>
-                            <h4 class="mb-0">{{ $livraisonsThisWeek }}</h4>
-                        </div>
-                    </div>
-                </div>
-                <hr class="dark horizontal my-0">
-                <div class="card-footer p-3">
-                    <p class="mb-0 text-sm">
-                        <span class="text-{{ $livraisonsPourcentage >= 0 ? 'success' : 'danger' }} font-weight-bold">
-                            <i class="material-symbols-rounded text-xs">trending_{{ $livraisonsPourcentage >= 0 ? 'up' : 'down' }}</i>
-                            {{ $livraisonsPourcentage >= 0 ? '+' : '' }}{{ $livraisonsPourcentage }}%
-                        </span>
-                        vs semaine dernière
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Utilisateurs aujourd'hui -->
-        <div class="col-xl-3 col-sm-6">
-            <div class="card card-stats h-100">
-                <div class="card-header p-3 pt-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="icon icon-lg icon-shape bg-gradient-info shadow text-center border-radius-xl mt-n4 position-absolute">
-                            <i class="material-symbols-rounded text-white">person</i>
-                        </div>
-                        <div class="text-end pt-1 ms-auto">
-                            <p class="text-sm mb-0 text-capitalize">Utilisateurs aujourd'hui</p>
-                            <h4 class="mb-0">{{ $usersToday }}</h4>
-                        </div>
-                    </div>
-                </div>
-                <hr class="dark horizontal my-0">
-                <div class="card-footer p-3">
-                    <p class="mb-0 text-sm">
-                        <span class="text-{{ $usersPourcentage >= 0 ? 'success' : 'danger' }} font-weight-bold">
-                            <i class="material-symbols-rounded text-xs">trending_{{ $usersPourcentage >= 0 ? 'up' : 'down' }}</i>
-                            {{ $usersPourcentage >= 0 ? '+' : '' }}{{ $usersPourcentage }}%
-                        </span>
-                        vs hier
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Véhicules -->
-        <div class="col-xl-3 col-sm-6">
-            <div class="card card-stats h-100">
-                <div class="card-header p-3 pt-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="icon icon-lg icon-shape bg-gradient-warning shadow text-center border-radius-xl mt-n4 position-absolute">
-                            <i class="material-symbols-rounded text-white">directions_car</i>
-                        </div>
-                        <div class="text-end pt-1 ms-auto">
-                            <p class="text-sm mb-0 text-capitalize">Véhicules</p>
-                            <h4 class="mb-0">{{ count($vehicules) }}</h4>
-                        </div>
-                    </div>
-                </div>
-                <hr class="dark horizontal my-0">
-                <div class="card-footer p-3">
-                    <p class="mb-0 text-sm">
-                        <span class="text-danger font-weight-bold">
-                            <i class="material-symbols-rounded text-xs">trending_down</i>
-                            2%
-                        </span>
-                        vs hier
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Types de Véhicule -->
-        <div class="col-xl-3 col-sm-6">
-            <div class="card card-stats h-100">
-                <div class="card-header p-3 pt-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="icon icon-lg icon-shape bg-gradient-success shadow text-center border-radius-xl mt-n4 position-absolute">
-                            <i class="material-symbols-rounded text-white">category</i>
-                        </div>
-                        <div class="text-end pt-1 ms-auto">
-                            <p class="text-sm mb-0 text-capitalize">Types de véhicule</p>
-                            <h4 class="mb-0">{{ count($typeVehicules) }}</h4>
-                        </div>
-                    </div>
-                </div>
-                <hr class="dark horizontal my-0">
-                <div class="card-footer p-3">
-                    <p class="mb-0 text-sm">
-                        <span class="text-success font-weight-bold">
-                            <i class="material-symbols-rounded text-xs">trending_up</i>
-                            5%
-                        </span>
-                        vs hier
-                    </p>
-                </div>
+    <!-- Clients -->
+    <div class="col-xl-4 col-sm-6">
+        <div class="card card-custom h-100 text-center py-4">
+            <div class="card-body">
+                <p class="card-title">Clients enregistrés</p>
+                <div class="card-value">{{ $client }}</div>
             </div>
         </div>
     </div>
+
+    <!-- Véhicules -->
+    <div class="col-xl-4 col-sm-6">
+        <div class="card card-custom h-100 text-center py-4">
+            <div class="card-body">
+                <p class="card-title">Véhicules enregistrés</p>
+                <div class="card-value">{{ count($vehicules) }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Livreurs -->
+    <div class="col-xl-4 col-sm-6">
+        <div class="card card-custom h-100 text-center py-4">
+            <div class="card-body">
+                <p class="card-title">Livreurs enregistrés</p>
+                <div class="card-value">{{ count($livreurs) }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -407,6 +330,9 @@ function getBadgeClass($status) {
 
 <!-- Chart JS Scripts -->
 <script>
+     setInterval(() => {
+    location.reload();
+  }, 60000);
     // Bar chart
     var ctx1 = document.getElementById("chart-bars").getContext("2d");
     new Chart(ctx1, {
