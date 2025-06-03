@@ -107,9 +107,10 @@ class AdminController extends Controller
         $admins = Admin::latest()->take(3)->get();
         $tarifs = Tarif::latest()->take(3)->get();
         $clients = Client::latest()->take(3)->get();
-        #dd($tarifs);
+        $livreur_vehicules = Livreur_Vehicule::all();
+        #dd($clients);
 
-        return view('dashbord.views', compact('livreurs','typeVehicules','livreurs','vehicules','admins','tarifs','clients'));
+        return view('dashbord.views', compact('livreur_vehicules','livreurs','typeVehicules','livreurs','vehicules','admins','tarifs','clients'));
     }
     public function dashboard()
     {

@@ -146,7 +146,7 @@
 </div>
 
 
-<div class="row">
+<div class="row mt-4">
     {{-- Section Clients --}}
     <div class="col-12 mb-4">
         <div class="card shadow-sm">
@@ -176,7 +176,7 @@
                                         <h6 class="mb-0 text-sm">{{ $client->user->name }}</h6>
                                         <p class="text-xs text-muted mb-0">{{ $client->user->email }}</p>
                                     </div>
-                                    <a href="{{ route('users.edit', $client->id) }}" class="text-primary" title="Modifier">
+                                    <a href="{{ route('users.edit', $client->user_id) }}" class="text-primary" title="Modifier">
                                         <i class="material-symbols-rounded">edit</i>
                                     </a>
                                 </div>
@@ -225,7 +225,7 @@
                                         <h6 class="mb-0 text-sm">{{ $livreur->user->name }}</h6>
                                         <p class="text-xs text-muted mb-0">{{ $livreur->user->email }}</p>
                                     </div>
-                                    <a href="{{ route('users.edit', $livreur->id) }}" class="text-primary" title="Modifier">
+                                    <a href="{{ route('users.edit', $livreur->user_id) }}" class="text-primary" title="Modifier">
                                         <i class="material-symbols-rounded">edit</i>
                                     </a>
                                 </div>
@@ -253,216 +253,241 @@
 
 
 
-        <div class="row mt-4">
-            <!-- Véhicules -->
-            <div class="col-md-7">
-                <div class="card">
-                    <div class="card-header p-3 pb-2">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="mb-0">Véhicules</h6>
-                            <div>
-                                <button data-bs-toggle="modal" data-bs-target="#ajoutVehiculeModal"
-                                    class="btn btn-sm btn-outline-primary mb-0 me-2">
-                                    <i class="material-symbols-rounded text-sm">add</i> Ajouter
-                                </button>
-                                <a href="{{ route('vehicule.index') }}" class="btn btn-sm btn-outline-primary mb-0">
-                                    <i class="material-symbols-rounded text-sm">list</i> Tout voir
+<div class="row mt-4 gap-4">
+    <!-- Véhicules -->
+    <div class="col-12">
+    <div class="card shadow-sm">
+        <div class="card-header p-3 pb-2 border-bottom">
+            <div class="d-flex justify-content-between align-items-center">
+                <h6 class="mb-0 text-dark">Liste des Véhicules</h6>
+                <div>
+                    <button type="button" class="btn btn-sm bg-gradient-primary me-2" data-bs-toggle="modal" data-bs-target="#ajoutVehiculeModal">
+                        <i class="material-symbols-rounded text-sm">add</i> Ajouter
+                    </button>
+                    <a href="{{ route('vehicule.index') }}" class="btn btn-sm btn-outline-primary">
+                        <i class="material-symbols-rounded text-sm">list</i> Voir tous
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-3">
+            <div class="row">
+                @forelse ($vehicules as $vehicule)
+                    <div class="col-md-4 mb-3">
+                        <div class="card border border-light shadow-xs p-3 h-100">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="bg-gradient-dark text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px; font-weight: bold;">
+                                    {{ $loop->iteration }}
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-0 text-sm">{{ $vehicule->type_vehicule->nom_type }}</h6>
+                                    <p class="text-xs text-muted mb-0">Immat: {{ $vehicule->immatriculation }}</p>
+                                </div>
+                                <a href="{{ route('vehicule.edit', $vehicule->id) }}" class="text-primary" title="Modifier">
+                                    <i class="material-symbols-rounded">edit</i>
                                 </a>
+                            </div>
+                            <div class="border-top pt-2 mt-auto d-flex justify-content-between align-items-center">
+                                <span class="text-xs">
+                                    <strong>État :</strong>
+                                    <span class="badge bg-gradient-{{ $vehicule->etat ? 'success' : 'danger' }}">
+                                        {{ $vehicule->etat ? 'Bon' : 'Mauvais' }}
+                                    </span>
+                                </span>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body p-3 pt-0">
-                        <div class="table-responsive">
-                            <table class="table align-items-center mb-0">
-                                <thead>
-                                    <tr>
-                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Type</th>
-                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Détails</th>
-                                        <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Etat</th>
-                                        <th class="text-end text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($vehicules as $vehicule)
-                                        <tr class="hover-scale transition-all">
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                   <div>
-  <span class="avatar-initial rounded-circle d-inline-flex align-items-center justify-content-center bg-gradient-dark text-white shadow me-3" style="width: 40px; height: 40px;">
-    {{ $loop->iteration }}
-  </span>
+                @empty
+                    <div class="col-12 text-center py-4">
+                        <i class="material-symbols-rounded text-secondary opacity-10" style="font-size: 3rem">car_crash</i>
+                        <p class="text-sm text-muted mt-2">Aucun véhicule enregistré</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </div>
 </div>
 
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $vehicule->type_vehicule->nom_type }}</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex flex-column">
-                                                    <span class="text-xs text-secondary">Immat: {{ $vehicule->immatriculation }}</span>
-                                                    {{-- <span class="text-xs text-secondary">Couleur: {{ $vehicule->couleur }}</span> --}}
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-center">
-  <span class="badge badge-sm {{ $vehicule->etat ? 'bg-gradient-success' : 'bg-gradient-danger' }}">
-    {{ $vehicule->etat ? 'Bon' : 'Mauvais' }}
-  </span>
-</td>
 
-                                            <td class="align-middle text-end">
-                                                <a href="{{ route('vehicule.edit', $vehicule->id) }}" class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="tooltip" title="Modifier">
-                                                    <i class="material-symbols-rounded text-sm">edit</i>
-                                                </a>
-                                                {{-- <form action="{{ route('vehicule.destroy', $vehicule->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Confirmer la suppression ?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-link text-danger px-2 mb-0" data-bs-toggle="tooltip" title="Supprimer">
-                                                        <i class="material-symbols-rounded text-sm">delete</i>
-                                                    </button>
-                                                </form> --}}
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="4" class="text-center py-4">
-                                                <i class="material-symbols-rounded text-secondary opacity-10" style="font-size: 3rem">car_crash</i>
-                                                <p class="text-sm text-secondary mt-2">Aucun véhicule enregistré</p>
-                                            </td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
+    <!-- Administrateurs -->
+    <div class="col-12">
+    <div class="card shadow-sm">
+        <div class="card-header p-3 pb-2 border-bottom">
+            <div class="d-flex justify-content-between align-items-center">
+                <h6 class="mb-0 text-dark">Liste des Administrateurs</h6>
+                <div>
+                    <button type="button" class="btn btn-sm bg-gradient-primary me-2" data-bs-toggle="modal" data-bs-target="#modalAdmin">
+                        <i class="material-symbols-rounded text-sm">add</i> Ajouter
+                    </button>
+                    <a href="{{ route('users.index') }}" class="btn btn-sm btn-outline-primary">
+                        <i class="material-symbols-rounded text-sm">list</i> Voir tous
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-3">
+            <div class="row">
+                @forelse ($admins as $admin)
+                    <div class="col-md-4 mb-3">
+                        <div class="card border border-light shadow-xs p-3 h-100 hover-scale transition-all">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="bg-gradient-warning text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px; font-weight: bold;">
+                                    {{ strtoupper(substr($admin->user->name, 0, 1)) }}
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-0 text-sm">{{ $admin->user->name }}</h6>
+                                    <p class="text-xs text-muted mb-0">{{ $admin->user->email }}</p>
+                                </div>
+                                <a href="{{ route('users.edit', $admin->id) }}" class="text-primary" title="Modifier">
+                                    <i class="material-symbols-rounded">edit</i>
+                                </a>
+                            </div>
+                            <div class="border-top pt-2 mt-auto">
+                                <p class="text-xs mb-0">
+                                    <strong>Ajouté le :</strong>
+                                    {{ $admin->created_at->format('d M Y') }}
+                                </p>
+                                <span class="badge badge-sm bg-gradient-success mt-1">Admin</span>
+                            </div>
                         </div>
+                    </div>
+                @empty
+                    <div class="col-12 text-center py-4">
+                        <i class="material-symbols-rounded text-secondary opacity-10" style="font-size: 3rem">admin_panel_settings</i>
+                        <p class="text-sm text-muted mt-2">Aucun administrateur enregistré</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="row mt-4">  
+    <!-- Tarifs -->
+    <div class="col-md-6 d-flex">
+        <div class="card shadow-sm flex-fill">
+            <div class="card-header p-3 pb-2 border-bottom">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0 text-dark">Liste des Tarifs</h6>
+                    <div>
+                        <button class="btn btn-sm bg-gradient-primary me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrops">
+                            <i class="material-symbols-rounded text-sm">add</i> Ajouter
+                        </button>
+                        <a href="{{ route('tarifs.index') }}" class="btn btn-sm btn-outline-primary">
+                            <i class="material-symbols-rounded text-sm">list</i> Tout voir
+                        </a>
                     </div>
                 </div>
             </div>
-
-            <!-- Administrateurs -->
-            <div class="col-md-5">
-                <div class="card h-100">
-                    <div class="card-header p-3 pb-2">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="mb-0">Administrateurs</h6>
-                            <div>
-                                <button data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                    class="btn btn-sm btn-outline-primary mb-0 me-2">
-                                    <i class="material-symbols-rounded text-sm">add</i> Ajouter
-                                </button>
-                                <a href="{{ route('users.index') }}" class="btn btn-sm btn-outline-dark mb-0">
-                                    <i class="material-symbols-rounded text-sm">list</i> Tout voir
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body p-3 pt-0">
-                        <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">Nouveaux administrateurs</h6>
-                        <ul class="list-group">
-                            @forelse ($admins as $admin)
-                                <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2 hover-scale transition-all">
-                                    <div>
-                                         <span class="avatar-initial rounded-circle d-inline-flex align-items-center justify-content-center bg-gradient-warning text-white shadow me-3" style="width: 40px; height: 40px;">
-                                        <span class="avatar-initial rounded-circle bg-gradient-warning shadow">
-                                            {{ substr($admin->user->name, 0, 1) }}
-                                        </span>
-                                    </div>
-                                    <div class="d-flex flex-column flex-grow-1">
-                                        <h6 class="mb-1 text-sm font-weight-bold">{{ $admin->user->name }}</h6>
-                                        <span class="text-xs text-secondary">{{ $admin->user->email }}</span>
-                                    </div>
-                                    <div class="d-flex flex-column text-end">
-                                        <span class="text-xs text-secondary">
-                                            <i class="material-symbols-rounded text-xs me-1">calendar_today</i>
-                                            {{ $admin->created_at->format('d M Y') }}
-                                        </span>
-                                        <span class="badge badge-sm bg-gradient-success">Admin</span>
-                                    </div>
-                                </li>
+            <div class="card-body p-3 pt-0">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Tarif Kilo</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Prix Unité</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($tarifs as $tarif)
+                                <tr class="hover-scale transition-all bg-white border-bottom">
+                                    <td class="ps-3">
+                                        <h6 class="mb-0 text-sm">{{ $tarif->kilo_tarif }} kg</h6>
+                                    </td>
+                                    <td class="ps-3">
+                                        <h6 class="mb-0 text-sm">{{ number_format($tarif->price_per_unit, 2, ',', ' ') }} FCFA</h6>
+                                    </td>
+                                    <td class="ps-3 text-start">
+                                        <a href="{{ route('tarifs.edit', $tarif->id) }}" class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="tooltip" title="Modifier">
+                                            <i class="material-symbols-rounded text-sm">edit</i>
+                                        </a>
+                                    </td>
+                                </tr>
                             @empty
-                                <li class="list-group-item border-0 text-center py-4">
-                                    <i class="material-symbols-rounded text-secondary opacity-10" style="font-size: 3rem">admin_panel_settings</i>
-                                    <p class="text-sm text-secondary mt-2">Aucun administrateur enregistré</p>
-                                </li>
+                                <tr>
+                                    <td colspan="3" class="text-center py-4">
+                                        <i class="material-symbols-rounded text-secondary opacity-10" style="font-size: 3rem">local_shipping</i>
+                                        <p class="text-sm text-muted mt-2">Aucun tarif enregistré</p>
+                                    </td>
+                                </tr>
                             @endforelse
-                        </ul>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row mt-4">  
-            <!-- Tarifs -->
-            <div class="col-md-7">
-                <div class="card">
-                    <div class="card-header p-3 pb-2">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="mb-0">Tarifs</h6>
-                            <div>
-                                <button data-bs-toggle="modal" data-bs-target="#staticBackdrops" class="btn btn-sm btn-outline-primary mb-0 me-2">
-                                    <i class="material-symbols-rounded text-sm">add</i> Ajouter
-                                </button>
-                                <a href="{{ route('tarifs.index') }}" class="btn btn-sm btn-outline-primary mb-0">
-                                    <i class="material-symbols-rounded text-sm">list</i> Tout voir
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body p-3 pt-0">
-                        <div class="table-responsive">
-                            <table class="table align-items-center mb-0">
-                                <thead>
-                                    <tr>
-                                        <!-- <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">N°</th> -->
-                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Tarif Kilo</th>
-                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Prix par unitiale</th>
-                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Modifier</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($tarifs as $tarif)
-                                        <tr class="hover-scale transition-all">
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $tarif ->kilo_tarif }} kilo</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $tarif ->kilo_tarif }} kilo</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-start">
-                                                <a href="{{ route('tarifs.edit', $tarif->id) }}" class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="tooltip" title="Modifier">
-                                                    <i class="material-symbols-rounded text-sm">edit</i>
-                                                </a>
-                                                {{-- <form action="{{ route('tarifs.destroy', $tarif->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Confirmer la suppression ?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-link text-danger px-2 mb-0" data-bs-toggle="tooltip" title="Supprimer">
-                                                        <i class="material-symbols-rounded text-sm">delete</i>
-                                                    </button>
-                                                </form> --}}
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="4" class="text-center py-4">
-                                                <i class="material-symbols-rounded text-secondary opacity-10" style="font-size: 3rem">car_crash</i>
-                                                <p class="text-sm text-secondary mt-2">Aucun véhicule enregistré</p>
-                                            </td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
+
+    <!-- Affectations véhicules -->
+    <div class="col-md-6 d-flex">
+        <div class="card shadow-sm flex-fill">
+            <div class="card-header p-3 pb-2 border-bottom">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0 text-dark">Affectations Véhicules</h6>
+                    <div>
+                        <button class="btn btn-sm bg-gradient-primary me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <i class="material-symbols-rounded">add</i> Affecter
+                        </button>
+                        <a href="{{ route('livreurVehicule.index') }}" class="btn btn-sm btn-outline-primary">
+                            <i class="material-symbols-rounded text-sm">list</i> Tout voir
+                        </a>
                     </div>
                 </div>
             </div>
-   </div>
+            <div class="card-body p-3">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Livreur</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Type de Véhicule</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Immatriculation</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($livreur_vehicules as $lv)
+                                <tr class="hover-scale transition-all bg-white border-bottom">
+                                    <td class="ps-3">
+                                        <h6 class="mb-0 text-sm font-weight-bold">{{ $lv->livreur->user->name ?? "Inconnu" }}</h6>
+                                    </td>
+                                    <td class="ps-3">
+                                        <h6 class="mb-0 text-sm">{{ $lv->vehicule->type_vehicule->nom_type ?? "A/N" }}</h6>
+                                    </td>
+                                    <td class="ps-3">
+                                        <h6 class="mb-0 text-sm">{{ $lv->vehicule->immatriculation ?? "A/N" }}</h6>
+                                    </td>
+                                    <td class="text-end">
+                                        <a href="{{ route('livreurVehicule.edit', $lv->id) }}" class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="tooltip" title="Modifier">
+                                            <i class="material-symbols-rounded text-sm">edit</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center py-4">
+                                        <i class="material-symbols-rounded text-secondary" style="font-size: 3rem">group_off</i>
+                                        <p class="text-sm text-secondary mt-2">Aucune affectation enregistrée</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+            
+                
    <!-- Modal -->
     @include('tarifs.create')
     @include('users.create')
