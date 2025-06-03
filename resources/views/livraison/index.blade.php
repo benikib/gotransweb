@@ -99,14 +99,12 @@ function getBadgeClass($status) {
                         <div class="btn btn-info btn-sm" type="button" >Modifier</div>
                         </a>
                         <a href="{{ route('livraison.delete', ['id'=>$livraison->id]) }}">
-                        <div class="btn btn-primary btn-sm" type="button" >Suppimer</div>
+                        <div class="btn btn-danger btn-sm" type="button" >Suppimer</div>
                         </a>
 
-                      <button type="button" class="btn btn-primary" onclick="showLivraisonModal({{ $livraison->id }})">
+                      <button type="button" class="btn btn-primary btn-sm" onclick="showLivraisonModal({{ $livraison->id }})">
   Accepter
 </button>
-
-
 
                         </div>
                       </td>
