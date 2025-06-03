@@ -1,6 +1,6 @@
 @extends("layouts.base")
 @section('title', 'livraisons')
-@section('content')
+@section("content")
 
 @php
 function getBadgeClass($status) {
@@ -9,12 +9,14 @@ function getBadgeClass($status) {
             'en_attente' => 'bg-gradient-warning',
             'annulee'    => 'bg-gradient-danger',
             'en_cours'   => 'bg-gradient-info',
-            'validee'    => 'bg-gradient-secondary', // couleur par défaut
+            'validee'    => 'bg-gradient-secondary',
+            default  => 'bg-gradient-secondary'
         };
 
     }
 
 @endphp
+
 <div class="container-fluid py-2">
       <div class="row">
         <div class="col-12">
@@ -83,7 +85,7 @@ function getBadgeClass($status) {
                       </td>
 
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">{{$livraison->Vehicule->immatriculation?? ''}}</span>
+                        <span class="text-secondary text-xs font-weight-bold">{{$livraison->Vehicule->immatriculation ?? ''}}</span>
                       </td>
 
                       <td class="align-middle text-center">
@@ -99,7 +101,7 @@ function getBadgeClass($status) {
                         <div class="btn btn-info btn-sm" type="button" >Modifier</div>
                         </a>
                         <a href="{{ route('livraison.delete', ['id'=>$livraison->id]) }}">
-                        <div class="btn btn-primary btn-sm" type="button" >Suppimer</div>
+                        <div class="btn btn-danger btn-sm" type="button" >Suppimer</div>
                         </a>
 
                       <button type="button" class="btn btn-primary" onclick="showLivraisonModal({{ $livraison->id }})">
@@ -248,4 +250,4 @@ function getBadgeClass($status) {
     }
 </script>
 
-@endsection()
+@endsection

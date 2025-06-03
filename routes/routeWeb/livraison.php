@@ -24,9 +24,11 @@ Route::prefix("livraison")->name("livraison.")->group( function () {
 
       Route::post("/saveAffectation", [LivraisonController::class, "saveAffectation"])->name("saveAffectation");
 
-      
-
+    
        Route::get("/selectLivreur/{id}", [LivraisonController::class, "selectLivreur"])->name("selectLivreur");
+
+    
+       Route::get("/getLivraisonLine", [LivraisonController::class, "getLivraisonLine"])->name("getLivraisonLine");
 
 
 

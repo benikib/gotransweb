@@ -208,7 +208,7 @@
                                 <button data-bs-toggle="modal" data-bs-target="#exampleModal"
                                     class="btn btn-sm btn-outline-primary mb-0 me-2">
                                     <i class="material-symbols-rounded text-sm">add</i> Ajouter
-                                </button>
+                                </button> 
                                 <a href="{{ route('users.index') }}" class="btn btn-sm btn-outline-primary mb-0">
                                     <i class="material-symbols-rounded text-sm">list</i> Tout voir
                                 </a>
@@ -466,6 +466,7 @@
     @include('users.create')
     @include('typeVehicule.create')
     @include('vehicule.create')
+    
 
     <style>
         .hover-scale {

@@ -67,7 +67,7 @@ class LivraisonController extends Controller
         ]);
 
       
-
+        $change = 0;
         $livraison = Livraison::create([
             'date' => $request->input('date'),
             'status' => "en_attente",
@@ -81,8 +81,15 @@ class LivraisonController extends Controller
             'vehicule_id' => 0,
             'kilo_total'=>$request->input('Kilo_total')
         ]);
+        if (isset($livraison) && !empty($livraison)) {
+            $change += 1;  
+        }else {
+            $change ="New";
+        }
 
-        return redirect()->route('livraison.index')->with('success', 'Livraison created successfully');
+        return redirect()->route('livraison.index',[
+            'change'=> $change,
+        ])->with('success', 'Livraison created successfully');
 
      } catch (\Exception $e) {
         dd($e);
@@ -218,8 +225,6 @@ class LivraisonController extends Controller
                 ->get();
                
 
-              
-
             return response()->json([
                 'status' => 'success',
                 'message' => 'Véhicules libres',
@@ -230,7 +235,6 @@ class LivraisonController extends Controller
 
 
      public function saveAffectation( Request $request)
-
         {
         
             $livraison = Livraison::find($request->input('id_livraison'));
@@ -271,6 +275,24 @@ class LivraisonController extends Controller
                 'status' => 'success',
                 'message' => 'livreurs affectés',
                 'data' =>  $vehiculesAvecLivreurs
+            ]);
+
+        }
+
+
+
+        public function getLivraisonLine(){
+
+            $nombre = DB::table('livraisons')
+            
+            ->where('livraisons.status', '=', "en_attente")
+            ->select("livraisons.id",DB::raw('count(*) as nombre'))
+            ->groupBy('livraisons.status')
+            ->get();
+
+            return response()->json([
+                'status' => 'success',
+                'data' =>  $nombre
             ]);
 
         }

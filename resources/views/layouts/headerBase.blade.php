@@ -40,11 +40,11 @@
       <li class="nav-item mb-1">
         <a class="nav-link py-2 px-3 {{ request()->routeIs('livraison.index') ? 'active bg-light text-primary border-start border-primary border-3' : 'text-dark opacity-8' }}"
            href="{{ route('livraison.index') }}">
-          <div class="d-flex align-items-center">
-            <i class="material-symbols-rounded me-3">event_seat</i>
-            <span class="nav-link-text">Livraison</span>
-            <span class="badge bg-primary ms-auto">New</span>
-          </div>
+           <div class="d-flex align-items-center">
+  <i class="material-symbols-rounded me-3">event_seat</i>
+  <span class="nav-link-text me-2">Livraison</span>
+  <span id="nombre" class="badge bg-danger ms-auto"></span>
+</div>
         </a>
       </li>
 
@@ -103,7 +103,7 @@
   </div>
 </div>
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const toggleButton = document.getElementById("toggleSidenav");
@@ -113,6 +113,36 @@
       sidenav.classList.toggle("collapsed");
     });
   });
+
+ 
+
+  function LivraisonModal() {
+    console.log("bahdsbjhfvhxvghvhg");
+
+    const nombre = document.getElementById('nombre');
+      $.ajax({
+          url: "{{ route('livraison.getLivraisonLine') }}",
+          type: "GET",
+          success: function (data) {
+
+            console.log(data.data[0].nombre);
+             nombre.innerHTML = data.data[0].nombre;
+            
+             
+          },
+          error: function (xhr, status, error) {
+              console.error('Erreur :', error);
+          }
+      });
+  }
+  setInterval(() => {
+    LivraisonModal();
+}, 200); 
+// showLivraisonModal();
+
+  // let affiche = showLivraisonModal();
+  // let affiches = JSON.parse(affiche);
+  // console.log(affiches);
 </script>
 
 

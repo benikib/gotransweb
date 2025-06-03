@@ -8,7 +8,7 @@
         @csrf
         <div class="mb-3">
             <label for="Immatriculation" class="form-label">Numéro d'immatriculation</label>
-            <input type="text" class="form-control" id="immatriculation" name="immatriculation" value="{{ $vehicule->immatriculation }}" placeholder="Ex: 09BER">
+            <input type="text" class="form-control" id="immatriculation" name="immatriculation" value="{{ $vehicule->immatriculation }}" placeholder="Ex: 09BER" required>
           </div>
 
         <div class="mb-3">
