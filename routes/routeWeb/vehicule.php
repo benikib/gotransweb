@@ -20,7 +20,7 @@ Route::get('tarif',  [TarifController::class, 'index'])->name('tarifs.index');
 Route::get('tarif/create',  [TarifController::class, 'create']);
 Route::post('tarif',  [TarifController::class, 'store'])->name('tarifs.store');
 Route::get('tarif/{tarif}',  [TarifController::class, 'edit'])->name('tarifs.edit');
-Route::post('tarif/{tarif}',  [TarifController::class, 'update'])->name('tarifs.update');
+Route::put('tarif/{tarif}',  [TarifController::class, 'update'])->name('tarifs.update');
 Route::delete('tarif/{tarif}',  [TarifController::class, 'destroy'])->name('tarifs.destroy');
 
 
