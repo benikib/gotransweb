@@ -101,156 +101,83 @@ function getBadgeClass($status) {
 
 
     <!-- Main Content Section -->
-    <div class="row g-4">
-        <!-- Livraisons récentes -->
-        <div class="col-lg-8">
-            <div class="card h-100">
-                <div class="card-header p-3 pb-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h6 class="mb-0">Livraisons récentes</h6>
-                        <div>
-                           <a href="{{ route('livraison.index') }}" class="btn btn-sm btn-outline-primary">
-                         <i class="material-symbols-rounded">list_alt</i> Voir tout
-                                </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body p-3 pt-0">
-                    <div class="table-responsive">
-                        <table class="table align-items-center mb-0">
-                            <thead class="bg-gray-100">
-                                <tr>
-                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder">Code</th>
-                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder">Expéditeur/Destinataire</th>
-                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder text-center">Véhicule</th>
-                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder text-center">Statut</th>
-                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder text-end">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($livraisons as $livraison)
-                                <tr>
-                                    <td>
-                                        <div class="d-flex px-2 py-1">
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm font-weight-bold">{{ $livraison->code }}</h6>
-                                                <p class="text-xs text-secondary mb-0">{{ $livraison->created_at->format('d/m/Y') }}</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar-group me-3">
-                                                <a href="#" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $livraison->expedition->tel_expedition }}">
-                                                    <img src="../assets/img/team-3.jpg" alt="expediteur">
-                                                </a>
-                                                <a href="#" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $livraison->destinataire }}">
-                                                    <img src="../assets/img/team-4.jpg" alt="destinataire">
-                                                </a>
-                                            </div>
-                                            <div>
-                                                <p class="text-xs font-weight-bold mb-0">Exp: {{ Str::limit($livraison->expedition->tel_expedition, 10) }}</p>
-                                                <p class="text-xs text-secondary mb-0">Dest: {{ Str::limit($livraison->destination->tel_destination, 10) }}</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <span class="text-xs font-weight-bold">
-                                            {{ $livraison->vehicule->type_vehicule->nom_type ?? "N/A" }}
-                                        </span>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <span class="{{ getBadgeClass($livraison->status) }} text-uppercase text-xs font-weight-bold">
-                                            {{ $livraison->status }}
-                                        </span>
-                                    </td>
-                                    <td class="align-middle text-end">
-                                        <button class="btn btn-sm btn-outline-info mb-0 px-2 py-1">
-                                            <i class="material-symbols-rounded text-sm">visibility</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="5" class="text-center py-4">
-                                        <i class="material-symbols-rounded text-secondary">inbox</i>
-                                        <p class="text-sm text-secondary mt-2">Aucune livraison récente</p>
-                                    </td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="card-footer bg-transparent border-top py-2">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination pagination-sm justify-content-end mb-0">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Précédent</a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Suivant</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-
-        <!-- Affectations véhicules -->
-        <div class="col-lg-4">
-            <div class="card h-100">
-                <div class="card-header p-3 pb-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h6 class="mb-0">Affectations véhicules</h6>
-                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            <i class="material-symbols-rounded">add</i> Affecter
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body p-3">
-                    <div class="list-group list-group-flush">
-                        @forelse ($livreur_vehicules as $lv)
-                        <div class="list-group-item border-0 px-0 py-2">
-                            <div class="d-flex align-items-center">
-                                <div class="icon icon-sm icon-shape bg-gradient-info shadow text-center rounded-circle me-3">
-                                    <i class="material-symbols-rounded text-white text-sm">person</i>
-                                </div>
-                                <div class="d-flex flex-column flex-grow-1">
-                                    <h6 class="mb-1 text-sm font-weight-bold">{{ $lv->livreur->user->name ?? "" }}</h6>
-                                    <div class="d-flex align-items-center">
-                                        <span class="text-xs me-2"><i class="material-symbols-rounded text-xs">directions_car</i> {{ $lv->vehicule->type_vehicule->nom_type ?? "A/N" }}</span>
-                                        <span class="text-xs"><i class="material-symbols-rounded text-xs">badge</i> {{ $lv->vehicule->immatriculation ?? "A/N" }}</span>
-                                    </div>
-                                </div>
-                                <div class="ms-auto text-end">
-                                    <a href="{{ route('livreurVehicule.edit', $lv->id) }}" class="btn btn-sm btn-outline-secondary mb-0 px-2 py-1">
-                                        <i class="material-symbols-rounded text-sm">edit</i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        @empty
-                        <div class="text-center py-4">
-                            <i class="material-symbols-rounded text-secondary">group_off</i>
-                            <p class="text-sm text-secondary mt-2">Aucune affectation enregistrée</p>
-                        </div>
-                        @endforelse
-                    </div>
-                </div>
-                <div class="card-footer bg-transparent border-top py-2">
-                    <div class="text-center">
-                        <a href="{{ route('livreurVehicule.index') }}" class="text-sm font-weight-bold">
-                            <i class="material-symbols-rounded text-sm">list</i> Voir toutes les affectations
+<div class="row mt-4">
+    <!-- Section Livraisons Récentes -->
+    <div class="col-md-12 d-flex">
+        <div class="card shadow-sm flex-fill">
+            <div class="card-header p-3 pb-2 border-bottom">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0 text-dark">Livraisons Récentes</h6>
+                    <div>
+                        <a href="{{ route('livraison.index') }}" class="btn btn-sm btn-outline-primary">
+                            <i class="material-symbols-rounded text-sm">list_alt</i> Voir tout
                         </a>
                     </div>
                 </div>
             </div>
+            <div class="card-body p-3 pt-0">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Code</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Expéditeur / Destinataire</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2 text-center">Véhicule</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2 text-center">Statut</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2 text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($livraisons as $livraison)
+                            <tr class="hover-scale transition-all bg-white border-bottom">
+                                <td class="ps-3 align-middle">
+                                    <h6 class="mb-0 text-sm">{{ $livraison->code }}</h6>
+                                    <small class="text-muted">{{ $livraison->created_at->format('d/m/Y') }}</small>
+                                </td>
+                                <td class="ps-3 align-middle">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-group me-3">
+                                            <img src="../assets/img/team-3.jpg" class="avatar avatar-xs rounded-circle border" data-bs-toggle="tooltip" title="{{ $livraison->expedition->tel_expedition }}">
+                                            <img src="../assets/img/team-4.jpg" class="avatar avatar-xs rounded-circle border" data-bs-toggle="tooltip" title="{{ $livraison->destinataire }}">
+                                        </div>
+                                        <div>
+                                            <div class="text-dark small fw-semibold">Exp: {{ Str::limit($livraison->expedition->tel_expedition, 10) }}</div>
+                                            <div class="text-muted small">Dest: {{ Str::limit($livraison->destination->tel_destination, 10) }}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center align-middle">
+                                    <span class="badge bg-light text-dark text-sm fw-semibold">
+                                        {{ $livraison->vehicule->type_vehicule->nom_type ?? "N/A" }}
+                                    </span>
+                                </td>
+                                <td class="text-center align-middle">
+                                    <span class="{{ getBadgeClass($livraison->status) }} text-uppercase small fw-bold px-2 py-1 rounded-pill">
+                                        {{ $livraison->status }}
+                                    </span>
+                                </td>
+                                <td class="text-end align-middle">
+                                    <a href="#" class="btn btn-link text-dark px-2 mb-0" title="Voir">
+                                        <i class="material-symbols-rounded">visibility</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="5" class="text-center py-4">
+                                    <i class="material-symbols-rounded text-secondary opacity-10" style="font-size: 3rem">inbox</i>
+                                    <p class="text-sm text-muted mt-2">Aucune livraison récente</p>
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
+</div>
+
      <!-- Charts Section - Improved layout -->
     <div class="row g-4 mb-4 p-3">
         <!-- Livraisons cette semaine -->
