@@ -118,7 +118,7 @@ class LivraisonController extends Controller
         'destination_id' => $destination->id,
         'expedition_id' => $expedition->id,
         'moyen_transport' => $request->input('moyen_transport'),
-        'vehicule_id' => 0,
+ 
         'kilo_total'=>$request->input('Kilo_total')
     ]);
 

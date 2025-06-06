@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('type_vehicules', function (Blueprint $table) {
             $table->id();
             $table->string('nom_type');
+            $table->string('photo')->nullable();
 
             $table->integer('kilo_initiale');
             $table->integer('kilo_final');
