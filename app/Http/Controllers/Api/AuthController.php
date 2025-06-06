@@ -94,17 +94,11 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-
-
-
-
        try {
         $fields = $request->validate([
             'email'    => 'required|string|email',
             'password' => 'required|string',
         ]);
-
-
 
         $user = User::where('email', $fields['email'])->first();
 
@@ -115,31 +109,23 @@ class AuthController extends Controller
         }
 
 
-
         $token = $user->createToken('api-token')->plainTextToken;
-
-
-
         $user = User::find($user->id);
-
-
         $roleInfo = $user->getRoleInfo();
 
-
-
-                if ($roleInfo) {
+            if ($roleInfo) {
+            return response()->json([
+                        'roleInfo'=>$roleInfo,
+                        'user'  => $user,
+                        'token' => $token
+                    ], 200);
+            } else {
                 return response()->json([
-                            'roleInfo'=>$roleInfo,
-                            'user'  => $user,
-                            'token' => $token
-                        ], 200);
-                } else {
-                    return response()->json([
-                            'error'  =>'Aucun user trouvé pour cet utilisateur.',
+                        'error'  =>'Aucun user trouvé pour cet utilisateur.',
 
-                        ], 201);
-                }
-        //return response()->json(['user' => $user, 'token' => $token], 201);
+                    ], 201);
+            }
+                    //return response()->json(['user' => $user, 'token' => $token], 201);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
