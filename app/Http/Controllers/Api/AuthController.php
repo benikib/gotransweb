@@ -24,15 +24,15 @@ class AuthController extends Controller
     public function handleGoogleLogin(Request $request)
 {
     $token = $request->input('token');
-    
+
     // Vérifier le token avec Google
     $client = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]);
     $payload = $client->verifyIdToken($token);
-    
+
     if (!$payload) {
         return response()->json(['error' => 'Token invalide'], 401);
     }
-    
+
     // Trouver ou créer l'utilisateur
     $user = User::firstOrCreate(
         ['email' => $payload['email']],
@@ -42,10 +42,10 @@ class AuthController extends Controller
             'email_verified_at' => now(),
         ]
     );
-    
+
     // Créer et retourner le token d'authentification
     $token = $user->createToken('google-token')->plainTextToken;
-    
+
     return response()->json([
         'user' => $user,
         'token' => $token
@@ -59,7 +59,7 @@ class AuthController extends Controller
             'email'    => 'required|string|email|unique:users,email',
             'number_phone' => 'required|string',
             'password' => 'required|string|min:6',
-            
+
         ]);
 
         $user = User::create([
@@ -95,7 +95,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
 
-      
+
 
 
        try {
@@ -104,7 +104,7 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-       
+
 
         $user = User::where('email', $fields['email'])->first();
 
@@ -114,20 +114,18 @@ class AuthController extends Controller
             ]);
         }
 
-        return response()->json([
-            'user'  => $user
-        ], 200);
-    
+
+
         $token = $user->createToken('api-token')->plainTextToken;
 
-        
+
 
         $user = User::find($user->id);
 
-     
+
         $roleInfo = $user->getRoleInfo();
 
-    
+
 
                 if ($roleInfo) {
                 return response()->json([
