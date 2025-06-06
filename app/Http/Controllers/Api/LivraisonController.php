@@ -91,7 +91,7 @@ class LivraisonController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json(['erreur' => $request->all()]);
+        
 
           $expedition =  Expedition::create([
               'adresse'=> $request->input("adresse_expedition"),
