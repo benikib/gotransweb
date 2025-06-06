@@ -113,13 +113,14 @@ class AuthController extends Controller
                 'email' => ['Les informations d identification sont incorrectes.'],
             ]);
         }
+
+        return response()->json([
+            'user'  => $user
+        ], 200);
     
         $token = $user->createToken('api-token')->plainTextToken;
 
-        return response()->json([
-          
-            'user'  => $user
-        ], 200);
+        
 
         $user = User::find($user->id);
 
