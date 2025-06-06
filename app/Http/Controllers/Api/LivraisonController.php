@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
 use App\Http\Controllers\Controller;
 use App\Models\Livraison;
 use App\Models\Expedition;
@@ -39,8 +38,6 @@ class LivraisonController extends Controller
         
         return LivraisonResource::collection($livraisons);
     }
-
-
 
 
     public function showLivraisonLivreur($idLivreur,$idLivraison)
@@ -94,7 +91,7 @@ class LivraisonController extends Controller
      */
     public function store(Request $request)
     {
-        
+        return response()->json(['erreur' => $request->all()]);
 
           $expedition =  Expedition::create([
               'adresse'=> $request->input("adresse_expedition"),
