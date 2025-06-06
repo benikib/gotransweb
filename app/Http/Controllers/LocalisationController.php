@@ -34,20 +34,17 @@ class LocalisationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $id)
+    public function show(Request $livraison_id)
     {
         // $localisation = Localisation::where('livraison_id', $request->livraison_id)->first();
         try {
-            $localisation = Localisation::findOrFail($id);
-            $localisation = Localisation::find($id->id);
+            $localisation = Localisation::where('livraison_id', $livraison_id)->first();
         if (!$localisation) {
             return response()->json(['message' => 'Localisation not found'], 404);
         }
 
 
-
-
-            return response()->json($localisation, 200);
+            return response()->json(["localisation"=>$localisation], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Localisation not found'], 404);
         }
@@ -73,7 +70,7 @@ class LocalisationController extends Controller
             'livraison_id' => 'sometimes|required|exists:livraisons,id',
         ]);
 
-        $localisation = Localisation::findOrFail($request->id);
+        $localisation = Localisation::where('livraison_id',  $request->livraison_id)->first();
         if ($localisation) {
             $localisation->longitude = $request->longitude;
             $localisation->latitude = $request->latitude;
@@ -86,9 +83,9 @@ class LocalisationController extends Controller
             $localisation->livraison_id = $request->livraison_id;
             $localisation->longitude = $request->longitude;
             $localisation->latitude = $request->latitude;
-             $localisation->save();
+            $localisation->save();
 
-        return response()->json($localisation,200);
+        return response()->json(["localisation"=>$localisation],200);
         }
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
