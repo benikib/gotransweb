@@ -40,7 +40,7 @@ class LocalisationController extends Controller
         try {
             $localisation = Localisation::where('livraison_id', $livraison_id)->first();
         if (!$localisation) {
-            return  response()->json($data, 200, $headers);()->json(['message' => 'Localisation not found'], 404);
+            return  response()->json(['message' => 'Localisation not found'], 404);
         }
 
 
