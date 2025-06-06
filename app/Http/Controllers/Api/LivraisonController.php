@@ -92,38 +92,42 @@ class LivraisonController extends Controller
     public function store(Request $request)
     {
        
+  try {
+    $expedition =  Expedition::create([
+        'adresse'=> $request->input("adresse_expedition"),
+        'tel_expedition'=> $request->input("tel_expedition"),
+        'longitude'=> $request->input("longitude_expedition"),
+        'latitude'=> $request->input("latitude_expedition")
+    ]);
 
-          $expedition =  Expedition::create([
-              'adresse'=> $request->input("adresse_expedition"),
-              'tel_expedition'=> $request->input("tel_expedition"),
-              'longitude'=> $request->input("longitude_expedition"),
-              'latitude'=> $request->input("latitude_expedition")
-          ]);
+    $destination =  Destination::create([
+        'adresse'=> $request->input("adresse_destination"),
+        'nom_destination'=> $request->input("nom_destination"),
+        'tel_destinations'=> $request->input("tel_destination"),
+        'longitude'=> $request->input("longitude_destination"),
+        'latitude'=> $request->input("latitude_destination")
+    ]);
+    return response()->json(['erreur' => $request->all()]);
 
-          $destination =  Destination::create([
-              'adresse'=> $request->input("adresse_destination"),
-              'nom_destination'=> $request->input("nom_destination"),
-              'tel_destinations'=> $request->input("tel_destination"),
-              'longitude'=> $request->input("longitude_destination"),
-              'latitude'=> $request->input("latitude_destination")
-          ]);
-          return response()->json(['erreur' => $request->all()]);
+    $livraison = Livraison::create([
+        'date' => $request->input('date'),
+        'status' => "en_attente",
+        'code' => $request->input('code'),
+        'montant' => $request->input('montant'),
+        'client_expediteur_id' => $request->input('client_expediteur_id'),
+        'client_destinateur_id' => $request->input('client_destinateur_id'),
+        'destination_id' => $destination->id,
+        'expedition_id' => $expedition->id,
+        'moyen_transport' => $request->input('moyen_transport'),
+        'vehicule_id' => 0,
+        'kilo_total'=>$request->input('Kilo_total')
+    ]);
 
-          $livraison = Livraison::create([
-              'date' => $request->input('date'),
-              'status' => "en_attente",
-              'code' => $request->input('code'),
-              'montant' => $request->input('montant'),
-              'client_expediteur_id' => $request->input('client_expediteur_id'),
-              'client_destinateur_id' => $request->input('client_destinateur_id'),
-              'destination_id' => $destination->id,
-              'expedition_id' => $expedition->id,
-              'moyen_transport' => $request->input('moyen_transport'),
-              'vehicule_id' => 0,
-              'kilo_total'=>$request->input('Kilo_total')
-          ]);
-
-          return response()->json(['message' => 'demande de livraison envoyer avec succes']);
+    return response()->json(['message' => 'demande de livraison envoyer avec succes']);
+  } catch (\Throwable $th) {
+    return response()->json(['erreur' => $th->getMessage()]);
+  }
+          
 
     }
 
