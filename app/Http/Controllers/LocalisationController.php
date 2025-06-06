@@ -88,7 +88,7 @@ class LocalisationController extends Controller
         return response()->json(["localisation"=>$localisation],200);
         }
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 400);
+            return response()->json(['error' => 'une erreur est survenue'], 400);
         }
 
 

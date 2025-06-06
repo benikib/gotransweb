@@ -221,9 +221,14 @@ function getBadgeClass($status) {
 }
 
 /* Style pour les détails */
-#details-{{ $livraison->id }} {
-    border-top: 1px solid #dee2e6; /* Bordure supérieure */
-}
+@if(isset($livraison))
+    <style>
+        #details-{{ $livraison->id }} {
+            border-top: 1px solid #dee2e6;
+        }
+    </style>
+@endif
+
 </style>
 
       <!-- Bouton pour ouvrir la modal -->

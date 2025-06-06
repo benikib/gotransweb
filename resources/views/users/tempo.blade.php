@@ -192,3 +192,14 @@
                         </div>
                     </div>
                 </div>
+
+
+
+                <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                                        <li><a class="dropdown-item" href="#" onclick="filterLivraisons('')">Tous les statuts</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="filterLivraisons('annulee')">Annulée</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="filterLivraisons('en_attente')">En attente</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="filterLivraisons('validee')">Validée</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="filterLivraisons('en_cours')">En cours</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="filterLivraisons('terminee')">Terminé</a></li>
+                                    </ul>
