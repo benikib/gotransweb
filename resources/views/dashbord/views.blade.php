@@ -431,7 +431,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h6 class="mb-0 text-dark">Affectations Véhicules</h6>
                     <div>
-                        <button class="btn btn-sm bg-gradient-primary me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <button class="btn btn-sm bg-gradient-primary me-2" data-bs-toggle="modal" data-bs-target="#staticBack">
                             <i class="material-symbols-rounded">add</i> Affecter
                         </button>
                         <a href="{{ route('livreurVehicule.index') }}" class="btn btn-sm btn-outline-primary">
@@ -493,6 +493,7 @@
     @include('users.create')
     @include('typeVehicule.create')
     @include('vehicule.create')
+    @include('livreurVehicule.create')
 
 
     <style>
