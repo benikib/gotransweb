@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\LocalisationController;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -25,6 +26,8 @@ Route::middleware('auth:sanctum')->group(function () {
      Route::get('user/profile', [UserController::class, 'profile']);
     Route::put('user/profile', [UserController::class, 'updateProfile']);
     Route::get('user/clients', [UserController::class, 'getClients']);
+     Route::get('getLocalisation/{id}', [LocalisationController::class, 'show']);
+     Route::get('setLocalisation/{resquet}', [LocalisationController::class, 'update']);
 
     // Mot de passe
     Route::post('user/change-password', [UserController::class, 'changePassword']);

@@ -157,7 +157,7 @@
                         <button type="button" class="btn btn-sm bg-gradient-primary me-2" data-bs-toggle="modal" data-bs-target="#modalClient">
                             <i class="material-symbols-rounded text-sm">add</i> Ajouter
                         </button>
-                        <a href="{{ route('users.index') }}" class="btn btn-sm btn-outline-primary">
+                        <a href="{{ route('users.index', ['m' => 'client']) }}" class="btn btn-sm btn-outline-primary">
                             <i class="material-symbols-rounded text-sm">list</i> Voir tous
                         </a>
                     </div>
@@ -206,7 +206,7 @@
                         <button type="button" class="btn btn-sm bg-gradient-primary me-2" data-bs-toggle="modal" data-bs-target="#modalLivreur">
                             <i class="material-symbols-rounded text-sm">add</i> Ajouter
                         </button>
-                        <a href="{{ route('users.index') }}" class="btn btn-sm btn-outline-primary">
+                        <a href="{{ route('users.index', ['m' => 'livreur']) }}" class="btn btn-sm btn-outline-primary">
                             <i class="material-symbols-rounded text-sm">list</i> Voir tous
                         </a>
                     </div>
@@ -319,7 +319,7 @@
                     <button type="button" class="btn btn-sm bg-gradient-primary me-2" data-bs-toggle="modal" data-bs-target="#modalAdmin">
                         <i class="material-symbols-rounded text-sm">add</i> Ajouter
                     </button>
-                    <a href="{{ route('users.index') }}" class="btn btn-sm btn-outline-primary">
+                    <a href="{{ route('users.index', ['m' => 'admin']) }}" class="btn btn-sm btn-outline-primary">
                         <i class="material-symbols-rounded text-sm">list</i> Voir tous
                     </a>
                 </div>
@@ -367,7 +367,7 @@
 </div>
 
 
-<div class="row mt-4">  
+<div class="row mt-4">
     <!-- Tarifs -->
     <div class="col-md-6 d-flex">
         <div class="card shadow-sm flex-fill">
@@ -486,14 +486,14 @@
 </div>
 </div>
 
-            
-                
+
+
    <!-- Modal -->
     @include('tarifs.create')
     @include('users.create')
     @include('typeVehicule.create')
     @include('vehicule.create')
-    
+
 
     <style>
         .hover-scale {
