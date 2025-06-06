@@ -12,7 +12,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Client;
 use App\Models\Type_vehicule;
-use App\Http\Controllers\Api\Google_Client;
+use Google_Client;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
