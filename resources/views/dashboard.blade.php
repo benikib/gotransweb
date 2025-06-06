@@ -184,20 +184,15 @@ function getBadgeClass($status) {
         <div class="col-lg-4 col-md-6">
             <div class="card h-100">
                 <div class="card-header p-3 pb-2">
-                    <h6 class="mb-0">Livraisons cette semaine</h6>
-                    <p class="text-sm mb-0 text-secondary">Comparé à la semaine dernière</p>
+                    <h6 class="mb-0">total de livraison jour</h6>
+
                 </div>
-                <div class="card-body p-3 pt-0">
-                    <div class="chart">
-                        <canvas id="chart-bars" class="chart-canvas" height="200"></canvas>
-                    </div>
-                </div>
+
                 <div class="card-footer bg-transparent border-top">
                     <div class="d-flex align-items-center">
-                        <i class="material-symbols-rounded text-sm me-1 text-{{ $livraisonsPourcentage >= 0 ? 'success' : 'danger' }}">trending_{{ $livraisonsPourcentage >= 0 ? 'up' : 'down' }}</i>
+
                         <p class="mb-0 text-sm">
-                            <span class="font-weight-bolder">{{ $livraisonsPourcentage >= 0 ? '+' : '' }}{{ $livraisonsPourcentage }}%</span>
-                            par rapport à la semaine dernière
+                            <span class="font-weight-bolder">{{$today}}</span>
                         </p>
                     </div>
                 </div>
@@ -208,20 +203,13 @@ function getBadgeClass($status) {
         <div class="col-lg-4 col-md-6">
             <div class="card h-100">
                 <div class="card-header p-3 pb-2">
-                    <h6 class="mb-0">Activité des utilisateurs</h6>
-                    <p class="text-sm mb-0 text-secondary">Évolution sur 7 jours</p>
-                </div>
-                <div class="card-body p-3 pt-0">
-                    <div class="chart">
-                        <canvas id="chart-line" class="chart-canvas" height="200"></canvas>
-                    </div>
+                    <h6 class="mb-0">total de livraison semaine</h6>
+
                 </div>
                 <div class="card-footer bg-transparent border-top">
                     <div class="d-flex align-items-center">
-                        <i class="material-symbols-rounded text-sm me-1 text-{{ $usersPourcentage >= 0 ? 'success' : 'danger' }}">trending_{{ $usersPourcentage >= 0 ? 'up' : 'down' }}</i>
                         <p class="mb-0 text-sm">
-                            <span class="font-weight-bolder">{{ $usersPourcentage >= 0 ? '+' : '' }}{{ $usersPourcentage }}%</span>
-                            par rapport à hier
+                            <span class="font-weight-bolder">{{$thisWeek,}}</span>
                         </p>
                     </div>
                 </div>
@@ -232,19 +220,14 @@ function getBadgeClass($status) {
         <div class="col-lg-4">
             <div class="card h-100">
                 <div class="card-header p-3 pb-2">
-                    <h6 class="mb-0">Affectations livreurs</h6>
-                    <p class="text-sm mb-0 text-secondary">Répartition par type de véhicule</p>
-                </div>
-                <div class="card-body p-3 pt-0">
-                    <div class="chart">
-                        <canvas id="chart-line-tasks" class="chart-canvas" height="200"></canvas>
-                    </div>
+                    <h6 class="mb-0">total de livraison mois</h6>
+
                 </div>
                 <div class="card-footer bg-transparent border-top">
                     <div class="d-flex align-items-center">
-                        <i class="material-symbols-rounded text-sm me-1">local_shipping</i>
+
                         <p class="mb-0 text-sm">
-                            Total: <span class="font-weight-bolder">{{ count($livreur_vehicules) }}</span> affectations
+                        <span class="font-weight-bolder">{{ $thisMonth}}</span>
                         </p>
                     </div>
                 </div>

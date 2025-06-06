@@ -50,7 +50,7 @@ class UserController extends Controller
     public function store(CreateUserRequest $request)
     {
 
-      
+
 
        /* try {
 
@@ -77,7 +77,7 @@ class UserController extends Controller
         #($validated['role']);
         // Assigner le rôle
 
-        
+
         // Insérer dans la bonne table selon le rôle
         switch ($validated['role']) {
             case 'admin':

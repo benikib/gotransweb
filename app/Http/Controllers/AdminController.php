@@ -117,29 +117,23 @@ class AdminController extends Controller
         $livreurs=Livreur::all();
         $typeVehicules = Type_vehicule::all();
         $vehicules = Vehicule::all();
-        $admins = Admin::all();
         $tarifs = Tarif::all();
-        $users = User::all();
         $livraisons = Livraison::all();
         $now = Carbon::now();
         $livreur_vehicules = Livreur_Vehicule::all();
         $client = Client::all()->count();
 
-    // Livraisons
-    $thisWeek = Livraison::whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])->count();
-    $lastWeek = Livraison::whereBetween('created_at', [now()->subWeek()->startOfWeek(), now()->subWeek()->endOfWeek()])->count();
-    $livraisonsPourcentage = $lastWeek > 0 ? round((($thisWeek - $lastWeek) / $lastWeek) * 100) : 0;
-
-    // Utilisateurs
-    $today = User::whereDate('created_at', today())->count();
-    $yesterday = User::whereDate('created_at', today()->subDay())->count();
-    $usersPourcentage = $yesterday > 0 ? round((($today - $yesterday) / $yesterday) * 100) : 0;
+        // Livraisons this day
+        $today = Livraison::whereDate('created_at', $now->toDateString())->count();
+        // Livraisons this week
+        $thisWeek = Livraison::whereBetween('created_at', [$now->startOfWeek(), $now->endOfWeek()])->count();
+        //livraisons month
+        $thisMonth = Livraison::whereMonth('created_at', $now->month)->count();
         return view('dashboard',
          [
-        'livraisonsThisWeek' => $thisWeek,
-        'livraisonsPourcentage' => $livraisonsPourcentage,
-        'usersToday' => $today,
-        'usersPourcentage' => $usersPourcentage,
+        'today'=>$today,
+        'thisWeek'=>$thisWeek,
+        'thisMonth'=>$thisMonth,
         'livreurs'=>$livreurs,
         'typeVehicules'=>$typeVehicules,
         'vehicules'=>$vehicules,
