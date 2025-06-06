@@ -154,7 +154,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h6 class="mb-0 text-dark">Liste des Clients</h6>
                     <div>
-                        <button type="button" class="btn btn-sm bg-gradient-primary me-2" data-bs-toggle="modal" data-bs-target="#modalClient">
+                        <button type="button" class="btn btn-sm bg-gradient-primary me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="material-symbols-rounded text-sm">add</i> Ajouter
                         </button>
                         <a href="{{ route('users.index', ['m' => 'client']) }}" class="btn btn-sm btn-outline-primary">
@@ -203,7 +203,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h6 class="mb-0 text-dark">Liste des Livreurs</h6>
                     <div>
-                        <button type="button" class="btn btn-sm bg-gradient-primary me-2" data-bs-toggle="modal" data-bs-target="#modalLivreur">
+                        <button type="button" class="btn btn-sm bg-gradient-primary me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="material-symbols-rounded text-sm">add</i> Ajouter
                         </button>
                         <a href="{{ route('users.index', ['m' => 'livreur']) }}" class="btn btn-sm btn-outline-primary">
@@ -316,7 +316,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <h6 class="mb-0 text-dark">Liste des Administrateurs</h6>
                 <div>
-                    <button type="button" class="btn btn-sm bg-gradient-primary me-2" data-bs-toggle="modal" data-bs-target="#modalAdmin">
+                    <button type="button" class="btn btn-sm bg-gradient-primary me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <i class="material-symbols-rounded text-sm">add</i> Ajouter
                     </button>
                     <a href="{{ route('users.index', ['m' => 'admin']) }}" class="btn btn-sm btn-outline-primary">
