@@ -94,11 +94,17 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+
+      
+
+
        try {
         $fields = $request->validate([
             'email'    => 'required|string|email',
             'password' => 'required|string',
         ]);
+
+       
 
         $user = User::where('email', $fields['email'])->first();
 
@@ -107,24 +113,33 @@ class AuthController extends Controller
                 'email' => ['Les informations d identification sont incorrectes.'],
             ]);
         }
-
-
+    
         $token = $user->createToken('api-token')->plainTextToken;
+
+        return response()->json([
+          
+            'user'  => $user
+        ], 200);
+
         $user = User::find($user->id);
+
+     
         $roleInfo = $user->getRoleInfo();
 
-if ($roleInfo) {
- return response()->json([
-            'roleInfo'=>$roleInfo,
-            'user'  => $user,
-            'token' => $token
-        ], 200);
-} else {
-      return response()->json([
-            'error'  =>'Aucun user trouvé pour cet utilisateur.',
+    
 
-        ], 201);
-}
+                if ($roleInfo) {
+                return response()->json([
+                            'roleInfo'=>$roleInfo,
+                            'user'  => $user,
+                            'token' => $token
+                        ], 200);
+                } else {
+                    return response()->json([
+                            'error'  =>'Aucun user trouvé pour cet utilisateur.',
+
+                        ], 201);
+                }
         //return response()->json(['user' => $user, 'token' => $token], 201);
         } catch (\Exception $e) {
             return response()->json([
