@@ -21,6 +21,7 @@ class Livreur extends Model
     {
         return $this->hasMany(Livreur_Vehicule::class, 'livreur_id');
     }
+    
     public function vehicule()
     {
         return $this->hasManyThrough(Vehicule::class, Livreur_Vehicule::class, 'livreur_id', 'id', 'id', 'vehicule_id');
