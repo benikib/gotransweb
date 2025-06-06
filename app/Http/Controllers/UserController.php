@@ -83,17 +83,17 @@ class UserController extends Controller
             case 'admin':
                 Admin::create(['user_id' => $user->id]);
                  // Redirect to the user index page
-                return redirect()->route('users.index')->with('success', 'Admin créé avec succès.');
+                return redirect()->route('users.index',['m' => 'admin'])->with('success', 'Admin créé avec succès.');
                 break;
             case 'client':
                Client::create(['user_id' => $user->id]);
                 // Redirect to the user index page
-                return redirect()->route('users.index')->with('success', 'Client créé avec succès.');
+                return redirect()->route('users.index',['m' => 'client'])->with('success', 'Client créé avec succès.');
                 break;
             case 'livreur':
                 Livreur::create(['user_id' => $user->id]);
                  // Redirect to the user index page
-                return redirect()->route('users.index')->with('success', 'Livreur créé avec succès.');
+                return redirect()->route('users.index',['m' => 'livreur'])->with('success', 'Livreur créé avec succès.');
                 break;
         }
 
