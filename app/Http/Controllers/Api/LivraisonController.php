@@ -107,8 +107,7 @@ class LivraisonController extends Controller
         'longitude'=> $request->input("longitude_destination"),
         'latitude'=> $request->input("latitude_destination")
     ]);
-    return response()->json(['erreur' => $request->all()]);
-
+   
     $livraison = Livraison::create([
         'date' => $request->input('date'),
         'status' => "en_attente",
