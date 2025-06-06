@@ -12,7 +12,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Client;
 use App\Models\Type_vehicule;
-use Google_Client;
+use App\Http\Controllers\Api\Google_Client;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -142,7 +142,7 @@ class AuthController extends Controller
         //return response()->json(['user' => $user, 'token' => $token], 201);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Une erreur est survenue lors de la connexion.',
+                'error' => $e->getMessage(),
             ], 500);
        }
 
