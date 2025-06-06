@@ -91,7 +91,7 @@ class LivraisonController extends Controller
      */
     public function store(Request $request)
     {
-        
+       
 
           $expedition =  Expedition::create([
               'adresse'=> $request->input("adresse_expedition"),
@@ -107,7 +107,7 @@ class LivraisonController extends Controller
               'longitude'=> $request->input("longitude_destination"),
               'latitude'=> $request->input("latitude_destination")
           ]);
-        
+          return response()->json(['erreur' => $request->all()]);
 
           $livraison = Livraison::create([
               'date' => $request->input('date'),
