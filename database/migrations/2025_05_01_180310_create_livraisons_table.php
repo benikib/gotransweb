@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
 
             $table->date('date');
-            $table->enum('status', ['en_attente','en_cours', 'livree', 'annulee']);
+            $table->enum('status', ['en_attente','en_cours', 'validee', 'annulee','terminee']);
             $table->string('code');
             $table->integer('kilo_total')->nullable();
             $table->string('photo')->nullable();
