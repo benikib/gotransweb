@@ -107,8 +107,10 @@ function getBadgeClass($status) {
                                                 @if ($livraison->status === 'en_attente')
                                                     <button type="button" class="btn btn-primary btn-sm me-1" onclick="showLivraisonModal({{ $livraison->id }})">Accepter</button>
                                                 @endif
-                                                <button type="button" class="btn btn-link text-primary btn-sm me-1" id="toggle-btn-{{ $livraison->id }}" onclick="toggleDetails('details-{{ $livraison->id }}', 'toggle-btn-{{ $livraison->id }}')" style="text-decoration: none; font-weight: bold;">Voir plus</button>
-                                            </div>
+                                                <button type="button" class="btn btn-link text-primary btn-sm me-1" id="toggle-btn-{{ $livraison->id }}" onclick="toggleDetails('details-{{ $livraison->id }}', 'toggle-btn-{{ $livraison->id }}')" style="text-decoration: none; font-weight: bold;">
+                                                    <i class="bi bi-plus-lg"></i>
+                                                </button>
+                                                </div>
                                         </td>
                                     </tr>
                                     <tr id="details-{{ $livraison->id }}" class="d-none">
@@ -171,18 +173,18 @@ function getBadgeClass($status) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-    function toggleDetails(id, buttonId) {
-        const detailsRow = document.getElementById(id);
-        const toggleButton = document.getElementById(buttonId);
+   function toggleDetails(id, buttonId) {
+    const detailsRow = document.getElementById(id);
+    const toggleButton = document.getElementById(buttonId);
 
-        if (detailsRow.classList.contains('d-none')) {
-            detailsRow.classList.remove('d-none');
-            toggleButton.textContent = "Réduire"; // Change le texte en "Réduire"
-        } else {
-            detailsRow.classList.add('d-none');
-            toggleButton.textContent = "Voir plus"; // Change le texte en "Voir plus"
-        }
+    if (detailsRow.classList.contains('d-none')) {
+        detailsRow.classList.remove('d-none');
+        toggleButton.innerHTML = '<i class="bi bi-dash-lg"></i>'; // Icône pour "Réduire"
+    } else {
+        detailsRow.classList.add('d-none');
+        toggleButton.innerHTML = '<i class="bi bi-plus-lg"></i>'; // Icône pour "Voir plus"
     }
+}
 
     function filterLivraisons(status) {
         const rows = document.querySelectorAll('.livraison-row');
@@ -221,14 +223,9 @@ function getBadgeClass($status) {
 }
 
 /* Style pour les détails */
-@if(isset($livraison))
-    <style>
-        #details-{{ $livraison->id }} {
-            border-top: 1px solid #dee2e6;
-        }
-    </style>
-@endif
-
+#details-{{ $livraison->id }} {
+    border-top: 1px solid #dee2e6; /* Bordure supérieure */
+}
 </style>
 
       <!-- Bouton pour ouvrir la modal -->

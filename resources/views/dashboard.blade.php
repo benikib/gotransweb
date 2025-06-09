@@ -121,10 +121,10 @@ function getBadgeClass($status) {
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Code</th>
-                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Expéditeur / Destinataire</th>
-                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2 text-center">Véhicule</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Expéditeur </th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2 text-center">Livreur</th>
                                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2 text-center">Statut</th>
-                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2 text-end">Actions</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -136,13 +136,8 @@ function getBadgeClass($status) {
                                 </td>
                                 <td class="ps-3 align-middle">
                                     <div class="d-flex align-items-center">
-                                        <div class="avatar-group me-3">
-                                            <img src="../assets/img/team-3.jpg" class="avatar avatar-xs rounded-circle border" data-bs-toggle="tooltip" title="{{ $livraison->expedition->tel_expedition }}">
-                                            <img src="../assets/img/team-4.jpg" class="avatar avatar-xs rounded-circle border" data-bs-toggle="tooltip" title="{{ $livraison->destinataire }}">
-                                        </div>
                                         <div>
-                                            <div class="text-dark small fw-semibold">Exp: {{ Str::limit($livraison->expedition->tel_expedition, 10) }}</div>
-                                            <div class="text-muted small">Dest: {{ Str::limit($livraison->destination->tel_destination, 10) }}</div>
+                                            <div class="text-dark small fw-semibold"> {{$livraison->Expediteur->User->name }}</div>
                                         </div>
                                     </div>
                                 </td>
@@ -156,11 +151,7 @@ function getBadgeClass($status) {
                                         {{ $livraison->status }}
                                     </span>
                                 </td>
-                                <td class="text-end align-middle">
-                                    <a href="#" class="btn btn-link text-dark px-2 mb-0" title="Voir">
-                                        <i class="material-symbols-rounded">visibility</i>
-                                    </a>
-                                </td>
+
                             </tr>
                             @empty
                             <tr>

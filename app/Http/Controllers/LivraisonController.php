@@ -9,6 +9,7 @@ use App\Models\Destination;
 use App\Models\Vehicule;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use App\Models\Livreur_Vehicule;
 use Illuminate\View\View;
 use App\Http\Requests\CreateLivraisaonRequest;
 use App\Http\Requests\UpdateLivraisonRequest;
@@ -21,7 +22,7 @@ class LivraisonController extends Controller
      */
     public function index():View
     {
-    
+
         return view('livraison.index', [
             'livraisons' => Livraison::all(),
             'vehicules' => Vehicule::all(),
@@ -48,7 +49,7 @@ class LivraisonController extends Controller
 
     {
 
-        
+
            try {
 
         $expedition =  Expedition::create([
@@ -60,13 +61,13 @@ class LivraisonController extends Controller
 
         $destination =  Destination::create([
             'adresse'=> $request->input("adresse_destination"),
-          
+
             'tel_destination'=> $request->input("tel_destination"),
             'longitude'=> 458.7,
             'latitude'=> 456.7
         ]);
 
-      
+
         $change = 0;
         $livraison = Livraison::create([
             'date' => $request->input('date'),
@@ -82,7 +83,7 @@ class LivraisonController extends Controller
             'kilo_total'=>$request->input('Kilo_total')
         ]);
         if (isset($livraison) && !empty($livraison)) {
-            $change += 1;  
+            $change += 1;
         }else {
             $change ="New";
         }
@@ -99,9 +100,9 @@ class LivraisonController extends Controller
 
 
 
-        
 
-       
+
+
     }
 
     /**
@@ -131,8 +132,8 @@ class LivraisonController extends Controller
                 'donnees' => compact('livraison', 'Type_vehicules', 'vehicules','clients'),
             ]);;
         }
-  
-      
+
+
     }
 
     /**
@@ -140,7 +141,7 @@ class LivraisonController extends Controller
      */
     public function update(UpdateLivraisonRequest $request)
     {
-      
+
         $livraison = Livraison::find($request->input('id'));
         if (!$livraison) {
             return redirect()->route('livraison.index')->with('error', 'Livraison not found');
@@ -167,7 +168,7 @@ class LivraisonController extends Controller
      */
     public function destroy( $id)
     {
-        
+
         $livraison = Livraison::find($id);
         if (!$livraison) {
             return redirect()->route('livraison.index')->with('error', 'Livraison not found');
@@ -223,12 +224,12 @@ class LivraisonController extends Controller
                  ->where('vehicules.type_vehicule_id', '=', $id)
                 ->groupBy('vehicules.id')
                 ->get();
-               
+
 
             return response()->json([
                 'status' => 'success',
                 'message' => 'Véhicules libres',
-                
+
                 'data' => $vehiculesLibres
             ]);
         }
@@ -236,7 +237,7 @@ class LivraisonController extends Controller
 
      public function saveAffectation( Request $request)
         {
-        
+
             $livraison = Livraison::find($request->input('id_livraison'));
             if (!$livraison) {
                 return redirect()->route('livraison.index')->with('error', 'Livraison not found');
@@ -249,11 +250,11 @@ class LivraisonController extends Controller
             return redirect()->route('livraison.index')->with('success', 'Livraison updated successfully');
         }
 
-        
+
      public function selectLivreur($id )
 
         {
-          
+
 
             $vehiculesAvecLivreurs = DB::table('vehicules')
                 ->join('livreur__vehicules', 'vehicules.id', '=', 'livreur__vehicules.vehicule_id')
@@ -266,10 +267,10 @@ class LivraisonController extends Controller
                     'users.name as livreur_name',
                     'users.number_phone as livreur_telephone',
                     'users.email as livreur_email'
-                   
+
                 )
                 ->get();
-                
+
 
                  return response()->json([
                 'status' => 'success',
@@ -284,7 +285,7 @@ class LivraisonController extends Controller
         public function getLivraisonLine(){
 
             $nombre = DB::table('livraisons')
-            
+
             ->where('livraisons.status', '=', "en_attente")
             ->select("livraisons.id",DB::raw('count(*) as nombre'))
             ->groupBy('livraisons.status')
@@ -297,8 +298,8 @@ class LivraisonController extends Controller
 
         }
 
-        
-   
+
+
 
 
 }

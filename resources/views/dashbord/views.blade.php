@@ -391,7 +391,7 @@
                             <tr>
                                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Tarif Kilo</th>
                                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Prix Unité</th>
-                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Actions</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Edite</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -401,7 +401,7 @@
                                         <h6 class="mb-0 text-sm">{{ $tarif->kilo_tarif }} kg</h6>
                                     </td>
                                     <td class="ps-3">
-                                        <h6 class="mb-0 text-sm">{{ number_format($tarif->price_per_unit, 2, ',', ' ') }} FCFA</h6>
+                                        <h6 class="mb-0 text-sm">{{ number_format($tarif->prix_tarif, 2, ',', ' ') }} $</h6>
                                     </td>
                                     <td class="ps-3 text-start">
                                         <a href="{{ route('tarifs.edit', $tarif->id) }}" class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="tooltip" title="Modifier">
@@ -448,7 +448,7 @@
                                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Livreur</th>
                                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Type de Véhicule</th>
                                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Immatriculation</th>
-                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Actions</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Edite</th>
                             </tr>
                         </thead>
                         <tbody>

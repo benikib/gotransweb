@@ -108,7 +108,7 @@ class AdminController extends Controller
         $tarifs = Tarif::latest()->take(3)->get();
         $clients = Client::latest()->take(3)->get();
         $livreur_vehicules = Livreur_Vehicule::latest()->take(3)->get();
-        #dd($clients);
+        #dd($livreur_vehicules);
 
         return view('dashbord.views', compact('livreur_vehicules','livreurs','typeVehicules','livreurs','vehicules','admins','tarifs','clients'));
     }
@@ -122,7 +122,7 @@ class AdminController extends Controller
         $now = Carbon::now();
         $livreur_vehicules = Livreur_Vehicule::all();
         $client = Client::all()->count();
-
+        #dd($livraisons);
         // Livraisons this day
         $today = Livraison::whereDate('created_at', $now->toDateString())->count();
         // Livraisons this week
