@@ -5,12 +5,12 @@
 @php
 function getBadgeClass($status) {
           return 'badge badge-sm ' . match ($status) {
-            'terminee'     => 'bg-gradient-success',
-            'en_attente' => 'bg-gradient-warning',
-            'annulee'    => 'bg-gradient-danger',
-            'en_cours'   => 'bg-gradient-info',
-            'validee'    => 'bg-gradient-secondary',
-            default  => 'bg-gradient-secondary'
+            'terminee'     => 'text-success',
+            'en_attente' => 'text-warning',
+            'annulee'    => 'text-danger',
+            'en_cours'   => 'text-info',
+            'validee'    => 'text-success',
+            default  => 'text-secondary'
         };
 
     }
@@ -36,12 +36,12 @@ function getBadgeClass($status) {
         <div class="row">
             <div class="col-12">
                 <div class="card my-4">
-                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                        <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 px-3 d-flex justify-content-between align-items-center">
-                            <h6 class="text-white text-capitalize m-0">Liste des livraisons</h6>
+                    <div class="card-header">
+                        <div class="bg-gradient-white shadow-white  border-radius-lg pt-4 pb-3 px-3 d-flex justify-content-between align-items-center">
+                            <h6 class="text-dark text-capitalize m-0">Liste des livraisons</h6>
                             <div class="d-flex align-items-center">
                                 <div class="dropdown me-2">
-                                    <button class="btn btn-link text-white dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn btn-link text-dark dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="bi bi-filter"></i> Filtrer
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="filterDropdown">
@@ -79,14 +79,14 @@ function getBadgeClass($status) {
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $livraison->Expediteur->User->name ?? "Inconnu" }}</h6>
+                                                    <h6 class="mb-0 text-capitalize text-sm">{{ $livraison->Expediteur->User->name ?? "Inconnu" }}</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $livraison->Destinateur->User->name ?? "Inconnu" }}</h6>
+                                                    <h6 class="mb-0 text-capitalize text-sm">{{ $livraison->Destinateur->User->name ?? "Inconnu" }}</h6>
                                                 </div>
                                             </div>
                                         </td>
@@ -95,17 +95,22 @@ function getBadgeClass($status) {
                                             <p class="text-xs text-secondary mb-0">{{ $livraison->date }}</p>
                                         </td>
                                         <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm {{ getBadgeClass($livraison->status) }}">{{ $livraison->status }}</span>
+                                            <span class="badge text-capitalize badge-sm {{ getBadgeClass($livraison->status) }}">{{ $livraison->status }}</span>
                                         </td>
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold">{{ $livraison->Vehicule->immatriculation ?? 'A/N' }}</span>
                                         </td>
                                         <td class="align-middle">
                                             <div class="d-flex justify-content-center">
-                                                <a href="{{ route('livraison.edit', ['id' => $livraison->id]) }}" class="btn btn-info btn-sm me-1">Modifier</a>
-                                                <a href="{{ route('livraison.delete', ['id' => $livraison->id]) }}" class="btn btn-danger btn-sm me-1">Supprimer</a>
+                                                <a href="{{ route('livraison.edit', ['id' => $livraison->id]) }}" class="">
+                                                <i class="bi bi-pencil-square"></i>
+                                                </a>
+
+                                            <a href="{{ route('livraison.delete', ['id' => $livraison->id]) }}" class="">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
                                                 @if ($livraison->status === 'en_attente')
-                                                    <button type="button" class="btn btn-primary btn-sm me-1" onclick="showLivraisonModal({{ $livraison->id }})">Accepter</button>
+                                                    <button type="button" class="" onclick="showLivraisonModal({{ $livraison->id }})"><i class="bi bi-check-circle"></i></button>
                                                 @endif
                                                 <button type="button" class="btn btn-link text-primary btn-sm me-1" id="toggle-btn-{{ $livraison->id }}" onclick="toggleDetails('details-{{ $livraison->id }}', 'toggle-btn-{{ $livraison->id }}')" style="text-decoration: none; font-weight: bold;">
                                                     <i class="bi bi-plus-lg"></i>

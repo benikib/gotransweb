@@ -27,21 +27,22 @@
 @php
 function getBadgeClass($status) {
     return 'badge badge-sm ' . match ($status) {
-        'livree'    => 'bg-gradient-success',
-        'en_attente'  => 'bg-gradient-warning',
-        'annulee'   => 'bg-gradient-danger',
-        'en_cours'   => 'bg-gradient-info',
-        default     => 'bg-gradient-secondary'
-    };
+    'livree'     => 'text-success',
+    'en_attente' => 'text-warning',
+    'annulee'    => 'text-danger',
+    'en_cours'   => 'text-info',
+    default      => 'text-success'
+};
 }
 @endphp
 @section('title', 'Tableau de bord')
 @section('content')
 <div class="container-fluid py-4">
+
     <!-- Page Header with Breadcrumb -->
 
-<div class="row mb-2">
-  <div class="col-12">
+<div class="row g-4 mb-4">
+
     <div class="page-header border-radius-xl py-2 bg-light">
       <!-- En-tête simplifié sans image ni masque -->
     </div>
@@ -60,48 +61,48 @@ function getBadgeClass($status) {
         </div> -->
       </div>
     </div>
-  </div>
+
 </div>
 
 
     <!-- Stats Cards - Improved layout and colors -->
     <div class="row g-4 mb-4">
-    <!-- Clients -->
-    <div class="col-xl-4 col-sm-6">
-        <div class="card card-custom h-100 text-center py-4">
-            <div class="card-body">
-                <p class="card-title">Clients enregistrés</p>
-                <div class="card-value">{{ $client }}</div>
+        <!-- Clients -->
+        <div class="col-xl-4 col-sm-6">
+            <div class="card card-custom font-weight-bolder h-100 text-center py-4">
+                <div class="card-body">
+                    <p class="card-title">Clients enregistrés</p>
+                    <div class="card-value">{{ $client }}</div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Véhicules -->
-    <div class="col-xl-4 col-sm-6">
-        <div class="card card-custom h-100 text-center py-4">
-            <div class="card-body">
-                <p class="card-title">Véhicules enregistrés</p>
-                <div class="card-value">{{ count($vehicules) }}</div>
+        <!-- Véhicules -->
+        <div class="col-xl-4 col-sm-6">
+            <div class="card card-custom font-weight-bolder h-100 text-center py-4">
+                <div class="card-body">
+                    <p class="card-title">Véhicules enregistrés</p>
+                    <div class="card-value">{{ count($vehicules) }}</div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Livreurs -->
-    <div class="col-xl-4 col-sm-6">
-        <div class="card card-custom h-100 text-center py-4">
-            <div class="card-body">
-                <p class="card-title">Livreurs enregistrés</p>
-                <div class="card-value">{{ count($livreurs) }}</div>
+        <!-- Livreurs -->
+        <div class="col-xl-4 col-sm-6">
+            <div class="card card-custom h-100 text-center py-4">
+                <div class="card-body">
+                    <p class="card-title">Livreurs enregistrés</p>
+                    <div class="card-value">{{ count($livreurs) }}</div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 
 
     <!-- Main Content Section -->
-<div class="row mt-4">
+<div class="row g-4 mb-4">
     <!-- Section Livraisons Récentes -->
     <div class="col-md-12 d-flex">
         <div class="card shadow-sm flex-fill">
@@ -137,17 +138,17 @@ function getBadgeClass($status) {
                                 <td class="ps-3 align-middle">
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <div class="text-dark small fw-semibold"> {{$livraison->Expediteur->User->name }}</div>
+                                            <div class="text-xs text-capitalize small fw-semibold"> {{$livraison->Expediteur->User->name }}</div>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="text-center align-middle">
-                                    <span class="badge bg-light text-dark text-sm fw-semibold">
+                                    <span class="badge bg-light text-capitalize fw-semibold text-dark text-sm ">
                                         {{ $livraison->vehicule->type_vehicule->nom_type ?? "N/A" }}
                                     </span>
                                 </td>
                                 <td class="text-center align-middle">
-                                    <span class="{{ getBadgeClass($livraison->status) }} text-uppercase small fw-bold px-2 py-1 rounded-pill">
+                                    <span class="{{ getBadgeClass($livraison->status) }} text-capitalize small fw-bold px-2 py-1 rounded-pill">
                                         {{ $livraison->status }}
                                     </span>
                                 </td>
@@ -170,7 +171,7 @@ function getBadgeClass($status) {
 </div>
 
      <!-- Charts Section - Improved layout -->
-    <div class="row g-4 mb-4 p-3">
+    <div class="row g-4 mb-4">
         <!-- Livraisons cette semaine -->
         <div class="col-lg-4 col-md-6">
             <div class="card h-100">
@@ -226,7 +227,21 @@ function getBadgeClass($status) {
         </div>
     </div>
 </div>
-
+<!-- Chart 3 - Bootstrap Brain Component -->
+{{-- <section class="py-3 py-md-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-9 col-xl-8 col-xxl-7">
+        <div class="card widget-card border-light shadow-sm">
+          <div class="card-body p-4">
+            <h5 class="card-title widget-card-title mb-3">Revenue Stats</h5>
+            <div id="bsb-chart-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> --}}
 @include('livreurVehicule.create')
 
 <!-- Chart JS Scripts -->
