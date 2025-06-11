@@ -101,22 +101,31 @@ function getBadgeClass($status) {
                                             <span class="text-secondary text-xs font-weight-bold">{{ $livraison->Vehicule->immatriculation ?? 'A/N' }}</span>
                                         </td>
                                         <td class="align-middle">
-                                            <div class="d-flex justify-content-center">
-                                                <a href="{{ route('livraison.edit', ['id' => $livraison->id]) }}" class="">
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <a href="{{ route('livraison.edit', ['id' => $livraison->id]) }}" class="btn btn-sm btn-outline-primary" title="Modifier">
                                                 <i class="bi bi-pencil-square"></i>
-                                                </a>
+                                            </a>
 
-                                            <a href="{{ route('livraison.delete', ['id' => $livraison->id]) }}" class="">
+                                            <a href="{{ route('livraison.delete', ['id' => $livraison->id]) }}" class="btn btn-sm btn-outline-danger" title="Supprimer">
                                                 <i class="bi bi-trash"></i>
                                             </a>
-                                                @if ($livraison->status === 'en_attente')
-                                                    <button type="button" class="" onclick="showLivraisonModal({{ $livraison->id }})"><i class="bi bi-check-circle"></i></button>
-                                                @endif
-                                                <button type="button" class="btn btn-link text-primary btn-sm me-1" id="toggle-btn-{{ $livraison->id }}" onclick="toggleDetails('details-{{ $livraison->id }}', 'toggle-btn-{{ $livraison->id }}')" style="text-decoration: none; font-weight: bold;">
-                                                    <i class="bi bi-plus-lg"></i>
-                                                </button>
-                                                </div>
-                                        </td>
+
+        @if ($livraison->status === 'en_attente')
+            <button type="button" class="btn btn-sm btn-outline-success" title="Valider" onclick="showLivraisonModal({{ $livraison->id }})">
+                <i class="bi bi-check-circle"></i>
+            </button>
+        @endif
+
+        <button type="button"
+                class="btn btn-sm btn-outline-secondary"
+                id="toggle-btn-{{ $livraison->id }}"
+                onclick="toggleDetails('details-{{ $livraison->id }}', 'toggle-btn-{{ $livraison->id }}')"
+                title="Afficher les détails">
+            <i class="bi bi-plus-lg"></i>
+        </button>
+    </div>
+</td>
+
                                     </tr>
                                     <tr id="details-{{ $livraison->id }}" class="d-none">
                                         <td colspan="6" class="bg-light">

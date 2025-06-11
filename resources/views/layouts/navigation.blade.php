@@ -9,22 +9,22 @@
 
   <div class="offcanvas-body d-flex flex-column px-0">
     <nav class="nav flex-column">
-      <a class="nav-link px-4 py-2 {{ request()->routeIs('dashboard') ? 'active text-primary fw-semibold bg-light' : 'text-dark' }}" href="{{ route('dashboard') }}">
+      <a class="nav-link px-4 py-2 {{ request()->routeIs('dashboard') ? 'active text-warning fw-semibold bg-light' : 'text-dark' }}" href="{{ route('dashboard') }}">
         <i class="bi bi-speedometer2 me-2"></i> Tableau de bord
       </a>
 
-      <a class="nav-link px-4 py-2 {{ request()->routeIs('dashbord.*') ? 'active text-primary fw-semibold bg-light' : 'text-dark' }}" href="{{ route('dashbord.views') }}">
+      <a class="nav-link px-4 py-2 {{ request()->routeIs('dashbord.*') ? 'active text-warning fw-semibold bg-light' : 'text-dark' }}" href="{{ route('dashbord.views') }}">
         <i class="bi bi-graph-up me-2"></i> Overviews
       </a>
 
-      <a class="nav-link px-4 py-2 d-flex align-items-center {{ request()->routeIs('livraison.index') ? 'active text-primary fw-semibold bg-light' : 'text-dark' }}" href="{{ route('livraison.index') }}">
+      <a class="nav-link px-4 py-2 d-flex align-items-center {{ request()->routeIs('livraison.index') ? 'active text-warning fw-semibold bg-light' : 'text-dark' }}" href="{{ route('livraison.index') }}">
         <i class="bi bi-truck me-2"></i> Livraison
         <span class="badge bg-primary ms-auto">New</span>
       </a>
 
       <div class="mt-4 px-4 text-uppercase text-muted small">Compte</div>
 
-      <a class="nav-link px-4 py-2 {{ request()->routeIs('profile.*') ? 'active text-primary fw-semibold bg-light' : 'text-dark' }}" href="{{ route('profile.edit') }}">
+      <a class="nav-link px-4 py-2 {{ request()->routeIs('profile.*') ? 'active text-warning fw-semibold bg-light' : 'text-dark' }}" href="{{ route('profile.edit') }}">
         <i class="bi bi-person me-2"></i> Mon Profil
       </a>
     </nav>
