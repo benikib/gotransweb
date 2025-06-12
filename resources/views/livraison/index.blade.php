@@ -234,9 +234,11 @@ function getBadgeClass($status) {
                 transition: color 0.3s; /* Transition douce */
             }
 
-            .btn-link:hover {
-                color: #0056b3; /* Couleur au survol */
-            }
+.btn-link:hover {
+    color: #0056b3; /* Couleur au survol */
+}
+
+/* Style pour les détails */
 
 </style>
 
