@@ -186,6 +186,8 @@ function getBadgeClass($status) {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+
     <script>
    function toggleDetails(id, buttonId) {
     const detailsRow = document.getElementById(id);
@@ -223,23 +225,18 @@ function getBadgeClass($status) {
 
 <style>
 /* Style pour le bouton "Voir plus" */
-.btn-link {
-    color: #007bff; /* Couleur du texte */
-    background-color: transparent; /* Fond transparent */
-    border: none; /* Pas de bordure */
-    padding: 0; /* Pas de padding */
-    font-size: 0.875rem; /* Taille de police */
-    transition: color 0.3s; /* Transition douce */
-}
+            .btn-link {
+                color: #007bff; /* Couleur du texte */
+                background-color: transparent; /* Fond transparent */
+                border: none; /* Pas de bordure */
+                padding: 0; /* Pas de padding */
+                font-size: 0.875rem; /* Taille de police */
+                transition: color 0.3s; /* Transition douce */
+            }
 
-.btn-link:hover {
-    color: #0056b3; /* Couleur au survol */
-}
-
-/* Style pour les détails */
-
-/* #details-{{ $livraison->id }} {
-    border-top: 1px solid #dee2e6; /* Bordure supérieure */
+            .btn-link:hover {
+                color: #0056b3; /* Couleur au survol */
+            }
 
 </style>
 
