@@ -393,9 +393,11 @@
                                         <h6 class="mb-0 text-sm">{{ number_format($tarif->prix_tarif, 2, ',', ' ') }} $</h6>
                                     </td>
                                     <td class="ps-3 text-start">
-                                        <a href="{{ route('tarifs.edit', $tarif->id) }}" class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="tooltip" title="Modifier">
+                                        <button class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="modal" data-bs-target="#editTarifModal"
+                                            onclick="openEditModal({{ $tarif->id }}, {{ $tarif->kilo_tarif }}, {{ $tarif->prix_tarif }})">
                                             <i class="material-symbols-rounded text-lg">edit</i>
-                                        </a>
+                                        </button>
+
                                     </td>
                                 </tr>
                             @empty
@@ -475,6 +477,36 @@
 </div>
 </div>
 
+<!-- Modal d'édition Tarif -->
+<div class="modal fade" id="editTarifModal" tabindex="-1" aria-labelledby="editTarifModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editTarifModalLabel">Modifier le tarif</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editTarifForm" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="mb-3">
+                <label for="edit_kilo_tarif" class="form-label">Kilo de tarification</label>
+                <input type="number" class="form-control" id="edit_kilo_tarif" name="kilo_tarif" required>
+            </div>
+            <div class="mb-3">
+                <label for="edit_prix_tarif" class="form-label">Prix du Tarif</label>
+                <input type="number" class="form-control" id="edit_prix_tarif" name="prix_tarif" required>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Annuler</button>
+                <button type="submit" class="btn btn-success">Valider</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
    <!-- Modal -->
@@ -523,5 +555,18 @@
             });
         });
     </script>
+<script>
+    // JS POUR TARIF MODAL
+    function openEditModal(id, kilo, prix) {
+        // Remplit les champs
+        document.getElementById('edit_kilo_tarif').value = kilo;
+        document.getElementById('edit_prix_tarif').value = prix;
+
+        // Modifie l'action du formulaire
+        const form = document.getElementById('editTarifForm');
+        form.action = `tarif/${id}`; // Vérifie que ta route utilise bien ce format
+    }
+</script>
+
 
 @endsection

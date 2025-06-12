@@ -42,14 +42,14 @@
                         <div class="input-group input-group-outline " >
                             <select id="id_type_vehicule" name="moyen_transport" class="form-control">
                         @forelse ($donnees['Type_vehicules'] as $type )
-                        
+
                             <option value="{{ $type->nom_type }}" >{{ $type->nom_type }}</option>
 
                         @empty
                             <option value="" >Aucun moyen de transport disponible</option>
                         @endforelse
                             </select>
-                           
+
                         </div>
                         @error('moyen_transport')
                             <div class="text-danger">{{ $message }}</div>
@@ -215,6 +215,8 @@
         </div>
       </footer>
     </div>
+
+    
 
 
 @endsection

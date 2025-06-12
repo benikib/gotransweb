@@ -1,4 +1,4 @@
-<!-- Modal -->
+<!-- Modal  user -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg"> <!-- Plus large pour un meilleur affichage -->
     <div class="modal-content border-0 shadow-lg rounded-4">

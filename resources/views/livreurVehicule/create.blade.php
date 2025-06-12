@@ -11,7 +11,7 @@
                 <div class="mb-3">
                   <label for="nomModeleVehicule" class="form-label input-group input-group-outline"> Véhicule</label>
                   <select  name="vehicule_id"class="form-select" aria-label="Default select example" >
-                    <option  selected >Open this select menu</option>
+                    <option  selected >Selectionnez un vehicule</option>
                     @forelse ($vehicules as $vehicule )
                     <option  value={{ $vehicule->id}} > {{ $vehicule->immatriculation }}</option>
                     @empty
@@ -24,7 +24,7 @@
 
                 <label for="nomTypeVehicule" class="form-label">Livreur</label>
                 <select  name="livreur_id"class="form-select" aria-label="Default select example" >
-                    <option  selected >Open this select menu</option>
+                    <option  selected >Selectionnez un livreur</option>
                     @forelse ($livreurs as $livreur )
                     <option  value={{ $livreur->id}} > {{ $livreur->user->email }}</option>
                     @empty
