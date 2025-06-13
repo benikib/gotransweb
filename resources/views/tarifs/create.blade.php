@@ -8,6 +8,11 @@
         <div class="modal-body">
          <form action="{{ route('tarifs.store') }}" method="POST">
     @csrf
+    <div class="mb-3">
+        <label for="nomtarif" class="form-label">Nom  de tarification</label>
+        <input type="text" class="form-control border border-secondary" id="nomtarif" name="nom" placeholder="Ex: 1 , 2, 3">
+    </div>
+
 
     <div class="mb-3">
         <label for="nomtarif" class="form-label">Kilo de tarification</label>
