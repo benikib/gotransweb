@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('tarifs', function (Blueprint $table) {
             $table->id();
+            $table->string("nom")->nullable();
             $table->integer('kilo_tarif');
             $table->integer('prix_tarif');
             $table->timestamps();

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
-
 use App\Models\Localisation;
 use Illuminate\Http\Request;
 
@@ -66,17 +65,13 @@ class LocalisationsController extends Controller
       
      try {
 
-        
             $request->validate([
             'longitude' => 'sometimes|required|numeric',
             'latitude' => 'sometimes|required|numeric',
             'livraison_id' => 'sometimes|required|exists:livraisons,id',
         ]);
 
-        
-
-        
-
+    
         $localisation = Localisation::where('livraison_id',  $request->livraison_id)->first();
         if ($localisation) {
             $localisation->longitude = $request->longitude;
