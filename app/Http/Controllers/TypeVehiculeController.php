@@ -86,7 +86,7 @@ class TypeVehiculeController extends Controller
 
         $type_vehicule->update($request->all());
 
-        return redirect()->route('typeVehicule.index')->with('success', 'Type de véhicule mis à jour avec succès.');
+        return redirect()->route('dashbord.views')->with('success', 'Type de véhicule mis à jour avec succès.');
     }
 
     /**

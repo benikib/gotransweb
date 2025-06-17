@@ -236,8 +236,6 @@ function getBadgeClass($status) {
     color: #0056b3; /* Couleur au survol */
 }
 
-/* Style pour les détails */
-
 </style>
 
       <!-- Bouton pour ouvrir la modal -->

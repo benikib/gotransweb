@@ -42,7 +42,7 @@ class VehiculeController extends Controller
             $request->validate([
                 'immatriculation' => 'required|string|max:255',
                 'type_vehicule_id' => 'required|exists:type_vehicules,id',
-                
+
             ]);
 
 
@@ -94,7 +94,7 @@ class VehiculeController extends Controller
 
             $vehicule->update($request->all());
 
-            return redirect()->route('vehicule.index')->with('success', 'Véhicule mis à jour avec succès.');
+            return redirect()->route('dashbord.views')->with('success', 'Véhicule mis à jour avec succès.');
 
 
 

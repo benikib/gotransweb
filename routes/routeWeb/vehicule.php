@@ -28,7 +28,7 @@ Route::get('vehicule',  [VehiculeController::class, 'index'])->name('vehicule.in
 Route::get('vehicule/create',  [VehiculeController::class, 'create']);
 Route::post('vehicule',  [VehiculeController::class, 'store'])->name('vehicule.store');
 Route::get('vehicule/{vehicule}',  [VehiculeController::class, 'edit'])->name('vehicule.edit');
-Route::post('vehicule/{vehicule}',  [VehiculeController::class, 'update'])->name('vehicule.update');
+Route::put('vehicule/{vehicule}',  [VehiculeController::class, 'update'])->name('vehicule.update');
 Route::delete('vehicule/{vehicule}',  [VehiculeController::class, 'destroy'])->name('vehicule.destroy');
 Route::get('vehicule/{vehicule}/show',  [VehiculeController::class, 'show'])->name('vehicule.show');
 

@@ -65,9 +65,9 @@
         <li id="number" class="text-danger">1 chiffre</li>
         <li id="special" class="text-danger">1 caractère spécial</li>
     </ul>
-    <div class="progress mt-2">
+    {{-- <div class="progress mt-2">
         <div id="strength-bar" class="progress-bar" style="width: 0%;"></div>
-    </div>
+    </div> --}}
     @error('password')
                             <div class="text-danger small mt-1">{{ $message }}</div>
                         @enderror

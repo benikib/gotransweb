@@ -100,20 +100,27 @@
                                             <i class="material-symbols-rounded text-white opacity-10">directions_car</i>
                                         </div>
                                         <h6 class="mb-0">{{ $type->nom_type }}</h6>
-                                        <a class="btn btn-link btn-sm ms-auto text-dark px-1 mb-0"
+                                        {{-- <a class="btn btn-link btn-sm ms-auto text-dark px-1 mb-0"
                                            data-bs-toggle="tooltip" href="{{ route('typeVehicule.edit', $type->id) }}"
                                            data-bs-placement="top" title="Modifier">
                                             <i class="material-symbols-rounded text-lg">edit</i>
-                                        </a>
+                                        </a> --}}
+                                        <button class="btn btn-link btn-sm ms-auto text-dark px-1 mb-0"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editTypeVehiculeModal"
+                                                onclick="openTypeVehiculeModal({{ $type->id }}, '{{ $type->nom_type }}', '{{ $type->kilo_initiale }}', '{{ $type->kilo_final }}', {{ $type->tarif_id }})">
+                                                <i class="material-symbols-rounded text-lg">edit</i>
+                                        </button>
+
                                     </div>
                                     <div class="mt-auto pt-2">
                                         <div class="d-flex justify-content-between border-bottom py-1">
                                             <span class="text-xs">Tarif initial:</span>
-                                            <span class="text-xs font-weight-bold">{{ $type->kilo_initiale * $type->tarif->prix_tarif ?? 1 }} $</span>
+                                            <span class="text-xs font-weight-bold">{{ $type->kilo_initiale ?? 1 }} Kilo</span>
                                         </div>
                                         <div class="d-flex justify-content-between border-bottom py-1">
                                             <span class="text-xs">Tarif final:</span>
-                                            <span class="text-xs font-weight-bold">{{ $type->kilo_final * $type->tarif->prix_tarif ?? 1 }} $</span>
+                                            <span class="text-xs font-weight-bold">{{ $type->kilo_final ?? 1 }} Kilo</span>
                                         </div>
                                         <div class="d-flex justify-content-between pt-1">
                                             <span class="text-xs">Tarif/kilo:</span>
@@ -165,9 +172,17 @@
                                         <h6 class="mb-0 text-sm">{{ $client->user->name }}</h6>
                                         <p class="text-xs text-muted mb-0">{{ $client->user->email }}</p>
                                     </div>
-                                    <a href="{{ route('users.edit', $client->user_id) }}" class="text-dark" title="Modifier">
+                                    <button
+                                        class="btn btn-link text-dark px-2 mb-0"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editUserModal"
+                                        onclick="openEditModal({{ $client->user_id }}, '{{ $client->user->name }}', '{{ $client->user->email }}', '{{ $client->user->number_phone }}')"
+                                        >
+                                        <i class="material-symbols-rounded text-lg">edit</i>
+                                        </button>
+                                    {{-- <a href="{{ route('users.edit', $client->user_id) }}" class="text-dark" title="Modifier">
                                         <i class="material-symbols-rounded">edit</i>
-                                    </a>
+                                    </a> --}}
                                 </div>
                                 <div class="border-top pt-2 mt-auto">
                                     <p class="text-xs mb-0"><strong>Téléphone :</strong> {{ $client->user->number_phone }}</p>
@@ -214,9 +229,17 @@
                                         <h6 class="mb-0 text-sm">{{ $livreur->user->name }}</h6>
                                         <p class="text-xs text-muted mb-0">{{ $livreur->user->email }}</p>
                                     </div>
-                                    <a href="{{ route('users.edit', $livreur->user_id) }}" class="text-dark" title="Modifier">
+                                    <button
+                                        class="btn btn-link text-dark px-2 mb-0"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editUserModal"
+                                        onclick="openEditModal({{ $livreur->user_id }}, '{{ $livreur->user->name }}', '{{ $livreur->user->email }}', '{{ $livreur->user->number_phone }}')"
+                                        >
+                                        <i class="material-symbols-rounded text-lg">edit</i>
+                                        </button>
+                                    {{-- <a href="{{ route('users.edit', $livreur->user_id) }}" class="text-dark" title="Modifier">
                                         <i class="material-symbols-rounded">edit</i>
-                                    </a>
+                                    </a> --}}
                                 </div>
                                 <div class="border-top pt-2 mt-auto">
                                     <p class="text-xs mb-0"><strong>Téléphone :</strong> {{ $livreur->user->number_phone }}</p>
@@ -272,9 +295,21 @@
                                     <h6 class="mb-0 text-sm">{{ $vehicule->type_vehicule->nom_type }}</h6>
                                     <p class="text-xs text-muted mb-0">Immat: {{ $vehicule->immatriculation }}</p>
                                 </div>
-                                <a href="{{ route('vehicule.edit', $vehicule->id) }}" class="text-dark" title="Modifier">
+                                <button class="btn btn-outline-dark"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editVehiculeModal"
+                                        onclick="openVehiculeModal(
+                                            {{ $vehicule->id }},
+                                            '{{ $vehicule->immatriculation }}',
+                                            '{{ $vehicule->type_vehicule->id }}',
+                                            '{{ $vehicule->etat }}'
+                                        )">
+                                        <i class="material-symbols-rounded">edit</i>
+                                    </button>
+
+                                {{-- <a href="{{ route('vehicule.edit', $vehicule->id) }}" class="text-dark" title="Modifier">
                                     <i class="material-symbols-rounded">edit</i>
-                                </a>
+                                </a> --}}
                             </div>
                             <div class="border-top pt-2 mt-auto d-flex justify-content-between align-items-center">
                                 <span class="text-xs">
@@ -327,9 +362,18 @@
                                     <h6 class="mb-0 text-sm">{{ $admin->user->name }}</h6>
                                     <p class="text-xs text-muted mb-0">{{ $admin->user->email }}</p>
                                 </div>
-                                <a href="{{ route('users.edit', $admin->id) }}" class="text-dark" title="Modifier">
+                                <button
+                                        class="btn btn-link text-dark px-2 mb-0"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editUserModal"
+                                        onclick="openEditModal({{ $admin->user_id }}, '{{ $admin->user->name }}', '{{ $admin->user->email }}', '{{ $admin->user->number_phone }}')"
+                                        >
+                                        <i class="material-symbols-rounded text-lg">edit</i>
+                                        </button>
+
+                                {{-- <a href="{{ route('users.edit', $admin->id) }}" class="text-dark" title="Modifier">
                                     <i class="material-symbols-rounded">edit</i>
-                                </a>
+                                </a> --}}
                             </div>
                             <div class="border-top pt-2 mt-auto">
                                 <p class="text-xs mb-0">
@@ -508,6 +552,141 @@
 </div>
 
 
+<!-- Modal user -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content shadow-lg border-0 rounded-4">
+      <div class="modal-header bg-primary text-white rounded-top-4">
+        <h5 class="modal-title" id="editUserModalLabel">Modifier un utilisateur</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body">
+        <form id="updateUserForm" method="POST">
+          @csrf
+          @method('PUT')
+          <div class="mb-3">
+            <label for="firstname" class="form-label fw-bold">Nom</label>
+            <input type="text" class="form-control" name="name" id="firstname" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label fw-bold">Email</label>
+            <input type="email" class="form-control" name="email" id="email" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="phone" class="form-label fw-bold">Téléphone</label>
+            <input type="tel" class="form-control" name="number_phone" id="phone">
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label fw-bold">Mot de passe</label>
+            <input type="password" class="form-control" name="password" id="password" required>
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary rounded-3">Enregistrer</button>
+          </div>
+        </form>
+        <div id="successMessage" class="alert alert-success mt-3 d-none"></div>
+      </div>
+    </div>
+  </div>
+</div>
+{{-- Modale type vehicile --}}
+<div class="modal fade" id="editTypeVehiculeModal" tabindex="-1" aria-labelledby="editTypeVehiculeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content shadow">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">Modifier le type de véhicule</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+
+      <form id="editVehiculeForm" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="modal-body">
+
+          <div class="mb-3">
+            <label for="nomTypeVehicule" class="form-label">Nom du type de véhicule</label>
+            <input type="text" class="form-control" id="nomTypeVehicule" name="nom_type">
+          </div>
+
+          <div class="mb-3">
+            <label for="kiloInitiale" class="form-label">Tarif Kilo initial</label>
+            <input type="number" class="form-control" id="kiloInitiale" name="kilo_initiale">
+          </div>
+
+          <div class="mb-3">
+            <label for="kiloFinal" class="form-label">Tarif Kilo final</label>
+            <input type="number" class="form-control" id="kiloFinal" name="kilo_final">
+          </div>
+
+          <div class="mb-3">
+            <label for="tarifId" class="form-label">Type du tarif</label>
+            <select name="tarif_id" id="tarifId" class="form-select">
+              @foreach($tarifs as $tarif)
+                <option value="{{ $tarif->id }}">{{ $tarif->kilo_tarif }} kilo / $ {{ $tarif->prix_tarif }}</option>
+              @endforeach
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-success">Valider</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal vehicul -->
+<div class="modal fade" id="editVehiculeModal" tabindex="-1" aria-labelledby="editVehiculeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content shadow rounded-4">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="editVehiculeModalLabel">Modifier un véhicule</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editVehiculeForm" method="POST">
+          @csrf
+          @method('PUT')
+
+          <div class="mb-3">
+            <label for="immatriculation" class="form-label">Numéro d'immatriculation</label>
+            <input type="text" class="form-control" id="immatriculation" name="immatriculation" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="type_vehicule_id" class="form-label">Type du véhicule</label>
+            <select name="type_vehicule_id" id="type_vehicule_id" class="form-select">
+              <option selected disabled>-- Sélectionnez --</option>
+              @foreach($typeVehicules as $typeVehicule)
+                <option value="{{ $typeVehicule->id }}">{{ $typeVehicule->nom_type }}</option>
+              @endforeach
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="etat" class="form-label">État du véhicule</label>
+            <select name="etat" id="etat" class="form-select">
+              <option value="1">Bon</option>
+              <option value="0">Mauvais</option>
+            </select>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-success">Valider</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 
    <!-- Modal -->
     @include('tarifs.create')
@@ -568,5 +747,45 @@
     }
 </script>
 
+<script>
+  function openEditModal(id, name, email, phone) {
+    // Remplissage des champs
+    document.getElementById('firstname').value = name;
+    document.getElementById('email').value = email;
+    document.getElementById('phone').value = phone;
+    document.getElementById('password').value = "";
+
+    // Met à jour l'action du formulaire
+    const form = document.getElementById('updateUserForm');
+    form.action = "{{ route('users.update', ':id') }}".replace(':id', id);
+
+  }
+</script>
+
+<script>
+  function openTypeVehiculeModal(id, nom_type, kilo_initiale, kilo_final, tarif_id) {
+    // Remplir les champs
+    document.getElementById('nomTypeVehicule').value = nom_type;
+    document.getElementById('kiloInitiale').value = kilo_initiale;
+    document.getElementById('kiloFinal').value = kilo_final;
+    document.getElementById('tarifId').value = tarif_id;
+
+    // Modifier dynamiquement l'action du formulaire
+    const form = document.getElementById('editVehiculeForm');
+    form.action = `/typevehicule/${id}`;
+  }
+</script>
+<script>
+  function openVehiculeModal(id, immatriculation, typeVehiculeId, etat) {
+    // Remplir les champs
+    document.getElementById('immatriculation').value = immatriculation;
+    document.getElementById('type_vehicule_id').value = typeVehiculeId;
+    document.getElementById('etat').value = etat;
+
+    // Mettre à jour l'action du formulaire
+    const form = document.getElementById('editVehiculeForm');
+    form.action = `vehicule/${id}`; // Assure-toi que cette route PUT existe
+  }
+</script>
 
 @endsection

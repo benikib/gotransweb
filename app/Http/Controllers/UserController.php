@@ -133,17 +133,29 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(User $user, UpdateUserRequest $request){
+    // public function update(User $user, UpdateUserRequest $request){
 
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'number_phone' => $request->number_phone,
-            'password' => Hash::make($request->password),
-        ]);
+    //     $user->update([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'number_phone' => $request->number_phone,
+    //         'password' => Hash::make($request->password),
+    //     ]);
 
-        return redirect()->route('users.index')->with('success', 'Utilisateur mis à jour avec succès.');
-    }
+    //     return redirect()->route('users.index')->with('success', 'Utilisateur mis à jour avec succès.');
+    // }
+
+    public function update(User $user, UpdateUserRequest $request)
+{
+    $user->update([
+        'name' => $request->name,
+        'email' => $request->email,
+        'number_phone' => $request->number_phone,
+        'password' => Hash::make($request->password),
+    ]);
+    // Vérifier le rôle de l'utilisateur et mettre à jour la table correspondante
+    return redirect()->route('dashbord.views')->with('success', 'Utilisateur mis à jour avec succès.');
+}
 
     /**
      * Remove the specified resource from storage.
