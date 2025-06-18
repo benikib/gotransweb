@@ -94,7 +94,7 @@ class VehiculeController extends Controller
 
             $vehicule->update($request->all());
 
-            return redirect()->route('dashbord.views')->with('success', 'Véhicule mis à jour avec succès.');
+            return redirect()->route('vehicule.index')->with('success', 'Véhicule mis à jour avec succès.');
 
 
 

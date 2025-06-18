@@ -30,13 +30,13 @@ Route::post('vehicule',  [VehiculeController::class, 'store'])->name('vehicule.s
 Route::get('vehicule/{vehicule}',  [VehiculeController::class, 'edit'])->name('vehicule.edit');
 Route::put('vehicule/{vehicule}',  [VehiculeController::class, 'update'])->name('vehicule.update');
 Route::delete('vehicule/{vehicule}',  [VehiculeController::class, 'destroy'])->name('vehicule.destroy');
-Route::get('vehicule/{vehicule}/show',  [VehiculeController::class, 'show'])->name('vehicule.show');
+
 
 
 Route::get('affectation',  [LivreurVehiculeController::class, 'index'])->name('livreurVehicule.index');
 Route::get('affectation/create',  [LivreurVehiculeController::class, 'create']);
 Route::post('affectation',  [LivreurVehiculeController::class, 'store'])->name('livreurVehicule.store');
 Route::get('affectation/{livreur_Vehicule}',  [LivreurVehiculeController::class, 'edit'])->name('livreurVehicule.edit');
-Route::post('affectation/{livreur_Vehicule}',  [LivreurVehiculeController::class, 'update'])->name('livreurVehicule.update');
+Route::put('affectation/{livreur_Vehicule}',  [LivreurVehiculeController::class, 'update'])->name('livreurVehicule.update');
 Route::delete('affectation/{livreur_Vehicule}',  [LivreurVehiculeController::class, 'destroy'])->name('livreurVehicule.destroy');
 Route::get('affectation/{livreur_Vehicule}/show',  [LivreurVehiculeController::class, 'show'])->name('livreurVehicule.show');

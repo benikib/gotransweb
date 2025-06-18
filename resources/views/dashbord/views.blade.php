@@ -174,15 +174,21 @@
                                         <h6 class="mb-0 text-sm">{{ $client->user->name }}</h6>
                                         <p class="text-xs text-muted mb-0">{{ $client->user->email }}</p>
                                     </div>
-                                    <button
-                                        class="btn btn-link text-dark px-2 mb-0"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#editUserModal"
-                                        data-bs-toggle="tooltip" title="Modifier"
-                                        onclick="openEditModal({{ $client->user_id }}, '{{ $client->user->name }}', '{{ $client->user->email }}', '{{ $client->user->number_phone }}')"
-                                        >
-                                        <i class="material-symbols-rounded text-lg">edit</i>
-                                        </button>
+                                                                            <button 
+  class="btn btn-link text-dark px-2 mb-0" 
+  data-bs-toggle="modal" 
+  data-bs-target="#editUserModal"
+  data-id="{{ $client->user_id }}"
+  data-name="{{ $client->user->name }}"
+  data-email="{{ $client->user->email }}"
+  data-phone="{{ $client->user->number_phone }}"
+  data-url="{{ route('users.update', $client->user_id) }}"
+  data-mode="client"
+  data-bs-toggle="tooltip"
+  onclick="openEditModal(this)"
+>
+  <i class="material-symbols-rounded text-lg">edit</i>
+</button>
                                     {{-- <a href="{{ route('users.edit', $client->user_id) }}" class="text-dark" title="Modifier">
                                         <i class="material-symbols-rounded">edit</i>
                                     </a> --}}
@@ -232,15 +238,21 @@
                                         <h6 class="mb-0 text-sm">{{ $livreur->user->name }}</h6>
                                         <p class="text-xs text-muted mb-0">{{ $livreur->user->email }}</p>
                                     </div>
-                                    <button
-                                        class="btn btn-link text-dark px-2 mb-0"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#editUserModal"
-                                        data-bs-toggle="tooltip" title="Modifier"
-                                        onclick="openEditModal({{ $livreur->user_id }}, '{{ $livreur->user->name }}', '{{ $livreur->user->email }}', '{{ $livreur->user->number_phone }}')"
-                                        >
-                                        <i class="material-symbols-rounded text-lg">edit</i>
-                                        </button>
+                                     <button 
+  class="btn btn-link text-dark px-2 mb-0" 
+  data-bs-toggle="modal" 
+  data-bs-target="#editUserModal"
+  data-id="{{ $livreur->user_id }}"
+  data-name="{{ $livreur->user->name }}"
+  data-email="{{ $livreur->user->email }}"
+  data-phone="{{ $livreur->user->number_phone }}"
+  data-url="{{ route('users.update', $livreur->user_id) }}"
+  data-mode="livreur"
+  data-bs-toggle="tooltip"
+  onclick="openEditModal(this)"
+>
+  <i class="material-symbols-rounded text-lg">edit</i>
+</button>
                                     {{-- <a href="{{ route('users.edit', $livreur->user_id) }}" class="text-dark" title="Modifier">
                                         <i class="material-symbols-rounded">edit</i>
                                     </a> --}}
@@ -367,15 +379,21 @@
                                     <h6 class="mb-0 text-sm">{{ $admin->user->name }}</h6>
                                     <p class="text-xs text-muted mb-0">{{ $admin->user->email }}</p>
                                 </div>
-                                <button
-                                        class="btn btn-link text-dark px-2 mb-0"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#editUserModal"
-                                        data-bs-toggle="tooltip" title="Modifier"
-                                        onclick="openEditModal({{ $admin->user_id }}, '{{ $admin->user->name }}', '{{ $admin->user->email }}', '{{ $admin->user->number_phone }}')"
-                                        >
-                                        <i class="material-symbols-rounded text-lg">edit</i>
-                                        </button>
+                                 <button 
+  class="btn btn-link text-dark px-2 mb-0" 
+  data-bs-toggle="modal" 
+  data-bs-target="#editUserModal"
+  data-id="{{ $admin->user_id }}"
+  data-name="{{ $admin->user->name }}"
+  data-email="{{ $admin->user->email }}"
+  data-phone="{{ $admin->user->number_phone }}"
+  data-url="{{ route('users.update', $admin->user_id) }}"
+  data-mode="admin"
+  data-bs-toggle="tooltip"
+  onclick="openEditModal(this)"
+>
+  <i class="material-symbols-rounded text-lg">edit</i>
+</button>
 
                                 {{-- <a href="{{ route('users.edit', $admin->id) }}" class="text-dark" title="Modifier">
                                     <i class="material-symbols-rounded">edit</i>
@@ -505,9 +523,20 @@
                                         <h6 class="mb-0 text-sm">{{ $lv->vehicule->immatriculation ?? "A/N" }}</h6>
                                     </td>
                                     <td class="text-end">
-                                        <a href="{{ route('livreurVehicule.edit', $lv->id) }}" class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="tooltip" title="Modifier">
+                                        <button class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="tooltip" title="Modifier"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editVehiculeLivreurModal"
+                                        onclick="openVehiculeLivreurModal(
+                                            {{ $lv->id }},
+                                            {{ $lv->vehicule->id }},
+                                            {{ $lv->livreur->id }}
+                                        )">
+                                    <i class="material-symbols-rounded text-lg">edit</i>
+                                </button>
+
+                                        {{-- <a href="{{ route('livreurVehicule.edit', $lv->id) }}" class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="tooltip" title="Modifier">
                                             <i class="material-symbols-rounded text-lg">edit</i>
-                                        </a>
+                                        </a> --}}
                                     </td>
                                 </tr>
                             @empty
@@ -570,6 +599,8 @@
         <form id="updateUserForm" method="POST">
           @csrf
           @method('PUT')
+           <!-- CHAMP MODE -->
+        <input type="hidden" name="m" id="modeField"> 
           <div class="mb-3">
             <label for="firstname" class="form-label fw-bold">Nom</label>
             <input type="text" class="form-control" name="name" id="firstname" required>
@@ -594,6 +625,7 @@
             <button type="submit" class="btn btn-primary rounded-3">Enregistrer</button>
           </div>
         </form>
+
         <div id="successMessage" class="alert alert-success mt-3 d-none"></div>
       </div>
     </div>
@@ -666,7 +698,7 @@
           </div>
 
           <div class="mb-3">
-            <label for="type_vehicule_id" class="form-label">Type du véhicule</label>
+            <label for="type_vehicule_id" class="form-label">véhicule</label>
             <select name="type_vehicule_id" id="type_vehicule_id" class="form-select">
               <option selected disabled>-- Sélectionnez --</option>
               @foreach($typeVehicules as $typeVehicule)
@@ -693,7 +725,62 @@
   </div>
 </div>
 
+<!-- Modal affectation -->
+<div class="modal fade" id="editVehiculeLivreurModal" tabindex="-1" aria-labelledby="editVehiculeLivreurModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow border-0 rounded-4">
+      
+      <div class="modal-header bg-primary text-white rounded-top-4">
+        <h5 class="modal-title" id="editVehiculeLivreurModalLabel">Modifier l'affectation véhicule / livreur</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
 
+      <div class="modal-body bg-white">
+        <form id="editVehiculeLivreurForm" method="POST">
+          @csrf
+          @method('PUT')
+
+          <!-- Sélection du véhicule -->
+          <div class="mb-3">
+            <label for="vehiculeSelect" class="form-label">Véhicule</label>
+            <select name="vehicule_id" id="vehiculeSelect" class="form-select" required>
+              <option value="{{ $lv->vehicule->id }}" selected>
+                {{ $lv->vehicule->immatriculation }}
+              </option>
+              @foreach ($vehicules as $vehicule)
+                @if ($vehicule->id !== $lv->vehicule->id)
+                  <option value="{{ $vehicule->id }}">{{ $vehicule->immatriculation }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
+
+          <!-- Sélection du livreur -->
+          <div class="mb-3">
+            <label for="livreurSelect" class="form-label">Livreur</label>
+            <select name="livreur_id" id="livreurSelect" class="form-select" required>
+              <option value="{{ $lv->livreur->id }}" selected>
+                {{ $lv->livreur->user->email }}
+              </option>
+              @foreach ($livreurs as $livreur)
+                @if ($livreur->id !== $lv->livreur->id)
+                  <option value="{{ $livreur->id }}">{{ $livreur->user->email }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
+
+          <!-- Boutons -->
+          <div class="d-flex justify-content-between">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-success">Valider</button>
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
    <!-- Modal -->
     @include('tarifs.create')
     @include('users.create')
@@ -754,17 +841,27 @@
 </script>
 
 <script>
-  function openEditModal(id, name, email, phone) {
-    // Remplissage des champs
+  function openEditModal(button) {
+    const id = button.getAttribute('data-id');
+    const name = button.getAttribute('data-name');
+    const email = button.getAttribute('data-email');
+    const phone = button.getAttribute('data-phone');
+    const url = button.getAttribute('data-url');
+    const mode = button.getAttribute('data-mode');
+
+    // Remplir les champs du formulaire
     document.getElementById('firstname').value = name;
     document.getElementById('email').value = email;
     document.getElementById('phone').value = phone;
     document.getElementById('password').value = "";
 
-    // Met à jour l'action du formulaire
+    // Mettre à jour l'URL du formulaire
     const form = document.getElementById('updateUserForm');
-    form.action = "{{ route('users.update', ':id') }}".replace(':id', id);
+    form.action = url;
 
+    // Remplir ou créer le champ caché "m"
+    const modeField = document.getElementById('modeField');
+    modeField.value = mode;
   }
 </script>
 
@@ -793,5 +890,20 @@
     form.action = `vehicule/${id}`; // Assure-toi que cette route PUT existe
   }
 </script>
+<script>
+  function openVehiculeLivreurModal(livreurVehiculeId, vehiculeId, livreurId) {
+    // Préremplissage des champs select
+    document.getElementById('vehiculeSelect').value = vehiculeId;
+    document.getElementById('livreurSelect').value = livreurId;
+
+    // Mise à jour de l'action du formulaire
+    const form = document.getElementById('editVehiculeLivreurForm');
+    form.action = `/affectation/${livreurVehiculeId}`; // si ta route est bien RESTful
+
+    // Si besoin, tu peux utiliser route Laravel avec Blade :
+    // form.action = "{{ route('livreurVehicule.update', ':id') }}".replace(':id', livreurVehiculeId);
+  }
+</script>
+
 
 @endsection
