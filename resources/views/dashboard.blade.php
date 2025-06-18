@@ -70,30 +70,37 @@ function getBadgeClass($status) {
         <!-- Clients -->
         <div class="col-xl-4 col-sm-6">
             <div class="card card-custom font-weight-bolder h-100 text-center py-4">
-                <div class="card-body">
+                <a href="{{ route('users.index', ['m' => 'client']) }}" style="text-decoration: none; color: inherit;">
+                    <div class="card-body">
                     <p class="card-title">Clients enregistrés</p>
                     <div class="card-value">{{ $client }}</div>
-                </div>
+                    </div>
+                </a>
             </div>
         </div>
 
         <!-- Véhicules -->
         <div class="col-xl-4 col-sm-6">
             <div class="card card-custom font-weight-bolder h-100 text-center py-4">
-                <div class="card-body">
+                <a href="{{ route('vehicule.index') }}" style="text-decoration: none; color: inherit;">
+                    <div class="card-body">
                     <p class="card-title">Véhicules enregistrés</p>
                     <div class="card-value">{{ count($vehicules) }}</div>
                 </div>
+                </a>
+
             </div>
         </div>
 
         <!-- Livreurs -->
         <div class="col-xl-4 col-sm-6">
             <div class="card card-custom h-100 text-center py-4">
-                <div class="card-body">
+                <a href="{{ route('users.index', ['m' => 'livreur']) }}" style="text-decoration: none; color: inherit;">
+                    <div class="card-body">
                     <p class="card-title">Livreurs enregistrés</p>
                     <div class="card-value">{{ count($livreurs) }}</div>
-                </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
@@ -169,64 +176,26 @@ function getBadgeClass($status) {
         </div>
     </div>
 </div>
-
-     <!-- Charts Section - Improved layout -->
-    <div class="row g-4 mb-4">
-        <!-- Livraisons cette semaine -->
-        <div class="col-lg-4 col-md-6">
-            <div class="card h-100">
-                <div class="card-header p-3 pb-2">
-                    <h6 class="mb-0">total de livraison jour</h6>
-
-                </div>
-
-                <div class="card-footer bg-transparent border-top">
-                    <div class="d-flex align-items-center">
-
-                        <p class="mb-0 text-sm">
-                            <span class="font-weight-bolder">{{$today}}</span>
-                        </p>
-                    </div>
-                </div>
+<div class="row mt-4">
+    <div class="col-lg-12">
+        <div class="card z-index-2">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="mb-0">Livraisons</h6>
+                <select id="filterType" class="form-select w-auto">
+                    <option value="daily">7 derniers jours</option>
+                    <option value="monthly">7 derniers mois</option>
+                    <option value="yearly">7 dernières années</option>
+                </select>
             </div>
-        </div>
-
-        <!-- Utilisateurs aujourd'hui -->
-        <div class="col-lg-4 col-md-6">
-            <div class="card h-100">
-                <div class="card-header p-3 pb-2">
-                    <h6 class="mb-0">total de livraison semaine</h6>
-
-                </div>
-                <div class="card-footer bg-transparent border-top">
-                    <div class="d-flex align-items-center">
-                        <p class="mb-0 text-sm">
-                            <span class="font-weight-bolder">{{$thisWeek,}}</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Affectations Livreurs -->
-        <div class="col-lg-4">
-            <div class="card h-100">
-                <div class="card-header p-3 pb-2">
-                    <h6 class="mb-0">total de livraison mois</h6>
-
-                </div>
-                <div class="card-footer bg-transparent border-top">
-                    <div class="d-flex align-items-center">
-
-                        <p class="mb-0 text-sm">
-                        <span class="font-weight-bolder">{{ $thisMonth}}</span>
-                        </p>
-                    </div>
-                </div>
+            <div class="card-body">
+                <canvas id="livraisonChart" height="300"></canvas>
             </div>
         </div>
     </div>
 </div>
+
+     <!-- Charts Section - Improved layout -->
+
 <!-- Chart 3 - Bootstrap Brain Component -->
 {{-- <section class="py-3 py-md-5">
   <div class="container">
@@ -245,174 +214,51 @@ function getBadgeClass($status) {
 @include('livreurVehicule.create')
 
 <!-- Chart JS Scripts -->
-<script>
-     setInterval(() => {
-    location.reload();
-  }, 60000);
-    // Bar chart
-    var ctx1 = document.getElementById("chart-bars").getContext("2d");
-    new Chart(ctx1, {
-        type: "bar",
-        data: {
-            labels: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
-            datasets: [{
-                label: "Livraisons",
-                tension: 0.4,
-                borderWidth: 0,
-                borderRadius: 4,
-                borderSkipped: false,
-                backgroundColor: "#3A416F",
-                data: [50, 40, 60, 30, 70, 20, 90],
-                maxBarThickness: 6
-            }],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false,
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        drawBorder: false,
-                        display: true,
-                        drawOnChartArea: true,
-                        drawTicks: false,
-                        borderDash: [5, 5]
-                    },
-                    ticks: {
-                        padding: 10,
-                        font: {
-                            size: 11,
-                            family: "Open Sans",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                    }
-                },
-                x: {
-                    grid: {
-                        drawBorder: false,
-                        display: false,
-                        drawOnChartArea: false,
-                        drawTicks: false
-                    },
-                    ticks: {
-                        padding: 20,
-                        font: {
-                            size: 11,
-                            family: "Open Sans",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                    }
-                },
-            },
-        },
-    });
 
-    // Line chart
-    var ctx2 = document.getElementById("chart-line").getContext("2d");
-    new Chart(ctx2, {
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const labels = {
+        daily: @json($dayLabels),
+        monthly: @json($monthLabels),
+        yearly: @json($yearLabels)
+    };
+
+    const dataSets = {
+        daily: @json($days),
+        monthly: @json($months),
+        yearly: @json($years)
+    };
+
+    const ctx = document.getElementById("livraisonChart").getContext("2d");
+    let livraisonChart = new Chart(ctx, {
         type: "line",
         data: {
-            labels: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
+            labels: labels.daily,
             datasets: [{
-                label: "Utilisateurs",
-                tension: 0,
-                pointRadius: 5,
-                pointBackgroundColor: "#e91e63",
-                pointBorderColor: "transparent",
-                borderColor: "#e91e63",
-                borderWidth: 4,
-                backgroundColor: "transparent",
+                label: "Livraisons",
+                data: dataSets.daily,
                 fill: true,
-                data: [50, 40, 60, 30, 70, 20, 90],
-                maxBarThickness: 6
-            }],
+                borderColor: "#4e73df",
+                backgroundColor: "rgba(78, 115, 223, 0.1)",
+                tension: 0.3
+            }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false,
-                }
-            },
             scales: {
                 y: {
-                    beginAtZero: true,
-                    grid: {
-                        drawBorder: false,
-                        display: true,
-                        drawOnChartArea: true,
-                        drawTicks: false,
-                        borderDash: [5, 5]
-                    },
-                    ticks: {
-                        padding: 10,
-                        font: {
-                            size: 11,
-                            family: "Open Sans",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                    }
-                },
-                x: {
-                    grid: {
-                        drawBorder: false,
-                        display: false,
-                        drawOnChartArea: false,
-                        drawTicks: false
-                    },
-                    ticks: {
-                        padding: 20,
-                        font: {
-                            size: 11,
-                            family: "Open Sans",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                    }
-                },
-            },
-        },
+                    beginAtZero: true
+                }
+            }
+        }
     });
 
-    // Pie chart
-    var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
-    new Chart(ctx3, {
-        type: "doughnut",
-        data: {
-            labels: ["Camions", "Voitures", "Motos"],
-            datasets: [{
-                label: "Affectations",
-                weight: 9,
-                cutout: "60%",
-                tension: 0.9,
-                pointRadius: 2,
-                borderWidth: 2,
-                backgroundColor: ["#3A416F", "#e91e63", "#4CAF50"],
-                data: [15, 20, 10],
-                fill: false
-            }],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: true,
-                    position: 'bottom'
-                }
-            },
-            cutout: '70%',
-        },
+    document.getElementById('filterType').addEventListener('change', function () {
+        const type = this.value;
+        livraisonChart.data.labels = labels[type];
+        livraisonChart.data.datasets[0].data = dataSets[type];
+        livraisonChart.update();
     });
 </script>
 

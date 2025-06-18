@@ -15,6 +15,7 @@ use App\Models\Livreur;
 use App\Models\Livreur_Vehicule;
 use App\Models\Tarif;
 use App\Models\Vehicule;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -118,29 +119,58 @@ class AdminController extends Controller
         $typeVehicules = Type_vehicule::all();
         $vehicules = Vehicule::all();
         $tarifs = Tarif::all();
-        $livraisons = Livraison::all();
         $now = Carbon::now();
+        $livraisons = Livraison::all();
         $livreur_vehicules = Livreur_Vehicule::all();
         $client = Client::all()->count();
         #dd($livraisons);
-        // Livraisons this day
-        $today = Livraison::whereDate('created_at', $now->toDateString())->count();
-        // Livraisons this week
-        $thisWeek = Livraison::whereBetween('created_at', [$now->startOfWeek(), $now->endOfWeek()])->count();
-        //livraisons month
-        $thisMonth = Livraison::whereMonth('created_at', $now->month)->count();
+        // 7 derniers jours
+    $days = collect();
+    $dayLabels = collect();
+    for ($i = 6; $i >= 0; $i--) {
+        $date = $now->copy()->subDays($i);
+        $count = Livraison::whereDate('created_at', $date->toDateString())->count();
+        $days->push($count);
+        $dayLabels->push($date->format('d M'));
+    }
+
+    // 7 derniers mois
+    $months = collect();
+    $monthLabels = collect();
+    for ($i = 6; $i >= 0; $i--) {
+        $date = $now->copy()->subMonths($i);
+        $count = Livraison::whereMonth('created_at', $date->month)
+                          ->whereYear('created_at', $date->year)
+                          ->count();
+        $months->push($count);
+        $monthLabels->push($date->format('M Y'));
+    }
+
+    // 7 dernières années
+    $years = collect();
+    $yearLabels = collect();
+    for ($i = 6; $i >= 0; $i--) {
+        $year = $now->copy()->subYears($i)->year;
+        $count = Livraison::whereYear('created_at', $year)->count();
+        $years->push($count);
+        $yearLabels->push($year);
+    }
+
         return view('dashboard',
          [
-        'today'=>$today,
-        'thisWeek'=>$thisWeek,
-        'thisMonth'=>$thisMonth,
         'livreurs'=>$livreurs,
         'typeVehicules'=>$typeVehicules,
         'vehicules'=>$vehicules,
         'livraisons'=>$livraisons,
         'tarifs'=>$tarifs,
         'livreur_vehicules'=>$livreur_vehicules,
-        'client'=>$client
+        'client'=>$client,
+        'dayLabels' => $dayLabels,
+        'days' => $days,
+        'monthLabels' => $monthLabels,
+        'months' => $months,
+        'yearLabels' => $yearLabels,
+        'years' => $years,
          ]);
     }
 }

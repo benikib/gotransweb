@@ -105,9 +105,11 @@
                                            data-bs-placement="top" title="Modifier">
                                             <i class="material-symbols-rounded text-lg">edit</i>
                                         </a> --}}
+
                                         <button class="btn btn-link btn-sm ms-auto text-dark px-1 mb-0"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#editTypeVehiculeModal"
+                                                data-bs-toggle="tooltip" title="Modifier"
                                                 onclick="openTypeVehiculeModal({{ $type->id }}, '{{ $type->nom_type }}', '{{ $type->kilo_initiale }}', '{{ $type->kilo_final }}', {{ $type->tarif_id }})">
                                                 <i class="material-symbols-rounded text-lg">edit</i>
                                         </button>
@@ -163,7 +165,7 @@
                 <div class="row">
                     @forelse ($clients as $client)
                         <div class="col-md-4 mb-3">
-                            <div class="card border border-light shadow-xs p-3 h-100">
+                            <div class="card border border-light shadow-xs p-3 h-100 hover-scale transition-all">
                                 <div class="d-flex align-items-center mb-2">
                                     <div class="bg-gradient-warning text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px; font-weight: bold;">
                                         {{ strtoupper(substr($client->user->name, 0, 1)) }}
@@ -176,6 +178,7 @@
                                         class="btn btn-link text-dark px-2 mb-0"
                                         data-bs-toggle="modal"
                                         data-bs-target="#editUserModal"
+                                        data-bs-toggle="tooltip" title="Modifier"
                                         onclick="openEditModal({{ $client->user_id }}, '{{ $client->user->name }}', '{{ $client->user->email }}', '{{ $client->user->number_phone }}')"
                                         >
                                         <i class="material-symbols-rounded text-lg">edit</i>
@@ -220,7 +223,7 @@
                 <div class="row">
                     @forelse ($livreurs as $livreur)
                         <div class="col-md-4 mb-3">
-                            <div class="card border border-light shadow-xs p-3 h-100">
+                            <div class="card border border-light shadow-xs p-3 h-100 hover-scale transition-all">
                                 <div class="d-flex align-items-center mb-2">
                                     <div class="bg-gradient-warning text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px; font-weight: bold;">
                                         {{ strtoupper(substr($livreur->user->name, 0, 1)) }}
@@ -233,6 +236,7 @@
                                         class="btn btn-link text-dark px-2 mb-0"
                                         data-bs-toggle="modal"
                                         data-bs-target="#editUserModal"
+                                        data-bs-toggle="tooltip" title="Modifier"
                                         onclick="openEditModal({{ $livreur->user_id }}, '{{ $livreur->user->name }}', '{{ $livreur->user->email }}', '{{ $livreur->user->number_phone }}')"
                                         >
                                         <i class="material-symbols-rounded text-lg">edit</i>
@@ -286,7 +290,7 @@
             <div class="row">
                 @forelse ($vehicules as $vehicule)
                     <div class="col-md-4 mb-3">
-                        <div class="card border border-light shadow-xs p-3 h-100">
+                        <div class="card border border-light shadow-xs p-3 h-100 hover-scale transition-all">
                             <div class="d-flex align-items-center mb-2">
                                 <div class="bg-gradient-warning text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px; font-weight: bold;">
                                     {{ $loop->iteration }}
@@ -295,9 +299,10 @@
                                     <h6 class="mb-0 text-sm">{{ $vehicule->type_vehicule->nom_type }}</h6>
                                     <p class="text-xs text-muted mb-0">Immat: {{ $vehicule->immatriculation }}</p>
                                 </div>
-                                <button class="btn btn-outline-dark"
+                                <button class="btn btn-link text-dark px-2 mb-0"
                                         data-bs-toggle="modal"
                                         data-bs-target="#editVehiculeModal"
+                                        data-bs-toggle="tooltip" title="Modifier"
                                         onclick="openVehiculeModal(
                                             {{ $vehicule->id }},
                                             '{{ $vehicule->immatriculation }}',
@@ -366,6 +371,7 @@
                                         class="btn btn-link text-dark px-2 mb-0"
                                         data-bs-toggle="modal"
                                         data-bs-target="#editUserModal"
+                                        data-bs-toggle="tooltip" title="Modifier"
                                         onclick="openEditModal({{ $admin->user_id }}, '{{ $admin->user->name }}', '{{ $admin->user->email }}', '{{ $admin->user->number_phone }}')"
                                         >
                                         <i class="material-symbols-rounded text-lg">edit</i>
@@ -437,7 +443,7 @@
                                         <h6 class="mb-0 text-sm">{{ number_format($tarif->prix_tarif, 2, ',', ' ') }} $</h6>
                                     </td>
                                     <td class="ps-3 text-start">
-                                        <button class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="modal" data-bs-target="#editTarifModal"
+                                        <button class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="modal" data-bs-target="#editTarifModal" data-bs-toggle="tooltip" title="Modifier"
                                             onclick="openEditModal({{ $tarif->id }}, {{ $tarif->kilo_tarif }}, {{ $tarif->prix_tarif }})">
                                             <i class="material-symbols-rounded text-lg">edit</i>
                                         </button>

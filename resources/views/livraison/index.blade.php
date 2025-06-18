@@ -75,7 +75,7 @@ function getBadgeClass($status) {
                                 </thead>
                                 <tbody>
                                     @foreach ($livraisons as $livraison)
-                                    <tr class="livraison-row" data-status="{{ $livraison->status }}">
+                                    <tr class="livraison-row hover-scale transition-all" data-status="{{ $livraison->status }}">
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">

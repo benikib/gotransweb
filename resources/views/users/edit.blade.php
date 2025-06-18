@@ -34,9 +34,9 @@
           <h5 class="mb-0">Modifier un utilisateur</h5>
         </div>
         <div class="card-body px-4 py-4">
-          <form action="" method="POST">
+          <form action="{{ route('users.update', $user->id) }}" method="POST">
             @csrf
-
+            @method('PUT')
             <div class="mb-3">
               <label for="firstname" class="form-label fw-bold">Nom</label>
               <input type="text" class="form-control"name='name' id="firstname" value="{{old('nom',$use->name)}} "required>
@@ -83,7 +83,7 @@
   <script src="{{asset('assets/js/plugins/perfect-scrollbar.min.js')}}"></script>
   <script src="{{asset('assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
   <script>
-     
+
   .form-control, select.form-select {
   border: 1px solid #000; /* bordure noire 1px */
   border-radius: 4px; /* coins légèrement arrondis */
