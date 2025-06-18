@@ -100,24 +100,24 @@
                         </td>
 
                         <td class="align-middle text-begin">
-                            <button
-    class="btn btn-link text-dark px-2 mb-0"
-    data-bs-toggle="modal"
-    data-bs-target="#editUserModal"
-    onclick="openEditModal(
-        {{ $admin->user_id }},
-        @js($admin->user->name),
-        @js($admin->user->email),
-        @js($admin->user->number_phone)
-    )"
+  <button 
+  class="btn btn-link text-dark px-2 mb-0" 
+  data-bs-toggle="modal" 
+  data-bs-target="#editUserModal"
+  data-id="{{ $admin->user_id }}"
+  data-name="{{ $admin->user->name }}"
+  data-email="{{ $admin->user->email }}"
+  data-phone="{{ $admin->user->number_phone }}"
+  data-url="{{ route('users.update', $admin->user_id) }}"
+  data-mode="admin"
+  data-bs-toggle="tooltip"
+  onclick="openEditModal(this)"
 >
-    <i class="material-symbols-rounded text-lg">edit</i>
+  <i class="material-symbols-rounded text-lg">edit</i>
 </button>
 
-                            {{-- <a href="{{ route('users.edit', ['user' => $admin->user->id]) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
-                                Éditer
-                            </a> --}}
-                        </td>
+</td>
+
                     </tr>
                     @empty
                     <tr>
@@ -191,9 +191,24 @@
                         </td>
 
                         <td class="align-middle text-begin">
-                            <a href="{{ route('users.edit', ['user' => $livreur->user->id]) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
+                            <button 
+  class="btn btn-link text-dark px-2 mb-0" 
+  data-bs-toggle="modal" 
+  data-bs-target="#editUserModal"
+  data-id="{{ $livreur->user_id }}"
+  data-name="{{ $livreur->user->name }}"
+  data-email="{{ $livreur->user->email }}"
+  data-phone="{{ $livreur->user->number_phone }}"
+  data-url="{{ route('users.update', $livreur->user_id) }}"
+  data-mode="livreur"
+  data-bs-toggle="tooltip"
+  onclick="openEditModal(this)"
+>
+  <i class="material-symbols-rounded text-lg">edit</i>
+</button>
+                            {{-- <a href="{{ route('users.edit', ['user' => $livreur->user->id]) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
                                 Éditer
-                            </a>
+                            </a> --}}
                         </td>
                     </tr>
                     @empty
@@ -268,9 +283,24 @@
                         </td>
 
                         <td class="align-middle text-begin">
-                            <a href="{{ route('users.edit', ['user' => $client->user->id]) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
+                                          <button 
+  class="btn btn-link text-dark px-2 mb-0" 
+  data-bs-toggle="modal" 
+  data-bs-target="#editUserModal"
+  data-id="{{ $client->user_id }}"
+  data-name="{{ $client->user->name }}"
+  data-email="{{ $client->user->email }}"
+  data-phone="{{ $client->user->number_phone }}"
+  data-url="{{ route('users.update', $client->user_id) }}"
+  data-mode="client"
+  data-bs-toggle="tooltip"
+  onclick="openEditModal(this)"
+>
+  <i class="material-symbols-rounded text-lg">edit</i>
+</button>
+                            {{-- <a href="{{ route('users.edit', ['user' => $client->user->id]) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
                                 Éditer
-                            </a>
+                            </a> --}}
                         </td>
                     </tr>
                     @empty
@@ -287,6 +317,10 @@
 </div>
 
 <!-- Modal user -->
+
+
+
+@endif
 <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content shadow-lg border-0 rounded-4">
@@ -298,6 +332,8 @@
         <form id="updateUserForm" method="POST">
           @csrf
           @method('PUT')
+           <!-- CHAMP MODE -->
+        <input type="hidden" name="m" id="modeField"> 
           <div class="mb-3">
             <label for="firstname" class="form-label fw-bold">Nom</label>
             <input type="text" class="form-control" name="name" id="firstname" required>
@@ -322,26 +358,12 @@
             <button type="submit" class="btn btn-primary rounded-3">Enregistrer</button>
           </div>
         </form>
+
         <div id="successMessage" class="alert alert-success mt-3 d-none"></div>
       </div>
     </div>
   </div>
 </div>
-@endif
-<script>
-  function openEditModal(id, name, email, phone) {
-    // Remplissage des champs
-    document.getElementById('firstname').value = name;
-    document.getElementById('email').value = email;
-    document.getElementById('phone').value = phone;
-    document.getElementById('password').value = "";
-
-    // Met à jour l'action du formulaire
-    const form = document.getElementById('updateUserForm');
-    form.action = "{{ route('users.update', ':id') }}".replace(':id', id);
-
-  }
-</script> 
 <script>
         // Activer les tooltips
         document.addEventListener('DOMContentLoaded', function() {
@@ -350,7 +372,32 @@
                 return new bootstrap.Tooltip(tooltipTriggerEl)
             });
         });
-    </script>
+</script>
+<script>
+  function openEditModal(button) {
+    const id = button.getAttribute('data-id');
+    const name = button.getAttribute('data-name');
+    const email = button.getAttribute('data-email');
+    const phone = button.getAttribute('data-phone');
+    const url = button.getAttribute('data-url');
+    const mode = button.getAttribute('data-mode');
+
+    // Remplir les champs du formulaire
+    document.getElementById('firstname').value = name;
+    document.getElementById('email').value = email;
+    document.getElementById('phone').value = phone;
+    document.getElementById('password').value = "";
+
+    // Mettre à jour l'URL du formulaire
+    const form = document.getElementById('updateUserForm');
+    form.action = url;
+
+    // Remplir ou créer le champ caché "m"
+    const modeField = document.getElementById('modeField');
+    modeField.value = mode;
+  }
+</script>
+
 <script>
     function filterAdminTable() {
         let input = document.getElementById("searchAdmin");
@@ -396,9 +443,5 @@
         });
     }
 </script>
-
-
-
-
  @include('users.create')
-      @endsection
+@endsection

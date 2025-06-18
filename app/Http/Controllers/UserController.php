@@ -153,8 +153,28 @@ class UserController extends Controller
         'number_phone' => $request->number_phone,
         'password' => Hash::make($request->password),
     ]);
+    
+     $mode = $request->input('m'); 
+     // Insérer dans la bonne table selon le rôle
+        switch ($mode) {
+            case 'admin':
+                
+                 // Redirect to the user index page
+                return redirect()->route('users.index',['m' => 'admin'])->with('success', 'Admin créé avec succès.');
+                break;
+            case 'client':
+                // Redirect to the user index page
+                return redirect()->route('users.index',['m' => 'client'])->with('success', 'Client créé avec succès.');
+                break;
+            case 'livreur':
+                 // Redirect to the user index page
+                return redirect()->route('users.index',['m' => 'livreur'])->with('success', 'Livreur créé avec succès.');
+                break;
+        }
+        #dd($mode);
+
     // Vérifier le rôle de l'utilisateur et mettre à jour la table correspondante
-    return redirect()->route('dashbord.views')->with('success', 'Utilisateur mis à jour avec succès.');
+     return redirect()->route('users.index')->with('success', 'Utilisateur mis à jour avec succès.');
 }
 
     /**

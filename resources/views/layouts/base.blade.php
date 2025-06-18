@@ -109,7 +109,5 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="https://unpkg.com/bs-brain@2.0.4/components/charts/chart-3/assets/controller/chart-3.js"></script>
-
 </body>
-
 </html>
