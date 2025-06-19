@@ -2,18 +2,13 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Ajouter</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">Ajouter tarif</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
          <form action="{{ route('tarifs.store') }}" method="POST">
     @csrf
-    <div class="mb-3">
-        <label for="nomtarif" class="form-label">Nom  de tarification</label>
-        <input type="text" class="form-control border border-secondary" id="nomtarif" name="nom" placeholder="Ex: 1 , 2, 3">
-    </div>
-
-
+    
     <div class="mb-3">
         <label for="nomtarif" class="form-label">Kilo de tarification</label>
         <input type="number" class="form-control border border-secondary" id="nomtarif" name="kilo_tarif" placeholder="Ex: 1 , 2, 3">

@@ -6,12 +6,6 @@
 <form action="{{ route('tarifs.update', $tarif->id) }}" method="POST">
     @csrf
     @method('PUT')
-
-    <div class="mb-3">
-        <label for="nomtarif" class="form-label">Nom  de tarification</label>
-        <input type="text" value ="{{ $tarif->nom }}" class="form-control border border-secondary" id="nomtarif" name="nom" placeholder="Ex: 1 , 2, 3">
-    </div>
-
     <div class="mb-3">
         <label for="nomtarif" class="form-label">Kilo de tarification</label>
         <input type="number" class="form-control" id="nomtarif" name="kilo_tarif"

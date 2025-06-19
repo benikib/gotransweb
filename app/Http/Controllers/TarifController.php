@@ -96,8 +96,9 @@ public function update(Request $request, Tarif $tarif)
 
     // ✅ Étape 4 : Sinon, comportement normal
     return redirect()
-        ->route('dashbord.views')
+        ->route('tarifs.index')
         ->with('success', 'Tarif modifié avec succès.');
+        
 }
 
 

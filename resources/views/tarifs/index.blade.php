@@ -76,9 +76,16 @@
 
                     <!-- Bouton Edit -->
                     <td class="align-middle text-begin">
-                      <a href="{{ route('tarifs.edit', $tarif->id) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
+                      <button class="btn btn-link text-dark px-2 mb-0"
+        data-bs-toggle="modal"
+        data-bs-target="#editTarifModal"
+        title="Modifier"
+        onclick="openEditModals('{{ $tarif->id }}', '{{ $tarif->kilo_tarif }}', '{{ $tarif->prix_tarif }}')">
+    <i class="material-symbols-rounded text-lg">edit</i>
+</button>
+                      {{-- <a href="{{ route('tarifs.edit', $tarif->id) }}" class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip" title="Modifier">
                         Éditer
-                      </a>
+                      </a> --}}
                     </td>
                     {{-- <td class="align-middle text-start">
                         <form action="{{ route('tarifs.destroy', $tarif->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce type de véhicule ?');" style="display:inline;">
@@ -109,7 +116,67 @@
 
 
   </div>
+<!-- Modal d'édition Tarif -->
+<div class="modal fade" id="editTarifModal" tabindex="-1" aria-labelledby="editTarifModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editTarifModalLabel">Modification du tarif</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body">
+        <form id="tarifForm" method="POST">
+            @csrf
+            @method('PUT')
+            <input type="hidden" id="tarif_id" name="id">
+            <div class="mb-3">
+                <label for="nomtarif" class="form-label">Kilo de tarification</label>
+                <input type="number" class="form-control" id="kilo_tarif" name="kilo_tarif"
+                       placeholder="Ex: 1, 2, 3" style="border: 1px solid #000;" required>
+            </div>
 
+            <div class="mb-3">
+                <label for="tarif" class="form-label">Prix du Tarif</label>
+                <input type="number" class="form-control" id="prix_tarif" name="prix_tarif"
+                       placeholder="Ex: 2, 3, 10" style="border: 1px solid #000;" required>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="submit" class="btn btn-success">Valider</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script>
+// Fonction pour ouvrir et pré-remplir le modal
+function openEditModals(id, kilo, prix) {
+    // Remplir les champs du formulaire
+    // alert(id,kilo,prix);
+    document.getElementById('tarif_id').value = id;
+    document.getElementById('kilo_tarif').value = kilo;
+    document.getElementById('prix_tarif').value = prix;
+    
+    // Mettre à jour l'action du formulaire
+    document.getElementById('tarifForm').action = `tarif/${id}`;
+    
+    // Ouvrir le modal
+    // var modal = new bootstrap.Modal(document.getElementById('editTarifModal'));
+    // modal.show();
+}
+
+// Initialisation des tooltips (si vous en avez)
+document.addEventListener('DOMContentLoaded', function() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+});
+</script>
   <!-- Modal -->
   @include('tarifs.create')
 @endsection
