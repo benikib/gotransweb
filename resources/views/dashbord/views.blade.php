@@ -763,9 +763,9 @@
                 {{ $lv->livreur->user->email }}
               </option>
               @foreach ($livreurs as $livreur)
-                @if ($livreur->id !== $lv->livreur->id)
+               
                   <option value="{{ $livreur->id }}">{{ $livreur->user->email }}</option>
-                @endif
+            
               @endforeach
             </select>
           </div>

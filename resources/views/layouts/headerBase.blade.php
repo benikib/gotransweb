@@ -1,15 +1,22 @@
+
+<button type="button" id="iconNavbarSidenav" class="d-none btn btn-outline-primary mx-2 my-2  shadow-sm p-2">
+  <i class="bi bi-list fs-4"></i>
+</button>
+
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 bg-white my-2 transition"
   id="sidenav-main">
-
 
  <div class="sidenav-header d-flex justify-content-between align-items-center px-4 py-3">
   <a class="navbar-brand m-0" href="{{ route('dashboard') }}">
     <img src="{{ asset('assets/img/logo-ct.png') }}" class="navbar-brand-img" width="26" height="26" alt="logo">
     <span class="ms-1 text-sm text-dark sidenav-label">GoTrans</span>
   </a>
-  <button class="btn btn-sm btn-light d-xl-none" id="toggleSidenav">
-    <i class="fas fa-bars"></i>
-  </button>
+  
+  <button type="button" id="iconSidenav" class="d-none btn btn-outline-primary  shadow-sm p-2">
+  X
+</button>
+
+
 </div>
 
   <hr class="horizontal dark mt-0 mb-2">
@@ -104,20 +111,15 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const toggleButton = document.getElementById("toggleSidenav");
-    const sidenav = document.getElementById("sidenav-main");
 
-    toggleButton.addEventListener("click", function () {
-      sidenav.classList.toggle("collapsed");
-    });
-  });
+
+<script>
+  
 
  
 
   function LivraisonModal() {
-    console.log("bahdsbjhfvhxvghvhg");
+   
 
     const nombre = document.getElementById('nombre');
       $.ajax({
@@ -125,8 +127,15 @@
           type: "GET",
           success: function (data) {
 
-            console.log(data.data[0].nombre);
-             nombre.innerHTML = data.data[0].nombre;
+            if (data.data && typeof data.data.nombre !== 'undefined') {
+  
+    nombre.innerHTML = data.data[0].nombre;
+  } else {
+    console.warn("Donnée invalide ou manquante :", data);
+  }
+
+         
+            
             
              
           },
@@ -137,7 +146,7 @@
   }
   setInterval(() => {
     LivraisonModal();
-}, 200); 
+}, 1000); 
 // showLivraisonModal();
 
   // let affiche = showLivraisonModal();

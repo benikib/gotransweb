@@ -592,7 +592,6 @@ let body = document.getElementsByTagName('body')[0];
 let className = 'g-sidenav-pinned';
 
 if (iconNavbarSidenav) {
- 
   iconNavbarSidenav.addEventListener("click", toggleSidenav);
 }
 
@@ -601,21 +600,27 @@ if (iconSidenav) {
 }
 
 function toggleSidenav() {
-  
-  
   if (body.classList.contains(className)) {
     body.classList.remove(className);
     setTimeout(function() {
       sidenav.classList.remove('bg-white');
-      sidenav.classList.add('d-none');
+      iconNavbarSidenav.classList.remove('d-none')
     }, 100);
     sidenav.classList.remove('bg-transparent');
 
+
   } else {
+    iconNavbarSidenav.classList.add('d-none')
     body.classList.add(className);
     sidenav.classList.add('bg-white');
     sidenav.classList.remove('bg-transparent');
-    iconSidenav.classList.remove('d-none');
+
+    if (window.innerWidth < 1200) {
+      iconSidenav.classList.remove('d-none');
+
+    }
+
+    
   }
 }
 
@@ -643,19 +648,25 @@ if (sidenav) {
 // Deactivate sidenav type buttons on resize and small screens
 window.addEventListener("resize", sidenavTypeOnResize);
 window.addEventListener("load", sidenavTypeOnResize);
+
 const NavbarSidenav = document.getElementById('iconNavbarSidenav');
 
 function sidenavTypeOnResize() {
   let elements = document.querySelectorAll('[onclick="sidebarType(this)"]');
   if (window.innerWidth < 1200) {
-    NavbarSidenav.classList.add('d-none')
+    if (!body.classList.contains(className)) {
+      NavbarSidenav.classList.remove('d-none')
+      
+    }
+    
     elements.forEach(function(el) {
       el.classList.add('disabled');
     });
   } else {
-    NavbarSidenav.classList.remove('d-none')
+    NavbarSidenav.classList.add('d-none')
+    iconSidenav.classList.add("d-none");
     elements.forEach(function(el) {
-      el.classList.remove('disabled');
+      el.classList.add('disabled');
     });
   }
 }
