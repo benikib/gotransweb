@@ -1,8 +1,14 @@
 {
   "resources/js/app.js": {
-    "file": "assets/app-BYAx5-nD.js",
+    "file": "assets/app-BTBwt3mS.js",
     "name": "app",
     "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/material-dashboard.js": {
+    "file": "assets/material-dashboard-BoLrtMV7.js",
+    "name": "material-dashboard",
+    "src": "resources/js/material-dashboard.js",
     "isEntry": true
   },
   "resources/sass/app.scss": {
