@@ -12,7 +12,8 @@
                   <label for="nomModeleVehicule" class="form-label input-group input-group-outline"> Véhicule</label>
                   <select  name="vehicule_id"class="form-select" aria-label="Default select example" >
                     <option  selected >Selectionnez un vehicule</option>
-                    @forelse ($vehicules as $vehicule )
+                    'livreurLibre','vehiculeLibre'
+                    @forelse ($vehiculeLibre as $vehicule )
                     <option  value={{ $vehicule->id}} > {{ $vehicule->immatriculation }}</option>
                     @empty
 
@@ -25,8 +26,8 @@
                 <label for="nomTypeVehicule" class="form-label">Livreur</label>
                 <select  name="livreur_id"class="form-select" aria-label="Default select example" >
                     <option  selected >Selectionnez un livreur</option>
-                    @forelse ($livreurs as $livreur )
-                    <option  value={{ $livreur->id}} > {{ $livreur->user->email }}</option>
+                    @forelse ($livreurLibre as $livreur )
+                    <option  value={{ $livreur->id_livreur}} > {{ $livreur->email }}</option>
                     @empty
 
                     @endforelse

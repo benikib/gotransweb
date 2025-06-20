@@ -109,9 +109,26 @@ class AdminController extends Controller
         $tarifs = Tarif::latest()->take(3)->get();
         $clients = Client::latest()->take(3)->get();
         $livreur_vehicules = Livreur_Vehicule::latest()->take(3)->get();
-        #dd($livreur_vehicules);
+        $vehiculeLibre=$vehiculesLibres = DB::table('vehicules')
+        ->leftJoin('livreur__vehicules', 'vehicules.id', '=', 'livreur__vehicules.vehicule_id')
+        ->whereNull('livreur__vehicules.vehicule_id')
+        ->select('vehicules.*')
+        ->get();
+    
+        $livreurLibre=DB::table('livreurs')
+        ->leftJoin('livreur__vehicules', 'livreurs.id', '=', 'livreur__vehicules.livreur_id')
+        ->leftJoin('users', 'users.id', '=', 'livreurs.user_id')
+        ->whereNull('livreur__vehicules.livreur_id')
+        ->select('livreurs.id as id_livreur',
+        'users.name as nom',
+        'users.email as email'
+        )
+        ->get();
 
-        return view('dashbord.views', compact('livreur_vehicules','livreurs','typeVehicules','livreurs','vehicules','admins','tarifs','clients'));
+        //dd($livreurLibre);
+
+        return view('dashbord.views', compact('livreur_vehicules','livreurs','typeVehicules','livreurs','vehicules'
+        ,'admins','tarifs','clients','livreurLibre','vehiculeLibre'));
     }
     public function dashboard()
     {
