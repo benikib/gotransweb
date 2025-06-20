@@ -1,6 +1,6 @@
 
-<button type="button" id="iconNavbarSidenav" class="d-none btn btn-outline-primary mx-2 my-2  shadow-sm p-2">
-  <i class="bi bi-list fs-4"></i>
+<button type="button" id="iconNavbarSidenav" class="d-none btn btn-outline-primary mx-3 my-3  shadow-sm p-3 py-2">
+  <i class="bi bi-list fs-3"></i>
 </button>
 
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 bg-white my-2 transition"

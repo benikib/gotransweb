@@ -461,14 +461,10 @@
                                         <h6 class="mb-0 text-sm">{{ number_format($tarif->prix_tarif, 2, ',', ' ') }} $</h6>
                                     </td>
                                     <td class="ps-3 text-start">
-                                        <!-- Bouton d'édition -->
-<button class="btn btn-link text-dark px-2 mb-0"
-        data-bs-toggle="modal"
-        data-bs-target="#editTarifModal"
-        title="Modifier"
-        onclick="openEditModals('{{ $tarif->id }}', '{{ $tarif->kilo_tarif }}', '{{ $tarif->prix_tarif }}')">
-    <i class="material-symbols-rounded text-lg">edit</i>
-</button>
+                                        <button class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="modal" data-bs-target="#editTarifModal" data-bs-toggle="tooltip" title="Modifier"
+                                            onclick="openEditModal({{ $tarif->id }}, {{ $tarif->kilo_tarif }}, {{ $tarif->prix_tarif }})">
+                                            <i class="material-symbols-rounded text-lg">edit</i>
+                                        </button>
 
                                     </td>
                                 </tr>
@@ -488,145 +484,105 @@
     </div>
 
     <!-- Affectations véhicules -->
-  <div class="col-md-6 d-flex">
-    <div class="card shadow-sm flex-fill">
-        <div class="card-header p-3 pb-2 border-bottom">
-            <div class="d-flex justify-content-between align-items-center">
-                <h6 class="mb-0 text-dark">Affectations Véhicules</h6>
-                <div>
-                    <button class="btn btn-sm bg-gradient-dark me-2" data-bs-toggle="modal" data-bs-target="#staticBack">
-                        <i class="material-symbols-rounded">add</i> Affecter
-                    </button>
-                    <a href="{{ route('livreurVehicule.index') }}" class="btn btn-sm btn-outline-dark">
-                        <i class="material-symbols-rounded text-sm">list</i> Tout voir
-                    </a>
+    <div class="col-md-6 d-flex">
+        <div class="card shadow-sm flex-fill">
+            <div class="card-header p-3 pb-2 border-bottom">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0 text-dark">Affectations Véhicules</h6>
+                    <div>
+                        <button class="btn btn-sm bg-gradient-dark me-2" data-bs-toggle="modal" data-bs-target="#staticBack">
+                            <i class="material-symbols-rounded">add</i> Affecter
+                        </button>
+
+                        <a href="{{ route('livreurVehicule.index') }}" class="btn btn-sm btn-outline-dark">
+                            <i class="material-symbols-rounded text-sm">list</i> Tout voir
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="card-body p-3">
-            <div class="table-responsive">
-                <table class="table align-items-center mb-0">
-                    <thead>
-                        <tr>
-                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Livreur</th>
-                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Type de Véhicule</th>
-                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Immatriculation</th>
-                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Édite</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($livreur_vehicules as $lv)
+            <div class="card-body p-3">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
                             <tr>
-                                <td class="ps-2">{{ $lv->livreur->user->email }}</td>
-                                <td class="ps-2">{{ $lv->vehicule->type_vehicule->nom_type }}</td>
-                                <td class="ps-2">{{ $lv->vehicule->immatriculation }}</td>
-                                <td class="ps-2">
-                                    <button
-                                        class="btn btn-link text-dark px-2 mb-0"
-                                        title="Modifier"
-                                        onclick="openVehiculeLivreurModal({{ $lv->id }}, {{ $lv->vehicule->id }}, {{ $lv->livreur->id }})"
-                                        data-bs-toggle="tooltip"
-                                    >
-                                        <i class="material-symbols-rounded text-lg">edit</i>
-                                    </button>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Livreur</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Type de Véhicule</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Immatriculation</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Edite</th>
 
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="editVehiculeLivreurModal{{ $lv->id }}" tabindex="-1" aria-labelledby="editVehiculeLivreurModalLabel{{ $lv->id }}" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content shadow border-0 rounded-4">
-
-                                                <div class="modal-header bg-primary text-white rounded-top-4">
-                                                    <h5 class="modal-title" id="editVehiculeLivreurModalLabel{{ $lv->id }}">
-                                                        Modifier l'affectation véhicule / livreur
-                                                    </h5>
-                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
-                                                </div>
-
-                                                <div class="modal-body bg-white">
-                                                    <form id="editVehiculeLivreurForm{{ $lv->id }}" method="POST">
-                                                        @csrf
-                                                        @method('PUT')
-
-                                                        <div class="mb-3">
-                                                            <label for="vehiculeSelect{{ $lv->id }}" class="form-label">Véhicule</label>
-                                                            <select name="vehicule_id" id="vehiculeSelect{{ $lv->id }}" class="form-select" required>
-                                                                <option value="{{ $lv->vehicule->id }}" selected>{{ $lv->vehicule->immatriculation }}</option>
-                                                                @foreach ($vehicules as $vehicule)
-                                                                    @if ($vehicule->id !== $lv->vehicule->id)
-                                                                        <option value="{{ $vehicule->id }}">{{ $vehicule->immatriculation }}</option>
-                                                                    @endif
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="mb-3">
-                                                            <label for="livreurSelect{{ $lv->id }}" class="form-label">Livreur</label>
-                                                            <select name="livreur_id" id="livreurSelect{{ $lv->id }}" class="form-select" required>
-                                                                <option value="{{ $lv->livreur->id }}" selected>{{ $lv->livreur->user->email }}</option>
-                                                                @foreach ($livreurs as $livreur)
-                                                                    @if ($livreur->id !== $lv->livreur->id)
-                                                                        <option value="{{ $livreur->id }}">{{ $livreur->user->email }}</option>
-                                                                    @endif
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="d-flex justify-content-between">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                                            <button type="submit" class="btn btn-success">Valider</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="4" class="text-center py-4">
-                                    <i class="material-symbols-rounded text-secondary" style="font-size: 3rem">group_off</i>
-                                    <p class="text-sm text-secondary mt-2">Aucune affectation enregistrée</p>
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @forelse ($livreur_vehicules as $lv)
+                                <tr class="hover-scale transition-all bg-white border-bottom">
+                                    <td class="ps-3">
+                                        <h6 class="mb-0 text-sm font-weight-bold">{{ $lv->livreur->user->name ?? "Inconnu" }}</h6>
+                                    </td>
+                                    <td class="ps-3">
+                                        <h6 class="mb-0 text-sm">{{ $lv->vehicule->type_vehicule->nom_type ?? "A/N" }}</h6>
+                                    </td>
+                                    <td class="ps-3">
+                                        <h6 class="mb-0 text-sm">{{ $lv->vehicule->immatriculation ?? "A/N" }}</h6>
+                                    </td>
+                                    <td class="text-end">
+                                        <button class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="tooltip" title="Modifier"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editVehiculeLivreurModal"
+                                        onclick="openVehiculeLivreurModal(
+                                            {{ $lv->id }},
+                                            {{ $lv->vehicule->id }},
+                                            {{ $lv->livreur->id }}
+                                        )">
+                                    <i class="material-symbols-rounded text-lg">edit</i>
+                                </button>
+
+                                        {{-- <a href="{{ route('livreurVehicule.edit', $lv->id) }}" class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="tooltip" title="Modifier">
+                                            <i class="material-symbols-rounded text-lg">edit</i>
+                                        </a> --}}
+                                    </td>
+                                    <td>
+                                        Detacher un livreur
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center py-4">
+                                        <i class="material-symbols-rounded text-secondary" style="font-size: 3rem">group_off</i>
+                                        <p class="text-sm text-secondary mt-2">Aucune affectation enregistrée</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
+</div>
 
 <!-- Modal d'édition Tarif -->
 <div class="modal fade" id="editTarifModal" tabindex="-1" aria-labelledby="editTarifModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow">
       <div class="modal-header">
-        <h5 class="modal-title" id="editTarifModalLabel">Modification du tarif</h5>
+        <h5 class="modal-title" id="editTarifModalLabel">Modifier le tarif</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
       <div class="modal-body">
-        <form id="tarifForm" method="POST">
+        <form id="editTarifForm" method="POST">
             @csrf
             @method('PUT')
-            <input type="hidden" id="tarif_id" name="id">
             <div class="mb-3">
-                <label for="nomtarif" class="form-label">Kilo de tarification</label>
-                <input type="number" class="form-control" id="kilo_tarif" name="kilo_tarif"
-                       placeholder="Ex: 1, 2, 3" style="border: 1px solid #000;" required>
+                <label for="edit_kilo_tarif" class="form-label">Kilo de tarification</label>
+                <input type="number" class="form-control" id="edit_kilo_tarif" name="kilo_tarif" required>
             </div>
-
             <div class="mb-3">
-                <label for="tarif" class="form-label">Prix du Tarif</label>
-                <input type="number" class="form-control" id="prix_tarif" name="prix_tarif"
-                       placeholder="Ex: 2, 3, 10" style="border: 1px solid #000;" required>
+                <label for="edit_prix_tarif" class="form-label">Prix du Tarif</label>
+                <input type="number" class="form-control" id="edit_prix_tarif" name="prix_tarif" required>
             </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Annuler</button>
                 <button type="submit" class="btn btn-success">Valider</button>
             </div>
         </form>
@@ -728,7 +684,7 @@
   </div>
 </div>
 
-<!-- Modal vehicul -->
+<!-- Modal vehicule -->
 <div class="modal fade" id="editVehiculeModal" tabindex="-1" aria-labelledby="editVehiculeModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content shadow rounded-4">
@@ -775,7 +731,7 @@
 </div>
 
 <!-- Modal affectation -->
-{{-- <div class="modal fade" id="editVehiculeLivreurModal" tabindex="-1" aria-labelledby="editVehiculeLivreurModalLabel" aria-hidden="true">
+<div class="modal fade" id="editVehiculeLivreurModal" tabindex="-1" aria-labelledby="editVehiculeLivreurModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow border-0 rounded-4">
 
@@ -812,9 +768,9 @@
                 {{ $lv->livreur->user->email }}
               </option>
               @foreach ($livreurs as $livreur)
-
+                @if ($livreur->id !== $lv->livreur->id)
                   <option value="{{ $livreur->id }}">{{ $livreur->user->email }}</option>
-
+                @endif
               @endforeach
             </select>
           </div>
@@ -829,7 +785,7 @@
 
     </div>
   </div>
-</div> --}}
+</div>
    <!-- Modal -->
     @include('tarifs.create')
     @include('users.create')
@@ -876,25 +832,6 @@
             });
         });
     </script>
-{{-- <script>
-    function openEditModal(id, kilo_tarif, prix_tarif) {
-        // Remplir les champs du formulaire
-        document.getElementById('edit_kilo_tarif').value = kilo_tarif;
-        document.getElementById('edit_prix_tarif').value = prix_tarif;
-
-        // Modifier l'action du formulaire avec l'URL correcte (Laravel)
-        const form = document.getElementById('editTarifForm');
-        form.action = `{{ url('tarif') }}/${id}`;
-    }
-
-    // Initialiser les tooltips Bootstrap (si utilisés)
-    document.addEventListener('DOMContentLoaded', function () {
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        });
-    });
-</script> --}}
 <script>
 // Fonction pour ouvrir et pré-remplir le modal
 function openEditModals(id, kilo, prix) {
@@ -912,13 +849,10 @@ function openEditModals(id, kilo, prix) {
     // modal.show();
 }
 
-// Initialisation des tooltips (si vous en avez)
-document.addEventListener('DOMContentLoaded', function() {
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-});
+        // Modifie l'action du formulaire
+        const form = document.getElementById('');
+        form.action = `tarif/${id}`; // Vérifie que ta route utilise bien ce format
+    }
 </script>
 
 <script>
@@ -971,7 +905,7 @@ document.addEventListener('DOMContentLoaded', function() {
     form.action = `vehicule/${id}`; // Assure-toi que cette route PUT existe
   }
 </script>
-{{-- <script>
+<script>
   function openVehiculeLivreurModal(livreurVehiculeId, vehiculeId, livreurId) {
     // Préremplissage des champs select
     document.getElementById('vehiculeSelect').value = vehiculeId;
@@ -984,26 +918,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Si besoin, tu peux utiliser route Laravel avec Blade :
     // form.action = "{{ route('livreurVehicule.update', ':id') }}".replace(':id', livreurVehiculeId);
   }
-</script> --}}
-<script>
-  function openVehiculeLivreurModal(id, vehiculeId, livreurId) {
-    document.getElementById('vehiculeSelect' + id).value = vehiculeId;
-    document.getElementById('livreurSelect' + id).value = livreurId;
-
-    const form = document.getElementById('editVehiculeLivreurForm' + id);
-    form.action = `/affectation/${id}`;
-
-    const modal = new bootstrap.Modal(document.getElementById('editVehiculeLivreurModal' + id));
-    modal.show();
-  }
-
-  // Activation des tooltips Bootstrap
-  document.addEventListener('DOMContentLoaded', function () {
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
-      new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-  });
 </script>
 
 
