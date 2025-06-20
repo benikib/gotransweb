@@ -211,7 +211,7 @@ function getBadgeClass($status) {
     </div>
   </div>
 </section> --}}
-@include('livreurVehicule.create')
+{{-- @include('livreurVehicule.create') --}}
 
 <!-- Chart JS Scripts -->
 

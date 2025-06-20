@@ -684,7 +684,7 @@
   </div>
 </div>
 
-<!-- Modal vehicul -->
+<!-- Modal vehicule -->
 <div class="modal fade" id="editVehiculeModal" tabindex="-1" aria-labelledby="editVehiculeModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content shadow rounded-4">
@@ -693,7 +693,7 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
       <div class="modal-body">
-        <form id="editVehiculeForm" method="POST">
+        <form id="editVehiculeForms"  method="POST">
           @csrf
           @method('PUT')
 
@@ -840,7 +840,7 @@
         document.getElementById('edit_prix_tarif').value = prix;
 
         // Modifie l'action du formulaire
-        const form = document.getElementById('editTarifForm');
+        const form = document.getElementById('');
         form.action = `tarif/${id}`; // Vérifie que ta route utilise bien ce format
     }
 </script>
@@ -891,8 +891,9 @@
     document.getElementById('etat').value = etat;
 
     // Mettre à jour l'action du formulaire
-    const form = document.getElementById('editVehiculeForm');
-    form.action = `vehicule/${id}`; // Assure-toi que cette route PUT existe
+    const form = document.getElementById('editVehiculeForms');
+    
+    form.action = `{{route('vehicule.update',1)}}`; // Assure-toi que cette route PUT existe
   }
 </script>
 <script>
