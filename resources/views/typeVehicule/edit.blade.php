@@ -13,17 +13,17 @@
     </div>
 
     <div class="mb-3">
-        <label for="nomtarif" class="form-label">Tarif Kilo initial</label>
+        <label for="nomtarif" class="form-label">Kilo initial</label>
         <input type="number" class="form-control border border-secondary" id="nomtarif" name="kilo_initiale" placeholder="Ex: 1 , 2, 3" value="{{ $typeVehicule->kilo_initiale }}">
     </div>
 
     <div class="mb-3">
-        <label for="tarif" class="form-label">Tarif Kilo final</label>
+        <label for="tarif" class="form-label"> Kilo final</label>
         <input type="number" class="form-control border border-secondary" id="tarif" name="kilo_final" placeholder="Ex: 2 , 3 , 10 " value="{{ $typeVehicule->kilo_final }}">
     </div>
 
     <div class="mb-3">
-        <label for="nomModeleVehicule" class="form-label">Type du véhicule</label>
+        <label for="nomModeleVehicule" class="form-label">Tarif</label>
         <select name="tarif_id" class="form-select border border-secondary" aria-label="Default select example">
             <option selected value="{{ $typeVehicule->tarif->id }}">
                 {{ $typeVehicule->tarif->kilo_tarif . ' kilo / $ ' . $typeVehicule->tarif->prix_tarif }}

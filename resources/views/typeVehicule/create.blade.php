@@ -25,7 +25,7 @@
     </div>
 
     <div class="mb-3">
-        <label for="nomModeleVehicule" class="form-label">Type du véhicule</label>
+        <label for="nomModeleVehicule" class="form-label">Tarif</label>
         <select name="tarif_id" class="form-select border border-secondary" aria-label="Default select example">
             <option selected>Selectionner un tarif</option>
             @forelse ($tarifs as $tarif)

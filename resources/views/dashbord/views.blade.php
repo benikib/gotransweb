@@ -109,8 +109,13 @@
                                         <button class="btn btn-link btn-sm ms-auto text-dark px-1 mb-0"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#editTypeVehiculeModal"
-                                                data-bs-toggle="tooltip" title="Modifier"
-                                                onclick="openTypeVehiculeModal({{ $type->id }}, '{{ $type->nom_type }}', '{{ $type->kilo_initiale }}', '{{ $type->kilo_final }}', {{ $type->tarif_id }})">
+                                                title="Modifier"
+                                                onclick="openTypeVehiculeModal(
+                                            {{ $type->id }},
+                                            '{{ $type->nom_type }}',
+                                            {{ $type->kilo_initiale }},
+                                            {{ $type->kilo_final }},
+                                            {{ $type->tarif->id }})">
                                                 <i class="material-symbols-rounded text-lg">edit</i>
                                         </button>
 
@@ -184,7 +189,7 @@
   data-phone="{{ $client->user->number_phone }}"
   data-url="{{ route('users.update', $client->user_id) }}"
   data-mode="client"
-  data-bs-toggle="tooltip"
+  title="Modifier"
   onclick="openEditModal(this)"
 >
   <i class="material-symbols-rounded text-lg">edit</i>
@@ -248,7 +253,7 @@
   data-phone="{{ $livreur->user->number_phone }}"
   data-url="{{ route('users.update', $livreur->user_id) }}"
   data-mode="livreur"
-  data-bs-toggle="tooltip"
+  title="Modifier"
   onclick="openEditModal(this)"
 >
   <i class="material-symbols-rounded text-lg">edit</i>
@@ -314,7 +319,7 @@
                                 <button class="btn btn-link text-dark px-2 mb-0"
                                         data-bs-toggle="modal"
                                         data-bs-target="#editVehiculeModal"
-                                        data-bs-toggle="tooltip" title="Modifier"
+                                         title="Modifier"
                                         onclick="openVehiculeModal(
                                             {{ $vehicule->id }},
                                             '{{ $vehicule->immatriculation }}',
@@ -389,7 +394,7 @@
   data-phone="{{ $admin->user->number_phone }}"
   data-url="{{ route('users.update', $admin->user_id) }}"
   data-mode="admin"
-  data-bs-toggle="tooltip"
+  title="Modifier"
   onclick="openEditModal(this)"
 >
   <i class="material-symbols-rounded text-lg">edit</i>
@@ -461,8 +466,10 @@
                                         <h6 class="mb-0 text-sm">{{ number_format($tarif->prix_tarif, 2, ',', ' ') }} $</h6>
                                     </td>
                                     <td class="ps-3 text-start">
-                                        <button class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="modal" data-bs-target="#editTarifModal" data-bs-toggle="tooltip" title="Modifier"
-                                            onclick="openEditModal({{ $tarif->id }}, {{ $tarif->kilo_tarif }}, {{ $tarif->prix_tarif }})">
+                                        <button class="btn btn-link text-dark px-2 mb-0" title="Modifier" title="Modifier"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editTarifModal"
+                                            onclick="openEditModals({{ $tarif->id }}, {{ $tarif->kilo_tarif }}, {{ $tarif->prix_tarif }})">
                                             <i class="material-symbols-rounded text-lg">edit</i>
                                         </button>
 
@@ -525,7 +532,7 @@
                                         <h6 class="mb-0 text-sm">{{ $lv->vehicule->immatriculation ?? "A/N" }}</h6>
                                     </td>
                                     <td class="text-end">
-                                        <button class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="tooltip" title="Modifier"
+                                        <button class="btn btn-link text-dark px-2 mb-0"  title="Modifier"
                                         data-bs-toggle="modal"
                                         data-bs-target="#editVehiculeLivreurModal"
                                         onclick="openVehiculeLivreurModal(
@@ -573,6 +580,7 @@
         <form id="editTarifForm" method="POST">
             @csrf
             @method('PUT')
+            <input type="hidden" id="tarif_id" name="id">
             <div class="mb-3">
                 <label for="edit_kilo_tarif" class="form-label">Kilo de tarification</label>
                 <input type="number" class="form-control" id="edit_kilo_tarif" name="kilo_tarif" required>
@@ -637,49 +645,55 @@
   </div>
 </div>
 {{-- Modale type vehicile --}}
-<div class="modal fade" id="editTypeVehiculeModal" tabindex="-1" aria-labelledby="editTypeVehiculeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
+<div class="modal fade" id="typeVehiculeModal" tabindex="-1" aria-labelledby="typeVehiculeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow">
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title">Modifier le type de véhicule</h5>
+      <div class="modal-header">
+        <h5 class="modal-title" id="typeVehiculeModalLabel">Modification du type de véhicule</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
+      <div class="modal-body">
+        <form id="typeVehiculeForm" method="POST">
+            @csrf
+            @method('PUT')
+            <input type="hidden" id="type_vehicule_id" name="id">
 
-      <form id="editVehiculeForm" method="POST">
-        @csrf
-        @method('PUT')
-        <div class="modal-body">
+            <div class="mb-3">
+                <label for="modal_nomTypeVehicule" class="form-label">Nom du type de véhicule</label>
+                <input type="text" class="form-control border border-secondary" id="modal_nomTypeVehicule"
+                       name="nom_type" placeholder="Ex: Camion, Moto, etc." required>
+            </div>
 
-          <div class="mb-3">
-            <label for="nomTypeVehicule" class="form-label">Nom du type de véhicule</label>
-            <input type="text" class="form-control" id="nomTypeVehicule" name="nom_type">
-          </div>
+            <div class="mb-3">
+                <label for="modal_kilo_initiale" class="form-label">Kilo initial</label>
+                <input type="number" class="form-control border border-secondary" id="modal_kilo_initiale"
+                       name="kilo_initiale" placeholder="Ex: 1, 2, 3" required>
+            </div>
 
-          <div class="mb-3">
-            <label for="kiloInitiale" class="form-label">Tarif Kilo initial</label>
-            <input type="number" class="form-control" id="kiloInitiale" name="kilo_initiale">
-          </div>
+            <div class="mb-3">
+                <label for="modal_kilo_final" class="form-label">Kilo final</label>
+                <input type="number" class="form-control border border-secondary" id="modal_kilo_final"
+                       name="kilo_final" placeholder="Ex: 2, 3, 10" required>
+            </div>
 
-          <div class="mb-3">
-            <label for="kiloFinal" class="form-label">Tarif Kilo final</label>
-            <input type="number" class="form-control" id="kiloFinal" name="kilo_final">
-          </div>
+            <div class="mb-3">
+                <label for="modal_tarif_id" class="form-label">Tarif</label>
+                <select name="tarif_id" id="modal_tarif_id" class="form-select border border-secondary" required>
+                    <option value="">Sélectionnez un tarif</option>
+                    @foreach($tarifs as $tarif)
+                        <option value="{{ $tarif->id }}" data-display="{{ $tarif->kilo_tarif }} kilo / ${{ $tarif->prix_tarif }}">
+                            {{ $tarif->kilo_tarif }} kilo / ${{ $tarif->prix_tarif }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
 
-          <div class="mb-3">
-            <label for="tarifId" class="form-label">Type du tarif</label>
-            <select name="tarif_id" id="tarifId" class="form-select">
-              @foreach($tarifs as $tarif)
-                <option value="{{ $tarif->id }}">{{ $tarif->kilo_tarif }} kilo / $ {{ $tarif->prix_tarif }}</option>
-              @endforeach
-            </select>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-          <button type="submit" class="btn btn-success">Valider</button>
-        </div>
-      </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="submit" class="btn btn-success">Valider</button>
+            </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
@@ -696,7 +710,6 @@
         <form id="editVehiculeForms" method="POST">
           @csrf
           @method('PUT')
-
           <div class="mb-3">
             <label for="immatriculation" class="form-label">Numéro d'immatriculation</label>
             <input type="text" class="form-control" id="immatriculation" name="immatriculation" required>
@@ -836,23 +849,16 @@
 // Fonction pour ouvrir et pré-remplir le modal
 function openEditModals(id, kilo, prix) {
     // Remplir les champs du formulaire
-    // alert(id,kilo,prix);
-    document.getElementById('tarif_id').value = id;
-    document.getElementById('kilo_tarif').value = kilo;
-    document.getElementById('prix_tarif').value = prix;
+    document.getElementById('edit_kilo_tarif').value = kilo;
+    document.getElementById('edit_prix_tarif').value = prix;
 
     // Mettre à jour l'action du formulaire
-    document.getElementById('tarifForm').action = `tarif/${id}`;
+    document.getElementById('editTarifForm').action = `tarif/${id}`;
 
     // Ouvrir le modal
     // var modal = new bootstrap.Modal(document.getElementById('editTarifModal'));
     // modal.show();
 }
-
-        // Modifie l'action du formulaire
-        const form = document.getElementById('');
-        form.action = `tarif/${id}`; // Vérifie que ta route utilise bien ce format
-    }
 </script>
 
 <script>
@@ -881,17 +887,36 @@ function openEditModals(id, kilo, prix) {
 </script>
 
 <script>
-  function openTypeVehiculeModal(id, nom_type, kilo_initiale, kilo_final, tarif_id) {
-    // Remplir les champs
-    document.getElementById('nomTypeVehicule').value = nom_type;
-    document.getElementById('kiloInitiale').value = kilo_initiale;
-    document.getElementById('kiloFinal').value = kilo_final;
-    document.getElementById('tarifId').value = tarif_id;
+// Fonction pour ouvrir et pré-remplir le modal
+function openTypeVehiculeModal(id, nomType, kiloInit, kiloFinal, tarifId) {
+    // Remplir les champs du formulaire
+    document.getElementById('type_vehicule_id').value = id;
+    document.getElementById('modal_nomTypeVehicule').value = nomType;
+    document.getElementById('modal_kilo_initiale').value = kiloInit;
+    document.getElementById('modal_kilo_final').value = kiloFinal;
 
-    // Modifier dynamiquement l'action du formulaire
-    const form = document.getElementById('editVehiculeForm');
-    form.action = `/typevehicule/${id}`;
-  }
+    // Sélectionner le bon tarif
+    const select = document.getElementById('modal_tarif_id');
+    if (select) {
+        select.value = tarifId;
+    }
+
+    // Mettre à jour l'action du formulaire
+    document.getElementById('typeVehiculeForm').action = `typevehicule/${id}`;
+
+    // Ouvrir le modal
+    var modal = new bootstrap.Modal(document.getElementById('typeVehiculeModal'));
+    modal.show();
+}
+
+// Initialisation
+document.addEventListener('DOMContentLoaded', function() {
+    // Tooltips si nécessaire
+    [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        .forEach(function(el) {
+            new bootstrap.Tooltip(el);
+        });
+});
 </script>
 <script>
   function openVehiculeModal(id, immatriculation, typeVehiculeId, etat) {
