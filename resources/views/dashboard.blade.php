@@ -109,19 +109,38 @@ function getBadgeClass($status) {
 
 
     <!-- Main Content Section -->
-<div class="row g-4 mb-4">
+{{-- <div class="row g-4 mb-4">
     <!-- Section Livraisons Récentes -->
     <div class="col-md-12 d-flex">
         <div class="card shadow-sm flex-fill">
             <div class="card-header p-3 pb-2 border-bottom">
                 <div class="d-flex justify-content-between align-items-center">
                     <h6 class="mb-0 text-dark">Livraisons Récentes</h6>
-                    <div>
-                        <a href="{{ route('livraison.index') }}" class="btn btn-sm btn-outline-primary">
-                            <i class="material-symbols-rounded text-sm">list_alt</i> Voir tout
-                        </a>
+                    <div class="position-relative">
+                        <button id="calendarTrigger" class="btn btn-sm btn-outline-primary">
+                            <i class="material-symbols-rounded text-sm">calendar_month</i>
+                            @if($selectedDate !== now()->toDateString())
+                                <span class="ms-1">{{ \Carbon\Carbon::parse($selectedDate)->format('d/m') }}</span>
+                            @endif
+                        </button>
+                        <div id="datepickerContainer" class="position-absolute end-0 mt-2 z-3 d-none">
+                            <div class="card shadow">
+                                <div class="card-body p-2">
+                                    <input type="date" id="livraisonDatePicker" class="form-control" value="{{ $selectedDate }}">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                @if($selectedDate)
+                    <p class="text-sm text-muted mt-2 mb-0">
+                        @if($selectedDate === now()->toDateString())
+                            Aujourd'hui - {{ $livraisons->count() }} livraison(s)
+                        @else
+                            Livraisons du {{ \Carbon\Carbon::parse($selectedDate)->format('d/m/Y') }} - {{ $livraisons->count() }} livraison(s)
+                        @endif
+                    </p>
+                @endif
             </div>
             <div class="card-body p-3 pt-0">
                 <div class="table-responsive">
@@ -129,10 +148,9 @@ function getBadgeClass($status) {
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Code</th>
-                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Expéditeur </th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Expéditeur</th>
                                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2 text-center">Livreur</th>
                                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2 text-center">Statut</th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -140,17 +158,17 @@ function getBadgeClass($status) {
                             <tr class="hover-scale transition-all bg-white border-bottom">
                                 <td class="ps-3 align-middle">
                                     <h6 class="mb-0 text-sm">{{ $livraison->code }}</h6>
-                                    <small class="text-muted">{{ $livraison->created_at->format('d/m/Y') }}</small>
+                                    <small class="text-muted">{{ $livraison->created_at->format('d/m/Y H:i') }}</small>
                                 </td>
                                 <td class="ps-3 align-middle">
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <div class="text-xs text-capitalize small fw-semibold"> {{$livraison->Expediteur->User->name }}</div>
+                                            <div class="text-xs text-capitalize small fw-semibold">{{ $livraison->Expediteur->User->name ?? 'N/A' }}</div>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="text-center align-middle">
-                                    <span class="badge bg-light text-capitalize fw-semibold text-dark text-sm ">
+                                    <span class="badge bg-light text-capitalize fw-semibold text-dark text-sm">
                                         {{ $livraison->vehicule->type_vehicule->nom_type ?? "N/A" }}
                                     </span>
                                 </td>
@@ -159,13 +177,18 @@ function getBadgeClass($status) {
                                         {{ $livraison->status }}
                                     </span>
                                 </td>
-
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="5" class="text-center py-4">
+                                <td colspan="4" class="text-center py-4">
                                     <i class="material-symbols-rounded text-secondary opacity-10" style="font-size: 3rem">inbox</i>
-                                    <p class="text-sm text-muted mt-2">Aucune livraison récente</p>
+                                    <p class="text-sm text-muted mt-2">
+                                        @if($selectedDate === now()->toDateString())
+                                            Aucune livraison aujourd'hui
+                                        @else
+                                            Aucune livraison pour cette date
+                                        @endif
+                                    </p>
                                 </td>
                             </tr>
                             @endforelse
@@ -175,7 +198,52 @@ function getBadgeClass($status) {
             </div>
         </div>
     </div>
+</div> --}}
+<div class="row g-4 mb-4">
+    <div class="col-md-12 d-flex">
+        <div class="card shadow-sm flex-fill">
+            <div class="card-header p-3 pb-2 border-bottom">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0 text-dark">Livraisons Récentes</h6>
+                    <div class="position-relative">
+                        <button id="calendarTrigger" class="btn btn-sm btn-outline-primary">
+                            <i class="material-symbols-rounded text-sm">calendar_month</i>
+                            <span id="dateDisplay" class="ms-1"></span>
+                        </button>
+                        <div id="datepickerContainer" class="position-absolute end-0 mt-2 z-3 d-none">
+                            <div class="card shadow">
+                                <div class="card-body p-2">
+                                    <input type="date" id="livraisonDatePicker" class="form-control" value="{{ $selectedDate }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-sm text-muted mt-2 mb-0" id="livraisonCountText">
+                    Chargement en cours...
+                </p>
+            </div>
+            <div class="card-body p-3 pt-0">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Code</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Expéditeur</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2 text-center">Livreur</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2 text-center">Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody id="livraisonsTableBody">
+                            <!-- Le contenu sera chargé via AJAX -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 <div class="row mt-4">
     <div class="col-lg-12">
         <div class="card z-index-2">
@@ -261,7 +329,140 @@ function getBadgeClass($status) {
         livraisonChart.update();
     });
 </script>
+{{-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const calendarTrigger = document.getElementById('calendarTrigger');
+        const datepickerContainer = document.getElementById('datepickerContainer');
+        const datePicker = document.getElementById('livraisonDatePicker');
 
+        // Toggle calendar visibility
+        calendarTrigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            datepickerContainer.classList.toggle('d-none');
+        });
+
+        // Close calendar when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!datepickerContainer.contains(e.target) && e.target !== calendarTrigger) {
+                datepickerContainer.classList.add('d-none');
+            }
+        });
+
+        // Handle date selection
+        datePicker.addEventListener('change', function() {
+            const selectedDate = this.value;
+            window.location.href = "{{ route('dashboard') }}?date=" + selectedDate;
+        });
+    });
+</script> --}}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const calendarTrigger = document.getElementById('calendarTrigger');
+    const datepickerContainer = document.getElementById('datepickerContainer');
+    const datePicker = document.getElementById('livraisonDatePicker');
+    const livraisonsTableBody = document.getElementById('livraisonsTableBody');
+    const livraisonCountText = document.getElementById('livraisonCountText');
+    const dateDisplay = document.getElementById('dateDisplay');
+
+    // Charger les données initiales
+    loadLivraisons(new Date().toISOString().split('T')[0]);
+
+    // Gestion du calendrier
+    calendarTrigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        datepickerContainer.classList.toggle('d-none');
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!datepickerContainer.contains(e.target) && e.target !== calendarTrigger) {
+            datepickerContainer.classList.add('d-none');
+        }
+    });
+
+    datePicker.addEventListener('change', function() {
+        loadLivraisons(this.value);
+        datepickerContainer.classList.add('d-none');
+    });
+
+    function loadLivraisons(date) {
+        fetch(`/filter-livraisons?date=${date}`)
+            .then(response => response.json())
+            .then(data => {
+                // Mettre à jour l'affichage de la date
+                if (data.is_today) {
+                    dateDisplay.textContent = '';
+                    livraisonCountText.innerHTML = `Aujourd'hui - ${data.count} livraison(s)`;
+                } else {
+                    dateDisplay.textContent = date.split('-').reverse().slice(0, 2).join('/');
+                    livraisonCountText.innerHTML = `Livraisons du ${data.date_formatted} - ${data.count} livraison(s)`;
+                }
+
+                // Mettre à jour le tableau
+                let html = '';
+
+                if (data.livraisons.length > 0) {
+                    data.livraisons.forEach(livraison => {
+                        html += `
+                        <tr class="hover-scale transition-all bg-white border-bottom">
+                            <td class="ps-3 align-middle">
+                                <h6 class="mb-0 text-sm">${livraison.code}</h6>
+                                <small class="text-muted">${new Date(livraison.created_at).toLocaleDateString('fr-FR')}</small>
+                            </td>
+                            <td class="ps-3 align-middle">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <div class="text-xs text-capitalize small fw-semibold">${livraison.expediteur?.user?.name || 'N/A'}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center align-middle">
+                                <span class="badge bg-light text-capitalize fw-semibold text-dark text-sm">
+                                    ${livraison.vehicule?.type_vehicule?.nom_type || "N/A"}
+                                </span>
+                            </td>
+                            <td class="text-center align-middle">
+                                <span class="${getBadgeClass(livraison.status)} text-capitalize small fw-bold px-2 py-1 rounded-pill">
+                                    ${livraison.status}
+                                </span>
+                            </td>
+                        </tr>`;
+                    });
+                } else {
+                    html = `
+                    <tr>
+                        <td colspan="4" class="text-center py-4">
+                            <i class="material-symbols-rounded text-secondary opacity-10" style="font-size: 3rem">inbox</i>
+                            <p class="text-sm text-muted mt-2">
+                                ${data.is_today ? 'Aucune livraison aujourd\'hui' : 'Aucune livraison pour cette date'}
+                            </p>
+                        </td>
+                    </tr>`;
+                }
+
+                livraisonsTableBody.innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                livraisonsTableBody.innerHTML = `
+                <tr>
+                    <td colspan="4" class="text-center py-4 text-danger">
+                        Erreur lors du chargement des données
+                    </td>
+                </tr>`;
+            });
+    }
+
+    // Fonction pour déterminer la classe du badge (à adapter selon vos besoins)
+    function getBadgeClass(status) {
+        const classes = {
+            'livré': 'bg-success',
+            'en cours': 'bg-warning',
+            'annulé': 'bg-danger'
+        };
+        return classes[status.toLowerCase()] || 'bg-secondary';
+    }
+});
+</script>
 @endsection
 
 

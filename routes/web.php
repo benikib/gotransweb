@@ -21,6 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/views',[AdminController::class,'views'])->name('dashbord.views');
     Route::get('/dashboard', [AdminController::class,'dashboard'])->name('dashboard');
+    Route::get('/livraisons/par-date', [AdminController::class, 'parDate']);
+    Route::get('/filter-livraisons', [AdminController::class, 'filterLivraisons'])->name('filter.livraisons');
     // Importation automatique des routes depuis le dossier routeWeb
 foreach (glob(__DIR__ . '/routeWeb/*.php') as $file) {
     require $file;

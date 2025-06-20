@@ -174,9 +174,9 @@
                                         <h6 class="mb-0 text-sm">{{ $client->user->name }}</h6>
                                         <p class="text-xs text-muted mb-0">{{ $client->user->email }}</p>
                                     </div>
-                                                                            <button 
-  class="btn btn-link text-dark px-2 mb-0" 
-  data-bs-toggle="modal" 
+                                                                            <button
+  class="btn btn-link text-dark px-2 mb-0"
+  data-bs-toggle="modal"
   data-bs-target="#editUserModal"
   data-id="{{ $client->user_id }}"
   data-name="{{ $client->user->name }}"
@@ -238,9 +238,9 @@
                                         <h6 class="mb-0 text-sm">{{ $livreur->user->name }}</h6>
                                         <p class="text-xs text-muted mb-0">{{ $livreur->user->email }}</p>
                                     </div>
-                                     <button 
-  class="btn btn-link text-dark px-2 mb-0" 
-  data-bs-toggle="modal" 
+                                     <button
+  class="btn btn-link text-dark px-2 mb-0"
+  data-bs-toggle="modal"
   data-bs-target="#editUserModal"
   data-id="{{ $livreur->user_id }}"
   data-name="{{ $livreur->user->name }}"
@@ -379,9 +379,9 @@
                                     <h6 class="mb-0 text-sm">{{ $admin->user->name }}</h6>
                                     <p class="text-xs text-muted mb-0">{{ $admin->user->email }}</p>
                                 </div>
-                                 <button 
-  class="btn btn-link text-dark px-2 mb-0" 
-  data-bs-toggle="modal" 
+                                 <button
+  class="btn btn-link text-dark px-2 mb-0"
+  data-bs-toggle="modal"
   data-bs-target="#editUserModal"
   data-id="{{ $admin->user_id }}"
   data-name="{{ $admin->user->name }}"
@@ -522,8 +522,8 @@
                                 <td class="ps-2">{{ $lv->vehicule->type_vehicule->nom_type }}</td>
                                 <td class="ps-2">{{ $lv->vehicule->immatriculation }}</td>
                                 <td class="ps-2">
-                                    <button 
-                                        class="btn btn-link text-dark px-2 mb-0" 
+                                    <button
+                                        class="btn btn-link text-dark px-2 mb-0"
                                         title="Modifier"
                                         onclick="openVehiculeLivreurModal({{ $lv->id }}, {{ $lv->vehicule->id }}, {{ $lv->livreur->id }})"
                                         data-bs-toggle="tooltip"
@@ -649,7 +649,7 @@
           @csrf
           @method('PUT')
            <!-- CHAMP MODE -->
-        <input type="hidden" name="m" id="modeField"> 
+        <input type="hidden" name="m" id="modeField">
           <div class="mb-3">
             <label for="firstname" class="form-label fw-bold">Nom</label>
             <input type="text" class="form-control" name="name" id="firstname" required>
@@ -737,7 +737,7 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
       <div class="modal-body">
-        <form id="editVehiculeForm" method="POST">
+        <form id="editVehiculeForms" method="POST">
           @csrf
           @method('PUT')
 
@@ -778,7 +778,7 @@
 {{-- <div class="modal fade" id="editVehiculeLivreurModal" tabindex="-1" aria-labelledby="editVehiculeLivreurModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow border-0 rounded-4">
-      
+
       <div class="modal-header bg-primary text-white rounded-top-4">
         <h5 class="modal-title" id="editVehiculeLivreurModalLabel">Modifier l'affectation véhicule / livreur</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
@@ -812,9 +812,9 @@
                 {{ $lv->livreur->user->email }}
               </option>
               @foreach ($livreurs as $livreur)
-               
+
                   <option value="{{ $livreur->id }}">{{ $livreur->user->email }}</option>
-            
+
               @endforeach
             </select>
           </div>
@@ -826,7 +826,7 @@
           </div>
         </form>
       </div>
-      
+
     </div>
   </div>
 </div> --}}
@@ -903,10 +903,10 @@ function openEditModals(id, kilo, prix) {
     document.getElementById('tarif_id').value = id;
     document.getElementById('kilo_tarif').value = kilo;
     document.getElementById('prix_tarif').value = prix;
-    
+
     // Mettre à jour l'action du formulaire
     document.getElementById('tarifForm').action = `tarif/${id}`;
-    
+
     // Ouvrir le modal
     // var modal = new bootstrap.Modal(document.getElementById('editTarifModal'));
     // modal.show();
@@ -967,7 +967,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('etat').value = etat;
 
     // Mettre à jour l'action du formulaire
-    const form = document.getElementById('editVehiculeForm');
+    const form = document.getElementById('editVehiculeForms');
     form.action = `vehicule/${id}`; // Assure-toi que cette route PUT existe
   }
 </script>
