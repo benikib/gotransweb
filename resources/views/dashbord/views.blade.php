@@ -744,6 +744,7 @@
 </div>
 
 <!-- Modal affectation -->
+
 <div class="modal fade" id="editVehiculeLivreurModal" tabindex="-1" aria-labelledby="editVehiculeLivreurModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow border-0 rounded-4">
@@ -759,6 +760,7 @@
           @method('PUT')
 
           <!-- Sélection du véhicule -->
+          @isset($lv->vehicule)
           <div class="mb-3">
             <label for="vehiculeSelect" class="form-label">Véhicule</label>
             <select name="vehicule_id" id="vehiculeSelect" class="form-select" required>
@@ -772,8 +774,10 @@
               @endforeach
             </select>
           </div>
+          @endisset
 
           <!-- Sélection du livreur -->
+          @isset($lv->livreur)
           <div class="mb-3">
             <label for="livreurSelect" class="form-label">Livreur</label>
             <select name="livreur_id" id="livreurSelect" class="form-select" required>
@@ -787,6 +791,7 @@
               @endforeach
             </select>
           </div>
+          @endisset
 
           <!-- Boutons -->
           <div class="d-flex justify-content-between">
@@ -799,6 +804,7 @@
     </div>
   </div>
 </div>
+
    <!-- Modal -->
     @include('tarifs.create')
     @include('users.create')
