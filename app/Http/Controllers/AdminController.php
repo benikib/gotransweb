@@ -109,7 +109,7 @@ class AdminController extends Controller
         $tarifs = Tarif::latest()->take(3)->get();
         $clients = Client::latest()->take(3)->get();
         $livreur_vehicules = Livreur_Vehicule::latest()->take(3)->get();
-        $vehiculeLibre=$vehiculesLibres = DB::table('vehicules')
+        $vehiculeLibre=DB::table('vehicules')
         ->leftJoin('livreur__vehicules', 'vehicules.id', '=', 'livreur__vehicules.vehicule_id')
         ->whereNull('livreur__vehicules.vehicule_id')
         ->select('vehicules.*')
@@ -125,7 +125,6 @@ class AdminController extends Controller
         )
         ->get();
 
-        //dd($livreurLibre);
 
         return view('dashbord.views', compact('livreur_vehicules','livreurs','typeVehicules','livreurs','vehicules'
         ,'admins','tarifs','clients','livreurLibre','vehiculeLibre'));

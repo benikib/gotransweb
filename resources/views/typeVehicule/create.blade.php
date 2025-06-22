@@ -15,6 +15,12 @@
     </div>
 
     <div class="mb-3">
+        <label for="descriptionTypeVehicule" class="form-label">Description véhicule</label>
+        <textarea class="form-control border border-secondary" name="description" id="descriptionTypeVehicule"></textarea>
+
+    </div>
+
+    <div class="mb-3">
         <label for="nomtarif" class="form-label">Kilo initial</label>
         <input type="number" class="form-control border border-secondary" id="nomtarif" min="1" name="kilo_initiale" placeholder="Ex: 1 , 2, 3">
     </div>
