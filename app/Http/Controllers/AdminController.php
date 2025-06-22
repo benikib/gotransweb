@@ -114,7 +114,7 @@ class AdminController extends Controller
         ->whereNull('livreur__vehicules.vehicule_id')
         ->select('vehicules.*')
         ->get();
-    
+
         $livreurLibre=DB::table('livreurs')
         ->leftJoin('livreur__vehicules', 'livreurs.id', '=', 'livreur__vehicules.livreur_id')
         ->leftJoin('users', 'users.id', '=', 'livreurs.user_id')
@@ -129,7 +129,7 @@ class AdminController extends Controller
         return view('dashbord.views', compact('livreur_vehicules','livreurs','typeVehicules','livreurs','vehicules'
         ,'admins','tarifs','clients','livreurLibre','vehiculeLibre'));
     }
-    public function dashboard()
+    public function dashboard(Request $request)
     {
         $livreurs=Livreur::all();
         $typeVehicules = Type_vehicule::all();
@@ -171,7 +171,21 @@ class AdminController extends Controller
         $years->push($count);
         $yearLabels->push($year);
     }
+ // Récupérer les livraisons filtrées par date si présente dans la requête
+    $selectedDate = $request->input('date', $now->toDateString());
 
+    $livraisonsQuery = Livraison::query();
+
+    if ($selectedDate) {
+        $livraisonsQuery->whereDate('created_at', $selectedDate);
+    }
+
+    // Par défaut, limiter à 10 résultats si aucune date spécifique n'est sélectionnée
+    if ($selectedDate === $now->toDateString()) {
+        $livraisons = $livraisonsQuery->latest()->take(10)->get();
+    } else {
+        $livraisons = $livraisonsQuery->latest()->get();
+    }
         return view('dashboard',
          [
         'livreurs'=>$livreurs,
@@ -187,6 +201,31 @@ class AdminController extends Controller
         'months' => $months,
         'yearLabels' => $yearLabels,
         'years' => $years,
+        'selectedDate' => $selectedDate,
          ]);
     }
+    public function filterLivraisons(Request $request)
+{
+    $date = $request->input('date', Carbon::now()->toDateString());
+
+    $livraisonsQuery = Livraison::query()->whereDate('created_at', $date);
+
+    // Si c'est la date du jour, on limite à 10 résultats
+    if ($date === Carbon::now()->toDateString()) {
+        $livraisonsQuery->latest()->take(10);
+    }
+
+    $livraisons = $livraisonsQuery->with(['expediteur.user', 'vehicule.type_vehicule'])->get();
+
+    return response()->json([
+        'livraisons' => $livraisons,
+        'count' => $livraisons->count(),
+        'date_formatted' => Carbon::parse($date)->format('d/m/Y'),
+        'is_today' => $date === Carbon::now()->toDateString()
+    ]);
 }
+
+}
+
+// Dans votre contrôleur
+

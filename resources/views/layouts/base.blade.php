@@ -56,7 +56,25 @@
 .hover-scale:hover {
   transform: scale(1.02);
 }
+.flatpickr-calendar {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        border-radius: 0.5rem !important;
+    }
+    #datepickerContainer {
+        min-width: 250px;
+    }
 
+    .z-3 {
+        z-index: 1030;
+    }
+
+    .hover-scale {
+        transition: transform 0.2s ease;
+    }
+
+    .hover-scale:hover {
+        transform: scale(1.01);
+    }
 </style>
   <title>
     @yield('title')
@@ -68,7 +86,6 @@
 
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
   <!-- Nucleo Icons -->
-  <link href="{{asset('assets/css/nucleo-icons.css" rel="stylesheet')}}" />
   <link href="{{asset('assets/css/nucleo-svg.css" rel="stylesheet')}}" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
@@ -79,7 +96,14 @@
    @vite(['resources/sass/app.scss', 'resources/js/app.js','resources/js/material-dashboard.js'])
    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
+<!-- CSS Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
+<!-- JS Bootstrap (nécessaire pour les dropdowns) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Icônes Bootstrap Icons (si vous utilisez bi-filter) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -98,6 +122,11 @@
   <script src="{{asset('assets/js/core/bootstrap.min.js')}}"></script>
   <script src="{{asset('assets/js/plugins/perfect-scrollbar.min.js')}}"></script>
   <script src="{{asset('assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
+   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/bs-brain@2.0.4/components/charts/chart-3/assets/controller/chart-3.js"></script>
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -107,7 +136,6 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<script src="https://unpkg.com/bs-brain@2.0.4/components/charts/chart-3/assets/controller/chart-3.js"></script>
+
 </body>
 </html>

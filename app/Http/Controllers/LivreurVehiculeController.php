@@ -6,6 +6,7 @@ use App\Models\Livreur;
 use App\Models\Livreur_Vehicule;
 use App\Models\Vehicule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LivreurVehiculeController extends Controller
 {
@@ -18,8 +19,23 @@ class LivreurVehiculeController extends Controller
         $vehicules = $vehiculesDisponibles = Vehicule::doesntHave('livreurs')->get();
 
         $livreurs = $livreursDisponibles = Livreur::doesntHave('vehicules')->get();
+        $vehiculeLibre = DB::table('vehicules')
+        ->leftJoin('livreur__vehicules', 'vehicules.id', '=', 'livreur__vehicules.vehicule_id')
+        ->whereNull('livreur__vehicules.vehicule_id')
+        ->select('vehicules.*')
+        ->get();
 
-        return view('livreurVehicule.index', compact('livreurVehicules', 'vehicules', 'livreurs'));
+        $livreurLibre=DB::table('livreurs')
+        ->leftJoin('livreur__vehicules', 'livreurs.id', '=', 'livreur__vehicules.livreur_id')
+        ->leftJoin('users', 'users.id', '=', 'livreurs.user_id')
+        ->whereNull('livreur__vehicules.livreur_id')
+        ->select('livreurs.id as id_livreur',
+        'users.name as nom',
+        'users.email as email'
+        )
+        ->get();
+
+        return view('livreurVehicule.index', compact('livreurVehicules', 'vehicules', 'livreurs', 'vehiculeLibre', 'livreurLibre'));
     }
 
     /**
