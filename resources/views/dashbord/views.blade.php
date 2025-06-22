@@ -702,9 +702,9 @@
 <div class="modal fade" id="editVehiculeModal" tabindex="-1" aria-labelledby="editVehiculeModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content shadow rounded-4">
-      <div class="modal-header bg-primary text-white">
+      <div class="modal-header text-dark">
         <h5 class="modal-title" id="editVehiculeModalLabel">Modifier un véhicule</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
       <div class="modal-body">
         <form id="editVehiculeForms" method="POST">
@@ -749,9 +749,9 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow border-0 rounded-4">
 
-      <div class="modal-header bg-primary text-white rounded-top-4">
+      <div class="modal-header text-dark rounded-top-4">
         <h5 class="modal-title" id="editVehiculeLivreurModalLabel">Modifier l'affectation véhicule / livreur</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
 
       <div class="modal-body bg-white">
@@ -794,7 +794,7 @@
           @endisset
 
           <!-- Boutons -->
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-end gap-2">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
             <button type="submit" class="btn btn-success">Valider</button>
           </div>

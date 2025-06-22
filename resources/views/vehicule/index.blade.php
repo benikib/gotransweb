@@ -96,9 +96,18 @@
 
                                     <td class="text-center align-middle">
                                         <div class="d-flex justify-content-center">
-                                            <a href="{{ route('vehicule.edit', $vehicule->id) }}" class="btn btn-sm btn-outline-info me-2" data-bs-toggle="tooltip" title="Modifier">
+                                            <button class="btn btn-sm btn-outline-primary me-2" title="Modifier"
+                                                onclick="openEditVehiculeModal({
+                                                id: {{ $vehicule->id }},
+                                                immatriculation: '{{ $vehicule->immatriculation }}',
+                                                type_vehicule_id: {{ $vehicule->type_vehicule->id }},
+                                                etat: {{ $vehicule->etat ? 'true' : 'false' }}
+                                                })">
                                                 <i class="material-symbols-rounded text-sm">edit</i>
-                                            </a>
+                                                </button>
+                                            {{-- <a href="{{ route('vehicule.edit', $vehicule->id) }}" class="btn btn-sm btn-outline-info me-2" title="Modifier">
+                                                <i class="material-symbols-rounded text-sm">edit</i>
+                                            </a> --}}
                                             <form action="{{ route('vehicule.destroy', $vehicule->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Supprimer ce véhicule ?');">
                                                 @csrf
                                                 @method('DELETE')
@@ -128,6 +137,76 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="editVehiculeModal" tabindex="-1" aria-labelledby="editVehiculeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-lg">
+      <div class="modal-header text-dark">
+        <h5 class="modal-title" id="editVehiculeModalLabel">Modifier le véhicule</h5>
+        <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editVehiculeForm" method="POST">
+          @csrf
+          @method('PUT')
+
+          <div class="mb-3">
+            <label for="immatriculation" class="form-label">Numéro d'immatriculation</label>
+            <input type="text" class="form-control" id="modalImmatriculation" name="immatriculation" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="type_vehicule_id" class="form-label">Type du véhicule</label>
+            <select name="type_vehicule_id" id="modalTypeVehicule" class="form-select" required>
+              @foreach($typeVehicules as $typeVehicule)
+                <option value="{{ $typeVehicule->id }}">{{ $typeVehicule->nom_type }}</option>
+              @endforeach
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="etat" class="form-label">État du véhicule</label>
+            <select name="etat" id="modalEtat" class="form-select" required>
+              <option value="1">Bon</option>
+              <option value="0">Mauvais</option>
+            </select>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2 mt-4">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-success">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Fonction pour ouvrir le modal avec les données pré-remplies
+function openEditVehiculeModal(vehicule) {
+  // Remplir les champs du formulaire
+  document.getElementById('modalImmatriculation').value = vehicule.immatriculation;
+  document.getElementById('modalTypeVehicule').value = vehicule.type_vehicule_id;
+  document.getElementById('modalEtat').value = vehicule.etat ? '1' : '0';
+
+  // Mettre à jour l'action du formulaire
+  document.getElementById('editVehiculeForm').action = `/vehicule/${vehicule.id}`;
+
+  // Afficher le modal
+  const modal = new bootstrap.Modal(document.getElementById('editVehiculeModal'));
+  modal.show();
+}
+
+// Exemple d'utilisation (à adapter selon votre contexte) :
+// Lorsque vous cliquez sur un bouton "Modifier" :
+// <button onclick="openEditVehiculeModal({
+//   id: {{ $vehicule->id }},
+//   immatriculation: '{{ $vehicule->immatriculation }}',
+//   type_vehicule_id: {{ $vehicule->type_vehicule->id }},
+//   etat: {{ $vehicule->etat ? 'true' : 'false' }}
+// })">Modifier</button>
+</script>
   <!-- Modal -->
   @include('vehicule.create')
 @endsection

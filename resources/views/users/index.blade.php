@@ -139,7 +139,7 @@
     <div class="card-header">
         <div class="border-radius-lg pt-4 pb-3 px-3 d-flex justify-content-between align-items-center">
             <h6 class="text-dark text-capitalize m-0">Gestion des Livreurs</h6>
-            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addLivreurModal">
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="material-symbols-rounded me-1">person_add</i> Nouveau livreur
             </button>
         </div>
@@ -150,7 +150,7 @@
         <div class="mb-4">
             <div class="input-group input-group-outline">
                 <span class="input-group-text bg-transparent">
-                    <i class="material-symbols-rounded">search</i>
+                    <i class="material-symbols-rounded"></i>
                 </span>
                 <input type="text" id="searchLivreur" class="form-control form-control-sm"
                        placeholder="Rechercher par nom, email ou téléphone..."
@@ -248,7 +248,7 @@
     <div class="card-header">
         <div class="border-radius-lg pt-4 pb-3 px-3 d-flex justify-content-between align-items-center">
             <h6 class="text-dark text-capitalize m-0">Liste des Clients</h6>
-            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addClientModal">
+            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="material-symbols-rounded me-1">person_add</i> Nouveau client
             </button>
         </div>
@@ -259,7 +259,7 @@
         <div class="mb-4">
             <div class="input-group input-group-outline">
                 <span class="input-group-text bg-transparent">
-                    <i class="material-symbols-rounded">search</i>
+                    <i class="material-symbols-rounded"></i>
                 </span>
                 <input type="text" id="searchClient" class="form-control form-control-sm"
                        placeholder="Nom, email ou téléphone..."
@@ -355,10 +355,6 @@
     </div>
 </div>
 
-<!-- Modal user -->
-
-
-
 @endif
 <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -438,49 +434,163 @@
 </script>
 
 <script>
-    function filterAdminTable() {
-        let input = document.getElementById("searchAdmin");
-        let filter = input.value.toLowerCase();
-        let table = document.getElementById("adminTable");
-        let trs = table.getElementsByTagName("tr");
+function filterAdminTable() {
+    // Récupérer la valeur de recherche
+    const input = document.getElementById('searchAdmin');
+    const filter = input.value.toUpperCase();
 
-        for (let i = 1; i < trs.length; i++) { // ignore le header
-            let tds = trs[i].getElementsByTagName("td");
-            let match = false;
-            for (let j = 0; j < tds.length; j++) {
-                if (tds[j] && tds[j].textContent.toLowerCase().indexOf(filter) > -1) {
-                    match = true;
-                    break;
+    // Récupérer le tableau et ses lignes
+    const table = document.getElementById('adminTable');
+    const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+    // Parcourir toutes les lignes du tableau
+    for (let i = 0; i < rows.length; i++) {
+        // Récupérer toutes les cellules de la ligne (sauf la dernière colonne Actions)
+        const cells = rows[i].getElementsByTagName('td');
+        let matchFound = false;
+
+        // Parcourir les cellules à vérifier (nom, email, téléphone)
+        for (let j = 1; j < cells.length - 1; j++) { // On commence à 1 pour ignorer le #
+            const cell = cells[j];
+            if (cell) {
+                const textValue = cell.textContent || cell.innerText;
+                if (textValue.toUpperCase().indexOf(filter) > -1) {
+                    matchFound = true;
+                    break; // Pas besoin de vérifier les autres cellules si match trouvé
                 }
             }
-            trs[i].style.display = match ? "" : "none";
         }
+
+        // Afficher ou masquer la ligne selon le résultat
+        rows[i].style.display = matchFound ? "" : "none";
     }
+}
+
+// Optionnel: Ajouter un délai pour éviter de déclencher la recherche à chaque frappe
+let searchTimer;
+document.getElementById('searchAdmin').addEventListener('keyup', function() {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(filterAdminTable, 300);
+});
+
+// Optionnel: Réinitialiser la recherche quand on clique sur la croix
+document.getElementById('searchAdmin').addEventListener('search', function() {
+    if (this.value === '') {
+        filterAdminTable();
+    }
+});
 </script>
 
 <script>
-    function filterLivreurTable() {
-        var input = document.getElementById("searchLivreur");
-        var filter = input.value.toLowerCase();
-        var rows = document.querySelectorAll("#livreurTable tbody tr");
+// Fonction de recherche pour les livreurs avec debounce
+function filterLivreurTable() {
+    const input = document.getElementById('searchLivreur');
+    const filter = input.value.trim().toUpperCase();
+    const table = document.getElementById('livreurTable');
+    const rows = table.querySelectorAll('tbody tr');
 
-        rows.forEach(function(row) {
-            const text = row.innerText.toLowerCase();
-            row.style.display = text.includes(filter) ? "" : "none";
-        });
+    // Si champ vide, afficher toutes les lignes
+    if (filter === '') {
+        rows.forEach(row => row.style.display = '');
+        return;
     }
+
+    // Recherche dans les colonnes Nom (1), Email (2), Téléphone (3)
+    rows.forEach(row => {
+        const name = row.cells[1].textContent.toUpperCase();
+        const email = row.cells[2].textContent.toUpperCase();
+        const phone = row.cells[3].textContent.toUpperCase();
+
+        const match = name.includes(filter) ||
+                     email.includes(filter) ||
+                     phone.includes(filter);
+
+        row.style.display = match ? '' : 'none';
+    });
+}
+
+// Debounce pour améliorer les performances (300ms)
+let livreurSearchDebounce;
+document.getElementById('searchLivreur').addEventListener('input', function() {
+    clearTimeout(livreurSearchDebounce);
+    livreurSearchDebounce = setTimeout(filterLivreurTable, 300);
+});
+
+// Réinitialiser la recherche si l'utilisateur efface le champ
+document.getElementById('searchLivreur').addEventListener('search', function() {
+    filterLivreurTable();
+});
 </script>
 <script>
-    function filterClientTable() {
-        var input = document.getElementById("searchClient");
-        var filter = input.value.toLowerCase();
-        var rows = document.querySelectorAll("#clientTable tbody tr");
+// Fonction de recherche optimisée pour les clients
+function filterClientTable() {
+    const input = document.getElementById('searchClient');
+    const filter = input.value.trim().toUpperCase();
+    const table = document.getElementById('clientTable');
+    const rows = table.querySelectorAll('tbody tr:not([data-no-result])');
+    let hasResults = false;
 
-        rows.forEach(function(row) {
-            const text = row.innerText.toLowerCase();
-            row.style.display = text.includes(filter) ? "" : "none";
-        });
+    rows.forEach(row => {
+        // Récupérer les données des colonnes pertinentes (Nom, Email, Téléphone)
+        const name = row.cells[1].textContent.toUpperCase();
+        const contact = row.cells[2].textContent.toUpperCase();
+
+        const match = name.includes(filter) || contact.includes(filter);
+
+        if (match) {
+            row.style.display = '';
+            hasResults = true;
+        } else {
+            row.style.display = 'none';
+        }
+    });
+
+    // Gérer le message "Aucun résultat"
+    const noResultRow = table.querySelector('tr[data-no-result]');
+    const emptyRow = table.querySelector('tr[data-empty]');
+
+    if (!hasResults && filter !== '') {
+        if (!noResultRow && emptyRow) {
+            emptyRow.style.display = 'none';
+
+            const newRow = document.createElement('tr');
+            newRow.setAttribute('data-no-result', 'true');
+            newRow.innerHTML = `
+                <td colspan="5" class="text-center py-4">
+                    <div class="d-flex flex-column align-items-center">
+                        <i class="material-symbols-rounded text-muted mb-2" style="font-size: 48px;">search_off</i>
+                        <span class="text-xs font-weight-bold">Aucun client trouvé pour "${input.value}"</span>
+                    </div>
+                </td>
+            `;
+            table.querySelector('tbody').appendChild(newRow);
+        }
+    } else {
+        if (noResultRow) noResultRow.remove();
+        if (emptyRow) emptyRow.style.display = '';
     }
+}
+
+// Debounce pour optimiser les performances
+let clientSearchDebounce;
+document.getElementById('searchClient').addEventListener('input', function() {
+    clearTimeout(clientSearchDebounce);
+    clientSearchDebounce = setTimeout(filterClientTable, 300);
+});
+
+// Réinitialiser si l'utilisateur efface le champ
+document.getElementById('searchClient').addEventListener('search', function() {
+    if (this.value === '') {
+        filterClientTable();
+    }
+});
+
+// Exécuter au chargement si le champ est pré-rempli
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('searchClient').value.trim() !== '') {
+        filterClientTable();
+    }
+});
 </script>
  @include('users.create')
 @endsection

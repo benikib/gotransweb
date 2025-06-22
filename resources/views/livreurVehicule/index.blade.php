@@ -102,8 +102,9 @@
                                             <div class="d-flex justify-content-end">
                                                 <!-- Bouton Modifier -->
                                                 <button class="btn btn-sm btn-outline-primary me-2"
+                                                    data-bs-target="#editVehiculeLivreurModal"
                                                     onclick="openVehiculeLivreurModal({{ $lv->id }}, {{ $lv->vehicule->id }}, {{ $lv->livreur->id }})"
-                                                    data-bs-toggle="tooltip" title="Modifier l'affectation">
+                                                    data-bs-toggle="modal" title="Modifier l'affectation">
                                                     <i class="material-symbols-rounded text-sm">edit</i>
                                                 </button>
 
@@ -122,50 +123,65 @@
                                     </tr>
 
                                     <!-- Modal d'édition -->
-                                    <div class="modal fade" id="editVehiculeLivreurModal{{ $lv->id }}" tabindex="-1" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content border-0 shadow-lg">
-                                                <div class="modal-header bg-primary text-white">
-                                                    <h5 class="modal-title">Modifier l'affectation</h5>
-                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form id="editVehiculeLivreurForm{{ $lv->id }}" method="POST"
-                                                          action="{{ route('livreurVehicule.update', $lv->id) }}">
-                                                        @csrf
-                                                        @method('PUT')
+                                    <div class="modal fade" id="editVehiculeLivreurModal" tabindex="-1" aria-labelledby="editVehiculeLivreurModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow border-0 rounded-4">
 
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Véhicule</label>
-                                                            <select name="vehicule_id" class="form-select" required>
-                                                                @foreach ($vehicules as $vehicule)
-                                                                    <option value="{{ $vehicule->id }}" {{ $vehicule->id == $lv->vehicule->id ? 'selected' : '' }}>
-                                                                        {{ $vehicule->immatriculation }} ({{ $vehicule->type_vehicule->nom_type }})
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
+      <div class="modal-header text-dark rounded-top-4">
+        <h5 class="modal-title" id="editVehiculeLivreurModalLabel">Modifier l'affectation véhicule / livreur</h5>
+        <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
 
-                                                        <div class="mb-4">
-                                                            <label class="form-label">Livreur</label>
-                                                            <select name="livreur_id" class="form-select" required>
-                                                                @foreach ($livreurs as $livreur)
-                                                                    <option value="{{ $livreur->id }}" {{ $livreur->id == $lv->livreur->id ? 'selected' : '' }}>
-                                                                        {{ $livreur->user->name }} ({{ $livreur->user->email }})
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
+      <div class="modal-body bg-white">
+        <form id="editVehiculeLivreurForm" method="POST">
+          @csrf
+          @method('PUT')
 
-                                                        <div class="d-flex justify-content-end">
-                                                            <button type="button" class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Annuler</button>
-                                                            <button type="submit" class="btn btn-primary">Enregistrer</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+          <!-- Sélection du véhicule -->
+          @isset($lv->vehicule)
+          <div class="mb-3">
+            <label for="vehiculeSelect" class="form-label">Véhicule</label>
+            <select name="vehicule_id" id="vehiculeSelect" class="form-select" required>
+              <option value="{{ $lv->vehicule->id }}" selected>
+                {{ $lv->vehicule->immatriculation }}
+              </option>
+              @foreach ($vehicules as $vehicule)
+                @if ($vehicule->id !== $lv->vehicule->id)
+                  <option value="{{ $vehicule->id }}">{{ $vehicule->immatriculation }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
+          @endisset
+
+          <!-- Sélection du livreur -->
+          @isset($lv->livreur)
+          <div class="mb-3">
+            <label for="livreurSelect" class="form-label">Livreur</label>
+            <select name="livreur_id" id="livreurSelect" class="form-select" required>
+              <option value="{{ $lv->livreur->id }}" selected>
+                {{ $lv->livreur->user->email }}
+              </option>
+              @foreach ($livreurs as $livreur)
+                @if ($livreur->id !== $lv->livreur->id)
+                  <option value="{{ $livreur->id }}">{{ $livreur->user->email }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
+          @endisset
+
+          <!-- Boutons -->
+          <div class="d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-success">Valider</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
                                 @empty
                                     <tr>
                                         <td colspan="5" class="text-center py-5">
