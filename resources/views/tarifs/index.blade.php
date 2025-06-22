@@ -19,6 +19,19 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
     </div>
 @endif
+{{-- Script pour faire disparaître les messages après 5 secondes --}}
+    <script>
+    setTimeout(() => {
+        let alerts = document.querySelectorAll('.alert');
+        alerts.forEach((alert) => {
+            // Démarre l'effet de disparition Bootstrap
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            // Supprime l'élément du DOM après la transition
+            setTimeout(() => alert.remove(), 500); // temps pour l'animation fade
+        });
+    }, 3000); // 5000ms = 5 secondes
+    </script>
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
