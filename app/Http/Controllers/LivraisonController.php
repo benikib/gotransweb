@@ -49,7 +49,6 @@ class LivraisonController extends Controller
 
     {
 
-
            try {
 
         $expedition =  Expedition::create([
@@ -224,6 +223,7 @@ class LivraisonController extends Controller
                  ->where('vehicules.type_vehicule_id', '=', $id)
                 ->groupBy('vehicules.id')
                 ->get();
+                DB::disconnect();
 
 
             return response()->json([
@@ -277,6 +277,7 @@ class LivraisonController extends Controller
                 'message' => 'livreurs affectés',
                 'data' =>  $vehiculesAvecLivreurs
             ]);
+            DB::disconnect();
 
         }
 
@@ -290,6 +291,7 @@ class LivraisonController extends Controller
             ->select("livraisons.id",DB::raw('count(*) as nombre'))
             ->groupBy('livraisons.status')
             ->get();
+            DB::disconnect();
 
             return response()->json([
                 'status' => 'success',
