@@ -750,10 +750,8 @@
             <label for="vehiculeSelect" class="form-label">Véhicule</label>
             <select name="vehicule_id" id="vehiculeSelect" class="form-select" required>
               
-              @foreach ($vehicules as $vehicule)
-                @if ($vehicule->id !== $lv->vehicule->id)
+              @foreach ($vehiculeLibre as $vehicule)
                   <option value="{{ $vehicule->id }}">{{ $vehicule->immatriculation }}</option>
-                @endif
               @endforeach
             </select>
           </div>
@@ -762,11 +760,9 @@
           <div class="mb-3">
             <label for="livreurSelect" class="form-label">Livreur</label>
             <select name="livreur_id" id="livreurSelect" class="form-select" required>
-             
-              @foreach ($livreurs as $livreur)
-                @if ($livreur->id !== $lv->livreur->id)
+            
+              @foreach ($livreurLibre as $livreur)
                   <option value="{{ $livreur->id }}">{{ $livreur->user->email }}</option>
-                @endif
               @endforeach
             </select>
           </div>
