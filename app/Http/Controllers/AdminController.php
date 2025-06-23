@@ -125,6 +125,8 @@ class AdminController extends Controller
         )
         ->get();
 
+    
+
 
         return view('dashbord.views', compact('livreur_vehicules','livreurs','typeVehicules','livreurs','vehicules'
         ,'admins','tarifs','clients','livreurLibre','vehiculeLibre'));

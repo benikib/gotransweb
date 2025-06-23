@@ -762,7 +762,7 @@
             <select name="livreur_id" id="livreurSelect" class="form-select" required>
             
               @foreach ($livreurLibre as $livreur)
-                  <option value="{{ $livreur->id }}">{{ $livreur->user->email }}</option>
+                  <option value="{{ $livreur->id_livreur }}">{{ $livreur->user->email }}</option>
               @endforeach
             </select>
           </div>
