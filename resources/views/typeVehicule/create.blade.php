@@ -15,6 +15,12 @@
     </div>
 
     <div class="mb-3">
+        <label for="descriptionTypeVehicule" class="form-label">Description véhicule</label>
+        <textarea class="form-control border border-secondary" name="description" id="descriptionTypeVehicule"></textarea>
+
+    </div>
+
+    <div class="mb-3">
         <label for="nomtarif" class="form-label">Kilo initial</label>
         <input type="number" class="form-control border border-secondary" id="nomtarif" min="1" name="kilo_initiale" placeholder="Ex: 1 , 2, 3">
     </div>
@@ -25,7 +31,7 @@
     </div>
 
     <div class="mb-3">
-        <label for="nomModeleVehicule" class="form-label">Type du véhicule</label>
+        <label for="nomModeleVehicule" class="form-label">Tarif</label>
         <select name="tarif_id" class="form-select border border-secondary" aria-label="Default select example">
             <option selected>Selectionner un tarif</option>
             @forelse ($tarifs as $tarif)

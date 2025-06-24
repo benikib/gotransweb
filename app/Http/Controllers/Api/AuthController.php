@@ -151,7 +151,7 @@ class AuthController extends Controller
     }
     public function getTypeVehicule(){
         try {
-            $typeVehicule = Type_vehicule::all();
+            $typeVehicule = Type_vehicule::with('tarif')->get();
             return response()->json([
                 'typeVehicule' => $typeVehicule
             ], 200);

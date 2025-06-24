@@ -38,6 +38,7 @@ class TypeVehiculeController extends Controller
             'kilo_initiale'=> 'required',
             'tarif_id'  => 'required',
             'kilo_final'=> 'required',
+            'description'=>'required'
 
         ]);
 
@@ -86,7 +87,7 @@ class TypeVehiculeController extends Controller
 
         $type_vehicule->update($request->all());
 
-        return redirect()->route('dashbord.views')->with('success', 'Type de véhicule mis à jour avec succès.');
+        return redirect()->route('typeVehicule.index')->with('success', 'Type de véhicule mis à jour avec succès.');
     }
 
     /**

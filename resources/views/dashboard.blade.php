@@ -455,9 +455,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fonction pour déterminer la classe du badge (à adapter selon vos besoins)
     function getBadgeClass(status) {
         const classes = {
-            'livré': 'bg-success',
-            'en cours': 'bg-warning',
-            'annulé': 'bg-danger'
+            'terminee'   : 'text-success',
+            'en_attente' : 'text-warning',
+            'annulee'    : 'text-danger',
+            'en_cours'   : 'text-info',
+            'validee'    : 'text-success',
         };
         return classes[status.toLowerCase()] || 'bg-secondary';
     }
