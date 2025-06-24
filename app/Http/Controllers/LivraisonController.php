@@ -40,10 +40,18 @@ class LivraisonController extends Controller
             'vehicules' => vehicule::all(),'clients' => Client::all(),]
         ]);
     }
+     public function maps()
+    {
+        return view('maps.index', ["donnees" => [
+            'Type_vehicules' => Type_vehicule::all(),
+            'vehicules' => vehicule::all(),'clients' => Client::all(),]
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(CreateLivraisaonRequest $request)
 
 
