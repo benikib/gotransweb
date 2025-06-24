@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('nom_type');
             $table->string('photo')->nullable();
+            $table->string('description')->nullable();
 
             $table->integer('kilo_initiale');
             $table->integer('kilo_final');

@@ -38,6 +38,7 @@ class TypeVehiculeController extends Controller
             'kilo_initiale'=> 'required',
             'tarif_id'  => 'required',
             'kilo_final'=> 'required',
+            'description'=>'required'
 
         ]);
 

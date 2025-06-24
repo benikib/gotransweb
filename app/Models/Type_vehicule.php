@@ -13,7 +13,8 @@ class Type_vehicule extends Model
         'nom_type',
         'tarif_id',
         'kilo_initiale',
-        'kilo_final'
+        'kilo_final',
+        'description'
     ];
     public function vehicules()
     {
