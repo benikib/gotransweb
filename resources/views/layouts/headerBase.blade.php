@@ -161,3 +161,6 @@
         // let affiches = JSON.parse(affiche);
         // console.log(affiches);
     </script>
+
+
+</aside>
