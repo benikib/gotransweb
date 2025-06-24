@@ -42,10 +42,11 @@ class LivraisonController extends Controller
     }
      public function maps()
     {
-        return view('maps.index', ["donnees" => [
-            'Type_vehicules' => Type_vehicule::all(),
-            'vehicules' => vehicule::all(),'clients' => Client::all(),]
-        ]);
+        $livraisons = Livraison::with(['Expedition', 'Destination', 'expediteur', 'destinateur'])
+            ->where('status', 'en_attente')
+            ->orWhere('status', 'en_cours')
+            ->paginate();
+        return view('maps.index', compact('livraisons'));
     }
 
     /**

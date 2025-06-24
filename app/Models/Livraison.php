@@ -28,7 +28,7 @@ class Livraison extends Model
         'vehicule_id',
         'moyen_transport',
         'kilo_total',
-        
+
     ];
 
 
@@ -57,5 +57,19 @@ class Livraison extends Model
     public function destinateur()
     {
         return $this->belongsTo(Client::class, 'client_destinateur_id');
+    }
+    public function localisations()
+    {
+        return $this->hasMany(Localisation::class);
+    }
+
+    public function getCoordinatesAttribute()
+    {
+        return $this->localisations->map(function ($localisation) {
+            return [
+                'longitude' => $localisation->longitude,
+                'latitude' => $localisation->latitude,
+            ];
+        });
     }
 }
