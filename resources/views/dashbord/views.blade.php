@@ -435,9 +435,9 @@
         <div class="card shadow-sm flex-fill">
             <div class="card-header p-3 pb-2 border-bottom">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h6 class="mb-0 text-dark">Liste des Tarifs</h6>
+                    <h6 class="mb-0 text-dark">Tarifs au Kilo</h6>
                     <div>
-                        <button class="btn btn-sm bg-gradient-dark me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrops">
+                        <button class="btn btn-sm bg-gradient-dark me-2" data-bs-toggle="modal" data-bs-target="#addKiloModal">
                             <i class="material-symbols-rounded text-sm">add</i> Ajouter
                         </button>
                         <a href="{{ route('tarifs.index') }}" class="btn btn-sm btn-outline-dark">
@@ -451,35 +451,51 @@
                     <table class="table align-items-center mb-0">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Tarif Kilo</th>
-                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Prix Unité</th>
-                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Edite</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Nom</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Poids</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Prix/Kg</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($tarifs as $tarif)
+                            @forelse ($tarifs->where('type', 'kilo') as $tarif)
                                 <tr class="hover-scale transition-all bg-white border-bottom">
                                     <td class="ps-3">
-                                        <h6 class="mb-0 text-sm">{{ $tarif->kilo_tarif }} kg</h6>
+                                        <h6 class="mb-0 text-sm">{{ $tarif->nom }}</h6>
                                     </td>
                                     <td class="ps-3">
-                                        <h6 class="mb-0 text-sm">{{ number_format($tarif->prix_tarif, 2, ',', ' ') }} $</h6>
+                                        <h6 class="mb-0 text-sm">{{ $tarif->valeur }} kg</h6>
+                                    </td>
+                                    <td class="ps-3">
+                                        <h6 class="mb-0 text-sm">{{ number_format($tarif->prix, 2, ',', ' ') }} $</h6>
                                     </td>
                                     <td class="ps-3 text-start">
-                                        <button class="btn btn-link text-dark px-2 mb-0" title="Modifier" title="Modifier"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#editTarifModal"
-                                            onclick="openEditModals({{ $tarif->id }}, {{ $tarif->kilo_tarif }}, {{ $tarif->prix_tarif }})">
+                                        <button class="btn btn-link text-dark px-2 mb-0" title="Modifier"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editTarifModal"
+                                            onclick="openEditModal(
+                                                {{ $tarif->id }},
+                                                '{{ $tarif->type }}',
+                                                '{{ $tarif->nom }}',
+                                                {{ $tarif->valeur }},
+                                                {{ $tarif->prix }}
+                                            )">
                                             <i class="material-symbols-rounded text-lg">edit</i>
                                         </button>
-
+                                        <form action="{{ route('tarifs.destroy', $tarif->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Supprimer ce tarif?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-link text-danger px-2 mb-0" title="Supprimer">
+                                                <i class="material-symbols-rounded text-lg">delete</i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="3" class="text-center py-4">
-                                        <i class="material-symbols-rounded text-secondary opacity-10" style="font-size: 3rem">local_shipping</i>
-                                        <p class="text-sm text-muted mt-2">Aucun tarif enregistré</p>
+                                    <td colspan="4" class="text-center py-4">
+                                        <i class="material-symbols-rounded text-secondary opacity-10" style="font-size: 3rem">scale</i>
+                                        <p class="text-sm text-muted mt-2">Aucun tarif au kilo enregistré</p>
                                     </td>
                                 </tr>
                             @endforelse
@@ -489,6 +505,214 @@
             </div>
         </div>
     </div>
+
+    <!-- Tarifs à la course -->
+    <div class="col-md-6 d-flex mt-4 mt-md-0">
+        <div class="card shadow-sm flex-fill">
+            <div class="card-header p-3 pb-2 border-bottom">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0 text-dark">Tarifs à la Course</h6>
+                    <div>
+                        <button class="btn btn-sm bg-gradient-dark me-2" data-bs-toggle="modal" data-bs-target="#addCourseModal">
+                            <i class="material-symbols-rounded text-sm">add</i> Ajouter
+                        </button>
+                        <a href="{{ route('tarifs.index') }}" class="btn btn-sm btn-outline-dark">
+                            <i class="material-symbols-rounded text-sm">list</i> Tout voir
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-3 pt-0">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Nom</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Prix Fixe</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($tarifs->where('type', 'course') as $tarif)
+                                <tr class="hover-scale transition-all bg-white border-bottom">
+                                    <td class="ps-3">
+                                        <h6 class="mb-0 text-sm">{{ $tarif->nom }}</h6>
+                                    </td>
+                                    <td class="ps-3">
+                                        <h6 class="mb-0 text-sm">{{ number_format($tarif->prix, 2, ',', ' ') }} $</h6>
+                                    </td>
+                                    <td class="ps-3 text-start">
+                                        <button class="btn btn-link text-dark px-2 mb-0" title="Modifier"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editTarifModal"
+                                            onclick="openEditModal(
+                                                {{ $tarif->id }},
+                                                '{{ $tarif->type }}',
+                                                '{{ $tarif->nom }}',
+                                                null,
+                                                {{ $tarif->prix }}
+                                            )">
+                                            <i class="material-symbols-rounded text-lg">edit</i>
+                                        </button>
+                                        <form action="{{ route('tarifs.destroy', $tarif->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Supprimer ce tarif?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-link text-danger px-2 mb-0" title="Supprimer">
+                                                <i class="material-symbols-rounded text-lg">delete</i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="3" class="text-center py-4">
+                                        <i class="material-symbols-rounded text-secondary opacity-10" style="font-size: 3rem">directions_car</i>
+                                        <p class="text-sm text-muted mt-2">Aucun tarif à la course enregistré</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ajout Tarif au Kilo -->
+<div class="modal fade" id="addKiloModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nouveau Tarif au Kilo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('tarifs.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="type" value="kilo">
+
+                    <div class="mb-3">
+                        <label class="form-label">Nom du tarif</label>
+                        <input type="text" class="form-control border border-secondary" name="nom" placeholder="Ex: Standard" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Poids (kg)</label>
+                        <input type="number" class="form-control border border-secondary" name="valeur" placeholder="Ex: 1, 2, 3" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Prix par kilo ($)</label>
+                        <input type="number" step="0.01" class="form-control border border-secondary" name="prix" placeholder="Ex: 2.50" required>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn bg-gradient-dark">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ajout Tarif à la Course -->
+<div class="modal fade" id="addCourseModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nouveau Tarif à la Course</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('tarifs.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="type" value="course">
+
+                    <div class="mb-3">
+                        <label class="form-label">Nom du tarif</label>
+                        <input type="text" class="form-control border border-secondary" name="nom" placeholder="Ex: Course urbaine" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Prix fixe ($)</label>
+                        <input type="number" step="0.01" class="form-control border border-secondary" name="prix" placeholder="Ex: 15.00" required>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn bg-gradient-dark">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal d'édition -->
+<div class="modal fade" id="editTarifModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modifier le Tarif</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" id="edit_type" name="type">
+
+                    <div class="mb-3">
+                        <label class="form-label">Nom du tarif</label>
+                        <input type="text" class="form-control border border-secondary" id="edit_nom" name="nom" required>
+                    </div>
+
+                    <div class="mb-3" id="edit_valeur_container">
+                        <label class="form-label">Poids (kg)</label>
+                        <input type="number" class="form-control border border-secondary" id="edit_valeur" name="valeur">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Prix ($)</label>
+                        <input type="number" step="0.01" class="form-control border border-secondary" id="edit_prix" name="prix" required>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn bg-gradient-dark">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function openEditModal(id, type, nom, valeur, prix) {
+    // Mettre à jour l'action du formulaire
+    document.getElementById('editForm').action = `/tarifs/${id}`;
+
+    // Remplir les champs
+    document.getElementById('edit_type').value = type;
+    document.getElementById('edit_nom').value = nom;
+    document.getElementById('edit_prix').value = prix;
+
+    // Gestion du champ valeur selon le type
+    const valeurContainer = document.getElementById('edit_valeur_container');
+    const valeurInput = document.getElementById('edit_valeur');
+
+    if (type === 'kilo') {
+        valeurContainer.style.display = 'block';
+        valeurInput.value = valeur;
+        valeurInput.required = true;
+    } else {
+        valeurContainer.style.display = 'none';
+        valeurInput.required = false;
+    }
+}
+</script>
 
     <!-- Affectations véhicules -->
     <div class="col-md-6 d-flex">
@@ -569,7 +793,7 @@
 </div>
 
 <!-- Modal d'édition Tarif -->
-<div class="modal fade" id="editTarifModal" tabindex="-1" aria-labelledby="editTarifModalLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="editTarifModal" tabindex="-1" aria-labelledby="editTarifModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow">
       <div class="modal-header">
@@ -597,7 +821,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}
 
 
 <!-- Modal user -->
@@ -769,7 +993,7 @@
           <div class="mb-3">
             <label for="vehiculeSelect" class="form-label">Véhicule</label>
             <select name="vehicule_id" id="vehiculeSelect" class="form-select" required>
-              
+
               @foreach ($vehiculeLibre as $vehicule)
                   <option value="{{ $vehicule->id }}">{{ $vehicule->immatriculation }}</option>
               @endforeach
@@ -782,7 +1006,7 @@
           <div class="mb-3">
             <label for="livreurSelect" class="form-label">Livreur</label>
             <select name="livreur_id" id="livreurSelect" class="form-select" required>
-            
+
               @foreach ($livreurLibre as $livreur)
                   <option value="{{ $livreur->id_livreur }}">{{ $livreur->email }}</option>
               @endforeach

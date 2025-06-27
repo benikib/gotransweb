@@ -10,10 +10,11 @@ class Tarif extends Model
     /** @use HasFactory<\Database\Factories\TarifFactory> */
     use HasFactory;
     protected $fillable = [
-        'kilo_tarif',
-        'prix_tarif',
-         'nom'
-        
+        'type',
+        'nom',
+        'valeur',
+        'prix'
+
     ];
     public function typeVehicule()
     {
