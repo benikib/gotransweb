@@ -5,7 +5,7 @@
 @if (session('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
     </div>
 @endif
 
@@ -23,7 +23,7 @@
     </div>
 @endif
 
-{{-- Script pour faire disparaître les messages après 5 secondes --}}
+{{-- Script pour faire disparaître les messages après 3 secondes --}}
 <script>
     setTimeout(() => {
         let alerts = document.querySelectorAll('.alert');
@@ -34,10 +34,10 @@
             // Supprime l'élément du DOM après la transition
             setTimeout(() => alert.remove(), 500); // temps pour l'animation fade
         });
-    }, 3000); // 5000ms = 5 secondes
+    }, 3000); // 3000ms = 3 secondes
 </script>
 
-@if ($_GET['m'] === 'admin')
+@if (request('m') === 'admin')
 <div class="card my-4 shadow-sm">
     <div class="card-header">
         <div class="border-radius-lg pt-4 pb-3 px-3 d-flex justify-content-between align-items-center">
@@ -49,7 +49,7 @@
     </div>
 
     <div class="card-body px-4 pt-4 pb-2">
-        <!-- Barre de recherche améliorée -->
+        <!-- Barre de recherche -->
         <div class="mb-4">
             <div class="input-group input-group-outline">
                 <input type="text" id="searchAdmin" class="form-control form-control-sm"
@@ -72,6 +72,7 @@
                 </thead>
 
                 <tbody>
+                    @php $count = 1; @endphp
                     @forelse ($admins as $admin)
                     <tr>
                         <td class="ps-3 align-middle">
@@ -98,6 +99,7 @@
                         </td>
 
                         <td class="text-center align-middle">
+                            <!-- Bouton Modifier -->
                             <button class="btn btn-sm btn-outline-primary me-2"
                                 data-bs-toggle="modal"
                                 data-bs-target="#editUserModal"
@@ -111,19 +113,42 @@
                                 <i class="material-symbols-rounded text-sm">edit</i>
                             </button>
 
-                            <form action="{{ route('users.destroy', $admin->user_id) }}" method="POST" class="d-inline" onsubmit="return confirm('Supprimer cet administrateur ?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger">
-                                    <i class="material-symbols-rounded text-sm">delete</i>
-                                </button>
-                            </form>
+                            <!-- Bouton Supprimer -->
+                            <button class="btn btn-sm btn-outline-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteAdminModal{{ $admin->user_id }}">
+                                <i class="material-symbols-rounded text-sm">delete</i>
+                            </button>
                         </td>
                     </tr>
+
+                    <!-- Modal de suppression unique par admin -->
+                    <div class="modal fade" id="deleteAdminModal{{ $admin->user_id }}" tabindex="-1" aria-labelledby="deleteAdminModalLabel{{ $admin->user_id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header bg-light">
+                                    <h5 class="modal-title fs-5 fw-semibold" id="deleteAdminModalLabel{{ $admin->user_id }}">Confirmation de suppression</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                </div>
+                                <div class="modal-body py-4">
+                                    <p class="mb-0">Êtes-vous sûr de vouloir supprimer cet administrateur ? Cette action est irréversible.</p>
+                                </div>
+                                <div class="modal-footer border-top-0 pt-0">
+                                    <form method="POST" action="{{ route('users.destroy', $admin->user_id) }}" class="mb-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="bi bi-trash me-1"></i> Confirmer
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     @empty
                     <tr>
                         <td colspan="6" class="text-center py-4">
-                            <span class="text-xs font-weight-bold">Aucun administrateur enregistré</span>
+                            <span class="text-xs font-weight-bold">Aucun administrateur enregistré.</span>
                         </td>
                     </tr>
                     @endforelse
@@ -132,9 +157,9 @@
         </div>
     </div>
 </div>
-
 @endif
-@if ($_GET['m'] === 'livreur')
+
+@if (request('m') === 'livreur')
 <div class="card my-4 shadow-sm">
     <div class="card-header">
         <div class="border-radius-lg pt-4 pb-3 px-3 d-flex justify-content-between align-items-center">
@@ -146,12 +171,9 @@
     </div>
 
     <div class="card-body px-4 pt-4 pb-2">
-        <!-- Barre de recherche améliorée -->
+        <!-- Barre de recherche -->
         <div class="mb-4">
             <div class="input-group input-group-outline">
-                <span class="input-group-text bg-transparent">
-                    <i class="material-symbols-rounded"></i>
-                </span>
                 <input type="text" id="searchLivreur" class="form-control form-control-sm"
                        placeholder="Rechercher par nom, email ou téléphone..."
                        onkeyup="filterLivreurTable()">
@@ -172,6 +194,7 @@
                 </thead>
 
                 <tbody>
+                    @php $count = 1; @endphp
                     @forelse ($livreurs as $livreur)
                     <tr>
                         <td class="ps-3 align-middle">
@@ -179,14 +202,7 @@
                         </td>
 
                         <td class="ps-3 align-middle">
-                            <div class="d-flex align-items-center">
-                                {{-- <div class="avatar avatar-sm me-2">
-                                    <img src="{{ asset($livreur->user->photo ?? 'assets/img/default-avatar.jpg') }}"
-                                         class="avatar avatar-sm rounded-circle"
-                                         alt="Avatar livreur">
-                                </div> --}}
-                                <span class="text-xs font-weight-bold">{{ $livreur->user->name }}</span>
-                            </div>
+                            <span class="text-xs font-weight-bold">{{ $livreur->user->name }}</span>
                         </td>
 
                         <td class="ps-3 align-middle">
@@ -206,6 +222,7 @@
 
                         <td class="text-center align-middle">
                             <div class="d-flex justify-content-center">
+                                <!-- Bouton Modifier -->
                                 <button class="btn btn-sm btn-outline-primary me-2"
                                     data-bs-toggle="modal"
                                     data-bs-target="#editUserModal"
@@ -219,20 +236,43 @@
                                     <i class="material-symbols-rounded text-sm">edit</i>
                                 </button>
 
-                                <form action="{{ route('users.destroy', $livreur->user_id) }}" method="POST" class="d-inline" onsubmit="return confirm('Supprimer ce livreur ?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger">
-                                        <i class="material-symbols-rounded text-sm">delete</i>
-                                    </button>
-                                </form>
+                                <!-- Bouton Supprimer -->
+                                <button class="btn btn-sm btn-outline-danger"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteLivreurModal{{ $livreur->user_id }}">
+                                    <i class="material-symbols-rounded text-sm">delete</i>
+                                </button>
                             </div>
                         </td>
                     </tr>
+
+                    <!-- Modal de suppression spécifique au livreur -->
+                    <div class="modal fade" id="deleteLivreurModal{{ $livreur->user_id }}" tabindex="-1" aria-labelledby="deleteLivreurModalLabel{{ $livreur->user_id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header bg-light">
+                                    <h5 class="modal-title fs-5 fw-semibold" id="deleteLivreurModalLabel{{ $livreur->user_id }}">Confirmation de suppression</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                </div>
+                                <div class="modal-body py-4">
+                                    <p>Êtes-vous sûr de vouloir supprimer ce livreur ? Cette action est irréversible.</p>
+                                </div>
+                                <div class="modal-footer border-top-0 pt-0">
+                                    <form method="POST" action="{{ route('users.destroy', $livreur->user_id) }}" class="mb-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="bi bi-trash me-1"></i> Confirmer
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     @empty
                     <tr>
                         <td colspan="6" class="text-center py-4">
-                            <span class="text-xs font-weight-bold">Aucun livreur enregistré</span>
+                            <span class="text-xs font-weight-bold">Aucun livreur enregistré.</span>
                         </td>
                     </tr>
                     @endforelse
@@ -241,9 +281,9 @@
         </div>
     </div>
 </div>
-
 @endif
-@if ($_GET['m'] === 'client')
+
+@if (request('m') === 'client')
 <div class="card my-4 shadow-sm">
     <div class="card-header">
         <div class="border-radius-lg pt-4 pb-3 px-3 d-flex justify-content-between align-items-center">
@@ -255,12 +295,9 @@
     </div>
 
     <div class="card-body px-4 pt-4 pb-2">
-        <!-- Barre de recherche améliorée -->
+        <!-- Barre de recherche -->
         <div class="mb-4">
             <div class="input-group input-group-outline">
-                <span class="input-group-text bg-transparent">
-                    <i class="material-symbols-rounded"></i>
-                </span>
                 <input type="text" id="searchClient" class="form-control form-control-sm"
                        placeholder="Nom, email ou téléphone..."
                        onkeyup="filterClientTable()">
@@ -280,6 +317,7 @@
                 </thead>
 
                 <tbody>
+                    @php $count = 1; @endphp
                     @forelse ($clients as $client)
                     <tr>
                         <td class="ps-3 align-middle">
@@ -287,35 +325,24 @@
                         </td>
 
                         <td class="ps-3 align-middle">
-                            <div class="d-flex align-items-center">
-                                {{-- <div class="avatar avatar-sm me-3">
-                                    <img src="{{ asset($client->user->photo ?? 'assets/img/default-avatar.jpg') }}"
-                                         class="avatar avatar-sm rounded-circle"
-                                         alt="Photo client">
-                                </div> --}}
-                                <div>
-                                    <span class="text-xs font-weight-bold d-block">{{ $client->user->name }}</span>
-                                    {{-- <span class="text-xs text-muted">ID: {{ $client->user_id }}</span> --}}
-                                </div>
-                            </div>
+                            <span class="text-xs font-weight-bold">{{ $client->user->name }}</span>
                         </td>
 
                         <td class="ps-3 align-middle">
                             <span class="text-xs font-weight-bold d-block">{{ $client->user->email }}</span>
-                            <span class="text-xs font-weight-bold">{{ $client->user->number_phone ?? 'Non renseigné' }}</span>
+                            <span class="text-xs">{{ $client->user->number_phone ?? 'Non renseigné' }}</span>
                         </td>
 
                         <td class="text-center align-middle">
-                            <span class="text-xs font-weight-bold d-block">
-                                {{ $client->created_at->format('d/m/Y') }}
-                            </span>
-                            <span class="text-xs text-muted">
-                                {{ $client->created_at->format('H:i') }}
+                            <span class="text-xs font-weight-bold">
+                                {{ $client->created_at->format('d/m/Y') }}<br>
+                                <small class="text-muted">{{ $client->created_at->format('H:i') }}</small>
                             </span>
                         </td>
 
                         <td class="text-center align-middle">
                             <div class="d-flex justify-content-center">
+                                <!-- Modifier -->
                                 <button class="btn btn-sm btn-outline-primary me-2"
                                     data-bs-toggle="modal"
                                     data-bs-target="#editUserModal"
@@ -326,25 +353,49 @@
                                     data-url="{{ route('users.update', $client->user_id) }}"
                                     data-mode="client"
                                     onclick="openEditModal(this)">
-                                    <i class="material-symbols-rounded text-sm me-1">edit</i>
+                                    <i class="material-symbols-rounded text-sm">edit</i>
                                 </button>
 
-                                <form action="{{ route('users.destroy', $client->user_id) }}" method="POST" class="d-inline" onsubmit="return confirm('Supprimer ce livreur ?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger">
-                                        <i class="material-symbols-rounded text-sm">delete</i>
-                                    </button>
-                                </form>
+                                <!-- Supprimer -->
+                                <button class="btn btn-sm btn-outline-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteClientModal{{ $client->user_id }}">
+                                    <i class="material-symbols-rounded text-sm">delete</i>
+                                </button>
                             </div>
                         </td>
                     </tr>
+
+                    <!-- Modal de suppression unique par client -->
+                    <div class="modal fade" id="deleteClientModal{{ $client->user_id }}" tabindex="-1" aria-labelledby="deleteClientModalLabel{{ $client->user_id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header bg-light">
+                                    <h5 class="modal-title fs-5 fw-semibold" id="deleteClientModalLabel{{ $client->user_id }}">Confirmation de suppression</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                </div>
+                                <div class="modal-body py-4">
+                                    <p>Êtes-vous sûr de vouloir supprimer ce client ? Cette action est irréversible.</p>
+                                </div>
+                                <div class="modal-footer border-top-0 pt-0">
+                                    <form method="POST" action="{{ route('users.destroy', $client->user_id) }}" class="mb-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="bi bi-trash me-1"></i> Confirmer
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     @empty
                     <tr>
                         <td colspan="5" class="text-center py-4">
                             <div class="d-flex flex-column align-items-center">
                                 <i class="material-symbols-rounded text-muted mb-2" style="font-size: 48px;">group_off</i>
-                                <span class="text-xs font-weight-bold">Aucun client enregistré</span>
+                                <span class="text-xs font-weight-bold">Aucun client enregistré.</span>
                             </div>
                         </td>
                     </tr>
@@ -354,14 +405,14 @@
         </div>
     </div>
 </div>
-
 @endif
+
 <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content shadow-lg border-0 rounded-4">
-      <div class="modal-header bg-primary text-white rounded-top-4">
+      <div class="modal-header text-dark rounded-top-4">
         <h5 class="modal-title" id="editUserModalLabel">Modifier un utilisateur</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
       <div class="modal-body">
         <form id="updateUserForm" method="POST">
@@ -399,6 +450,10 @@
     </div>
   </div>
 </div>
+
+
+
+
 <script>
         // Activer les tooltips
         document.addEventListener('DOMContentLoaded', function() {

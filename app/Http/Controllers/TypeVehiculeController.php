@@ -15,7 +15,7 @@ class TypeVehiculeController extends Controller
     {
         $typeVehicules = Type_vehicule::all();
         $tarifs = Tarif::all();
-
+    
         return view('typeVehicule.index', compact('typeVehicules','tarifs'));
     }
 
@@ -30,28 +30,58 @@ class TypeVehiculeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        try{
+    // public function store(Request $request)
+    // {
+    //     try{
+    //     $request->validate([
+    //         'nom_type' => 'required|string|max:255',
+    //         'kilo_initiale'=> 'required',
+    //         'tarif_id'  => 'required',
+    //         'kilo_final'=> 'required',
+    //         'description'=>'required'
+
+    //     ]);
+
+    //     Type_vehicule::create($request->all());
+
+    //     return redirect()->back()->with('success', 'Type de véhicule créé avec succès.');
+    //     }
+    //     catch (\Exception $e) {
+
+
+    //         return redirect()->back()->with('error', $e->getMessage());
+    //     }
+    // }
+
+
+public function store(Request $request)
+{
+    try {
         $request->validate([
             'nom_type' => 'required|string|max:255',
-            'kilo_initiale'=> 'required',
-            'tarif_id'  => 'required',
-            'kilo_final'=> 'required',
-            'description'=>'required'
-
+            'kilo_initiale' => 'required',
+            'tarif_id' => 'required',
+            'kilo_final' => 'required',
+            'description' => 'required',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Ajout de la validation pour l'image
         ]);
 
-        Type_vehicule::create($request->all());
+        $data = $request->all();
+        // Gestion de l'upload de l'image
+        if ($request->hasFile('photo')) {
+            $imagePath = $request->file('photo')->store('type_vehicules', 'public');
+            $data['photo'] = $imagePath;
+        }
 
+        $v = Type_vehicule::create($data);
+       
         return redirect()->back()->with('success', 'Type de véhicule créé avec succès.');
-        }
-        catch (\Exception $e) {
-
-
-            return redirect()->back()->with('error', $e->getMessage());
-        }
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', $e->getMessage());
     }
+}
+
+
 
     /**
      * Display the specified resource.

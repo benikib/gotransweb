@@ -221,9 +221,9 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h6 class="mb-0 text-dark">Liste des Livreurs</h6>
                     <div>
-                        <button type="button" class="btn btn-sm bg-gradient-dark me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <a href="{{ route('users.create', ['m' => 'livreur']) }}" type="button" class="btn btn-sm bg-gradient-dark me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="material-symbols-rounded text-sm">add</i> Ajouter
-                        </button>
+                        </a>
                         <a href="{{ route('users.index', ['m' => 'livreur']) }}" class="btn btn-sm btn-outline-dark">
                             <i class="material-symbols-rounded text-sm">list</i> Voir tous
                         </a>
@@ -604,7 +604,7 @@
 <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content shadow-lg border-0 rounded-4">
-      <div class="modal-header bg-primary text-white rounded-top-4">
+      <div class="modal-header text-dark rounded-top-4">
         <h5 class="modal-title" id="editUserModalLabel">Modifier un utilisateur</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
@@ -634,9 +634,14 @@
             <input type="password" class="form-control" name="password" id="password" required>
           </div>
 
-          <div class="d-flex justify-content-end">
+          {{-- <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-outline-secondary rounded-3" data-bs-dismiss="modal">Annuler</button>
             <button type="submit" class="btn btn-primary rounded-3">Enregistrer</button>
-          </div>
+          </div> --}}
+          <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="submit" class="btn btn-success">Valider</button>
+            </div>
         </form>
 
         <div id="successMessage" class="alert alert-success mt-3 d-none"></div>

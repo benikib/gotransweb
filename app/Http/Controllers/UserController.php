@@ -72,12 +72,12 @@ class UserController extends Controller
 
 */       // Validate the request
         $validated = $request->validated();
-
+// dd($validated);
         $user = User::create($validated);
         #($validated['role']);
         // Assigner le rôle
-
-
+// dd($user);
+        
         // Insérer dans la bonne table selon le rôle
         switch ($validated['role']) {
             case 'admin':
@@ -160,15 +160,15 @@ class UserController extends Controller
             case 'admin':
                 
                  // Redirect to the user index page
-                return redirect()->route('users.index',['m' => 'admin'])->with('success', 'Admin créé avec succès.');
+                return redirect()->route('users.index',['m' => 'admin'])->with('success', 'Admin modifié avec succès.');
                 break;
             case 'client':
                 // Redirect to the user index page
-                return redirect()->route('users.index',['m' => 'client'])->with('success', 'Client créé avec succès.');
+                return redirect()->route('users.index',['m' => 'client'])->with('success', 'Client modifié avec succès.');
                 break;
             case 'livreur':
                  // Redirect to the user index page
-                return redirect()->route('users.index',['m' => 'livreur'])->with('success', 'Livreur créé avec succès.');
+                return redirect()->route('users.index',['m' => 'livreur'])->with('success', 'Livreur modifié avec succès.');
                 break;
         }
         #dd($mode);
@@ -180,24 +180,30 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    
+   public function destroy(User $user)
 {
-    ##dd($user->id);
     $client = Client::where('user_id', $user->id)->first();
     $admin = Admin::where('user_id', $user->id)->first();
     $livreur = Livreur::where('user_id', $user->id)->first();
+
     if ($client) {
-        Client::destroy($client->id);
+        $client->delete();
+        $user->delete();
+        return redirect()->back()->with('success', 'Le client a été supprimé avec succès.');
     } elseif ($admin) {
-        Admin::destroy($admin->id);
+        $admin->delete();
+        $user->delete();
+        return redirect()->back()->with('success', 'L\'administrateur a été supprimé avec succès.');
     } elseif ($livreur) {
-        Livreur::destroy($livreur->id);
+        $livreur->delete();
+        $user->delete();
+        return redirect()->back()->with('success', 'Le livreur a été supprimé avec succès.');
     } else {
-        dd($user->id);
+        return redirect()->back()->with('error', 'Aucun rôle associé trouvé pour cet utilisateur.');
     }
-    User::destroy($user->id); // on passe l'ID, pas l'objet complet
-    return redirect()->back()->with('success', 'Utilisateur supprimé avec succès');
 }
+
 
 }
 

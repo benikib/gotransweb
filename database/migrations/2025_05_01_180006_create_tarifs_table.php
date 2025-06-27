@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('prix_tarif');
             $table->timestamps();
         });
+         
     }
 
     /**

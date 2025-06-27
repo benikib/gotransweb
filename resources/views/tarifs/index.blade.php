@@ -52,6 +52,7 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xs font-weight-bolder ps-3">#</th>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder ps-3">Nom</th>
                                     <th class="text-uppercase text-secondary text-xs font-weight-bolder ps-3">Poids (kg)</th>
                                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder">Prix unitaire</th>
                                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder">Enregistrement</th>
@@ -63,6 +64,10 @@
                                 <tr>
                                     <td class="ps-3 align-middle">
                                         <span class="text-xs font-weight-bold">{{ $loop->iteration }}</span>
+                                    </td>
+
+                                    <td class="ps-3 align-middle">
+                                        <span class="text-xs font-weight-bold">{{ $tarif->nom }}</span>
                                     </td>
 
                                     <td class="ps-3 align-middle">
@@ -93,7 +98,7 @@
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#editTarifModal"
                                                 title="Modifier"
-                                                onclick="openEditModals('{{ $tarif->id }}', '{{ $tarif->kilo_tarif }}', '{{ $tarif->prix_tarif }}')">
+                                                onclick="openEditModals('{{ $tarif->id }}', '{{ $tarif->nom }}', '{{ $tarif->kilo_tarif }}', '{{ $tarif->prix_tarif }}')">
                                                 <i class="material-symbols-rounded text-sm me-1">edit</i>
                                             </button>
                                             <form action="{{ route('tarifs.destroy', $tarif->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Supprimer ce tarif ?');">
@@ -108,7 +113,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="5" class="text-center py-4">
+                                    <td colspan="6" class="text-center py-4">
                                         <div class="d-flex flex-column align-items-center">
                                             <i class="material-symbols-rounded text-muted mb-2" style="font-size: 48px;">receipt_long</i>
                                             <span class="text-xs font-weight-bold">Aucun tarif enregistré</span>
@@ -124,6 +129,44 @@
         </div>
     </div>
 </div>
+
+<!-- Modal d'ajout -->
+<div class="modal fade" id="staticBackdrops" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Ajouter tarif</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         <form action="{{ route('tarifs.store') }}" method="POST">
+            @csrf
+
+            <div class="mb-3">
+                <label for="nom" class="form-label">Nom du tarif</label>
+                <input type="text" class="form-control border border-secondary" id="nom" name="nom" placeholder="Ex: Tarif Standard" required maxlength="255">
+            </div>
+
+            <div class="mb-3">
+                <label for="kilo_tarif" class="form-label">Kilo</label>
+                <input type="number" class="form-control border border-secondary" id="kilo_tarif" name="kilo_tarif" placeholder="Ex: 1 , 2, 3" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="prix_tarif" class="form-label">Prix du tarif</label>
+                <input type="number" class="form-control border border-secondary" id="prix_tarif" name="prix_tarif" placeholder="Ex: 2 , 3 , 10" required>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2">
+               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="submit" class="btn btn-success">Valider</button>
+            </div>
+         </form>
+        </div>
+      </div>
+    </div>
+</div>
+
 <!-- Modal d'édition Tarif -->
 <div class="modal fade" id="editTarifModal" tabindex="-1" aria-labelledby="editTarifModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -137,16 +180,20 @@
             @csrf
             @method('PUT')
             <input type="hidden" id="tarif_id" name="id">
+
             <div class="mb-3">
-                <label for="nomtarif" class="form-label">Kilo de tarification</label>
-                <input type="number" class="form-control" id="kilo_tarif" name="kilo_tarif"
-                       placeholder="Ex: 1, 2, 3" style="border: 1px solid #000;" required>
+                <label for="edit_nom" class="form-label">Nom du tarif</label>
+                <input type="text" class="form-control border border-secondary" id="edit_nom" name="nom" placeholder="Ex: Tarif Standard" required maxlength="255">
             </div>
 
             <div class="mb-3">
-                <label for="tarif" class="form-label">Prix du Tarif</label>
-                <input type="number" class="form-control" id="prix_tarif" name="prix_tarif"
-                       placeholder="Ex: 2, 3, 10" style="border: 1px solid #000;" required>
+                <label for="edit_kilo_tarif" class="form-label">Kilo de tarification</label>
+                <input type="number" class="form-control border border-secondary" id="edit_kilo_tarif" name="kilo_tarif" placeholder="Ex: 1, 2, 3" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="edit_prix_tarif" class="form-label">Prix du Tarif</label>
+                <input type="number" class="form-control border border-secondary" id="edit_prix_tarif" name="prix_tarif" placeholder="Ex: 2, 3, 10" required>
             </div>
 
             <div class="modal-footer">
@@ -159,22 +206,17 @@
   </div>
 </div>
 
-
-  <script>
+<script>
 // Fonction pour ouvrir et pré-remplir le modal
-function openEditModals(id, kilo, prix) {
+function openEditModals(id, nom, kilo, prix) {
     // Remplir les champs du formulaire
-    // alert(id,kilo,prix);
     document.getElementById('tarif_id').value = id;
-    document.getElementById('kilo_tarif').value = kilo;
-    document.getElementById('prix_tarif').value = prix;
+    document.getElementById('edit_nom').value = nom;
+    document.getElementById('edit_kilo_tarif').value = kilo;
+    document.getElementById('edit_prix_tarif').value = prix;
 
     // Mettre à jour l'action du formulaire
     document.getElementById('tarifForm').action = `tarif/${id}`;
-
-    // Ouvrir le modal
-    // var modal = new bootstrap.Modal(document.getElementById('editTarifModal'));
-    // modal.show();
 }
 
 // Initialisation des tooltips (si vous en avez)

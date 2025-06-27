@@ -6,13 +6,20 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body ">
-           <form action="{{ route('typeVehicule.store') }}" method="POST">
+           <form action="{{ route('typeVehicule.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
     <div class="mb-3">
         <label for="nomTypeVehicule" class="form-label">Nom du type de véhicule</label>
         <input type="text" class="form-control border border-secondary" id="nomTypeVehicule" name="nom_type" placeholder="Ex: Camion, Moto, etc.">
     </div>
+ <div class="mb-3">
+                <label for="modal_image" class="form-label">Image du véhicule</label>
+                <input type="file" class="form-control border border-secondary" id="modal_image" 
+                       name="photo" accept="image/*">
+                <small class="text-muted">Formats acceptés: jpeg, png, jpg, gif (max 2MB)</small>
+            </div>
+
 
     <div class="mb-3">
         <label for="descriptionTypeVehicule" class="form-label">Description véhicule</label>

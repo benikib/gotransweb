@@ -210,15 +210,6 @@ function openEditVehiculeModal(vehicule) {
   const modal = new bootstrap.Modal(document.getElementById('editVehiculeModal'));
   modal.show();
 }
-
-// Exemple d'utilisation (à adapter selon votre contexte) :
-// Lorsque vous cliquez sur un bouton "Modifier" :
-// <button onclick="openEditVehiculeModal({
-//   id: {{ $vehicule->id }},
-//   immatriculation: '{{ $vehicule->immatriculation }}',
-//   type_vehicule_id: {{ $vehicule->type_vehicule->id }},
-//   etat: {{ $vehicule->etat ? 'true' : 'false' }}
-// })">Modifier</button>
 </script>
   <!-- Modal -->
   @include('vehicule.create')

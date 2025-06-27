@@ -33,6 +33,7 @@ class TarifController extends Controller
         $request->validate([
             'kilo_tarif' => 'required|integer',
             'prix_tarif' => 'required|integer',
+            'nom' => 'required|string|max:255'
         ]);
 
         Tarif::create($request->all());
@@ -98,7 +99,7 @@ public function update(Request $request, Tarif $tarif)
     return redirect()
         ->route('tarifs.index')
         ->with('success', 'Tarif modifié avec succès.');
-        
+
 }
 
 

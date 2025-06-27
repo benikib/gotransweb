@@ -92,7 +92,7 @@ class LivraisonController extends Controller
         ])->with('success', 'Livraison created successfully');
 
      } catch (\Exception $e) {
-        dd($e);
+        #dd($e);
 
             return redirect()->back()->with('error', $e);
         }

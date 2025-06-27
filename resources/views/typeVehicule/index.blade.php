@@ -60,6 +60,7 @@
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xs font-weight-bolder ps-3">N°</th>
                                     <th class="text-uppercase text-secondary text-xs font-weight-bolder ps-3">Type de véhicule</th>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder ps-3">Image</th>
                                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder">Kilo initial</th>
                                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder">Kilo final</th>
                                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder">Tarification</th>
@@ -76,6 +77,13 @@
 
                                     <td class="ps-3 align-middle">
                                         <span class="text-xs font-weight-bold">{{ $typeVehicule->nom_type }}</span>
+                                    </td>
+                                    <td class="ps-3 align-middle">
+                                        @if($typeVehicule->photo)
+                                            <img src="{{ asset('storage/' . $typeVehicule->photo) }}" alt="{{ $typeVehicule->nom_type }}" style="max-width: 50px; max-height: 50px;">
+                                        @else
+                                            <span class="text-xs font-weight-bold">Aucune image</span>
+                                        @endif
                                     </td>
 
                                     <td class="text-center align-middle">
@@ -138,7 +146,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
       <div class="modal-body">
-        <form id="typeVehiculeForm" method="POST">
+        <form id="typeVehiculeForm" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <input type="hidden" id="type_vehicule_id" name="id">
@@ -147,6 +155,13 @@
                 <label for="modal_nomTypeVehicule" class="form-label">Nom du type de véhicule</label>
                 <input type="text" class="form-control border border-secondary" id="modal_nomTypeVehicule"
                        name="nom_type" placeholder="Ex: Camion, Moto, etc." required>
+            </div>
+            <!-- Nouveau champ pour l'image -->
+            <div class="mb-3">
+                <label for="modal_image" class="form-label">Image du véhicule</label>
+                <input type="file" class="form-control border border-secondary" id="modal_image" 
+                       name="photo" accept="image/*">
+                <small class="text-muted">Formats acceptés: jpeg, png, jpg, gif (max 2MB)</small>
             </div>
 
             <div class="mb-3">
