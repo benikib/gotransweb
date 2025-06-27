@@ -117,18 +117,21 @@ class TarifController extends Controller
 
     public function store(Request $request)
 {
+
     $request->validate([
-        'type' => 'required|in:kilo,course',
+        'type' => 'required',
         'nom' => 'required|string|max:255',
-        'valeur' => 'required_if:type,kilo|nullable|integer',
+        'valeur' => 'required',
         'prix' => 'required|numeric|min:0'
+
     ]);
 
     Tarif::create([
         'type' => $request->type,
         'nom' => $request->nom,
-        'valeur' => $request->type === 'kilo' ? $request->valeur : null,
-        'prix' => $request->prix
+        'valeur' => $request->valeur ,
+        'prix' => $request->prix,
+        'devise' => $request->devise ?? '$' // Valeur par défaut si non fournie
     ]);
 
     return redirect()->back()->with('success', 'Tarif créé avec succès.');
@@ -140,14 +143,15 @@ public function update(Request $request, $id)
 
     $request->validate([
         'nom' => 'required|string|max:255',
-        'valeur' => $tarif->type === 'kilo' ? 'required|integer' : 'nullable',
+        'valeur' => $tarif->valeur,
         'prix' => 'required|numeric|min:0'
     ]);
 
     $tarif->update([
         'nom' => $request->nom,
-        'valeur' => $tarif->type === 'kilo' ? $request->valeur : null,
-        'prix' => $request->prix
+        'valeur' => $tarif->type,
+        'prix' => $request->prix,
+        'devise' => $request->devise ?? '$' // Valeur par défaut si non fournie
     ]);
 
     return redirect()->back()->with('success', 'Tarif mis à jour avec succès.');

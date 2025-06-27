@@ -93,6 +93,7 @@ class LivreurVehiculeController extends Controller
      */
     public function update(Request $request, Livreur_Vehicule $livreur_Vehicule)
     {
+
         $request->validate([
             'livreur_id' => 'required|exists:livreurs,id',
             'vehicule_id' => 'required|exists:vehicules,id',
@@ -100,7 +101,7 @@ class LivreurVehiculeController extends Controller
 
         $livreur_Vehicule->update($request->all());
 
-        return redirect()->route('livreurVehicule.index')->with('success', 'Affectation mise à jour avec succès.');
+        return back()->with('success', 'Affectation mise à jour avec succès.');
     }
 
     /**

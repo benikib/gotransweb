@@ -36,7 +36,7 @@ Route::delete('vehicule/{vehicule}',  [VehiculeController::class, 'destroy'])->n
 Route::get('affectation',  [LivreurVehiculeController::class, 'index'])->name('livreurVehicule.index');
 Route::get('affectation/create',  [LivreurVehiculeController::class, 'create']);
 Route::post('affectation',  [LivreurVehiculeController::class, 'store'])->name('livreurVehicule.store');
-Route::get('affectation/{livreur_Vehicule}',  [LivreurVehiculeController::class, 'edit'])->name('livreurVehicule.edit');
+// Route::get('affectation/{livreur_Vehicule}',  [LivreurVehiculeController::class, 'edit'])->name('livreurVehicule.edit');
 Route::put('affectation/{livreur_Vehicule}',  [LivreurVehiculeController::class, 'update'])->name('livreurVehicule.update');
 Route::delete('affectation/{livreur_Vehicule}',  [LivreurVehiculeController::class, 'destroy'])->name('livreurVehicule.destroy');
 Route::get('affectation/{livreur_Vehicule}/show',  [LivreurVehiculeController::class, 'show'])->name('livreurVehicule.show');

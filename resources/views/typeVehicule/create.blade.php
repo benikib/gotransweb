@@ -1,65 +1,72 @@
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Ajouter Type vehicule</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body ">
-           <form action="{{ route('typeVehicule.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Ajouter Type vehicule</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+                <form action="{{ route('typeVehicule.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
 
-    <div class="mb-3">
-        <label for="nomTypeVehicule" class="form-label">Nom du type de véhicule</label>
-        <input type="text" class="form-control border border-secondary" id="nomTypeVehicule" name="nom_type" placeholder="Ex: Camion, Moto, etc.">
-    </div>
- <div class="mb-3">
-                <label for="modal_image" class="form-label">Image du véhicule</label>
-                <input type="file" class="form-control border border-secondary" id="modal_image" 
-                       name="photo" accept="image/*">
-                <small class="text-muted">Formats acceptés: jpeg, png, jpg, gif (max 2MB)</small>
+                    <div class="mb-3">
+                        <label for="nomTypeVehicule" class="form-label">Nom du type de véhicule</label>
+                        <input type="text" class="form-control border border-secondary" id="nomTypeVehicule"
+                            name="nom_type" placeholder="Ex: Camion, Moto, etc.">
+                    </div>
+                    <div class="mb-3">
+                        <label for="modal_image" class="form-label">Image du véhicule</label>
+                        <input type="file" class="form-control border border-secondary" id="modal_image"
+                            name="photo">
+                        <small class="text-muted">Formats acceptés: jpeg, png, jpg, gif (max 2MB)</small>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="descriptionTypeVehicule" class="form-label">Description véhicule</label>
+                        <textarea class="form-control border border-secondary" name="description" id="descriptionTypeVehicule"></textarea>
+
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="nomModeleVehicule" class="form-label">Tarif</label>
+                        <select name="tarif_id" class="form-select border border-secondary"
+                            aria-label="Default select example">
+                            <option selected>Selectionner un tarif</option>
+                            @forelse ($tarifs as $tarif)
+                                <option value="{{ $tarif->id }}">
+                                    {{ $tarif->nom . ' ( ' . $tarif->type . ' )' }}
+                                </option>
+                            @empty
+                                <option disabled>Aucun tarif disponible</option>
+                            @endforelse
+                        </select>
+                    </div>
+
+                    <div class="mb-3" hidden>
+                        <label for="nomtarif" class="form-label">Kilo initial</label>
+                        <input type="number" class="form-control border border-secondary" id="nomtarif" min="1"
+                            name="kilo_initiale" placeholder="Ex: 1 , 2, 3" value="1">
+                    </div>
+
+                    <div class="mb-3" hidden>
+                        <label for="tarif" class="form-label">Kilo final</label>
+                        <input type="number" class="form-control border border-secondary" id="tarif" min="1"
+                            name="kilo_final" placeholder="Ex: 2 , 3 , 10" value="1">
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-success">Valider</button>
+                    </div>
+                </form>
+
+
             </div>
 
-
-    <div class="mb-3">
-        <label for="descriptionTypeVehicule" class="form-label">Description véhicule</label>
-        <textarea class="form-control border border-secondary" name="description" id="descriptionTypeVehicule"></textarea>
-
-    </div>
-
-    <div class="mb-3">
-        <label for="nomtarif" class="form-label">Kilo initial</label>
-        <input type="number" class="form-control border border-secondary" id="nomtarif" min="1" name="kilo_initiale" placeholder="Ex: 1 , 2, 3">
-    </div>
-
-    <div class="mb-3">
-        <label for="tarif" class="form-label">Kilo final</label>
-        <input type="number" class="form-control border border-secondary" id="tarif" min="1" name="kilo_final" placeholder="Ex: 2 , 3 , 10 ">
-    </div>
-
-    <div class="mb-3">
-        <label for="nomModeleVehicule" class="form-label">Tarif</label>
-        <select name="tarif_id" class="form-select border border-secondary" aria-label="Default select example">
-            <option selected>Selectionner un tarif</option>
-            @forelse ($tarifs as $tarif)
-                <option value="{{ $tarif->id }}">
-                    {{ $tarif->kilo_tarif . ' kilo / $' . $tarif->prix_tarif }}
-                </option>
-            @empty
-                <option disabled>Aucun tarif disponible</option>
-            @endforelse
-        </select>
-    </div>
-
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-        <button type="submit" class="btn btn-success">Valider</button>
-    </div>
-</form>
-
-
         </div>
-
-      </div>
     </div>
-  </div>
+</div>

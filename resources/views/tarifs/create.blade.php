@@ -13,6 +13,10 @@
                 <label for="nom" class="form-label">Nom du tarif</label>
                 <input type="text" class="form-control border border-secondary" id="nom" name="nom" placeholder="Ex: Tarif Standard" required maxlength="255">
             </div>
+            <div class="mb-3">
+                <label for="type" class="form-label">Type de tarif </label>
+                <input type="text" class="form-control border border-secondary" id="type" name="type" placeholder="Ex: Tarif Kilo , course" required maxlength="255">
+            </div>
 
             <div class="mb-3">
                 <label for="kilo_tarif" class="form-label">Kilo</label>

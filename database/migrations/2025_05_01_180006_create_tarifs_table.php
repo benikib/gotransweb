@@ -20,10 +20,11 @@ return new class extends Migration
         // });
     Schema::create('tarifs', function (Blueprint $table) {
     $table->id();
-    $table->enum('type', ['kilo', 'course']);
+    $table->String('type')->default('kilo'); // Type de tarif (ex: "au kilo", "au volume", etc.)
     $table->string('nom');
     $table->integer('valeur')->nullable(); // Poids en kg pour les tarifs au kilo
-    $table->decimal('prix', 8, 2); // Prix du tarif
+    $table->decimal('prix', );
+    $table->String('devise')->default('$'); // Devise du tarif, par défaut en dirhams marocains (MAD)
     $table->timestamps();
 });
     }

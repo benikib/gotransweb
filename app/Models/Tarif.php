@@ -13,7 +13,8 @@ class Tarif extends Model
         'type',
         'nom',
         'valeur',
-        'prix'
+        'prix',
+        'devise'
 
     ];
     public function typeVehicule()
