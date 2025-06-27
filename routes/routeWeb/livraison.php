@@ -6,12 +6,12 @@ Route::prefix("livraison")->name("livraison.")->group( function () {
     Route::get("/", [LivraisonController::class, "index"])->name("index");
     Route::get("/create", [LivraisonController::class, "create"])->name("create");
     Route::get("/show/{id}", [LivraisonController::class, "show"])->name("show");
-    
+
     Route::post("/save", [LivraisonController::class, "store"])->name("store");
 
     Route::get("/changeStatus/{id}", [LivraisonController::class, "changeStatus"])->name("changeStatus");
 
-   
+
     Route::get("/edit/{id}", [LivraisonController::class, "edit"])->name("edit");
     Route::post("/update", [LivraisonController::class, "update"])->name("update");
 
@@ -24,12 +24,13 @@ Route::prefix("livraison")->name("livraison.")->group( function () {
 
       Route::post("/saveAffectation", [LivraisonController::class, "saveAffectation"])->name("saveAffectation");
 
-    
+
        Route::get("/selectLivreur/{id}", [LivraisonController::class, "selectLivreur"])->name("selectLivreur");
 
-    
+
        Route::get("/getLivraisonLine", [LivraisonController::class, "getLivraisonLine"])->name("getLivraisonLine");
 
 
 
 });
+ Route::get("/LivraisonMaps", [LivraisonController::class, "maps"])->name("maps.index");
