@@ -13,9 +13,9 @@ return new class extends Migration {
         Schema::create('destinations', function (Blueprint $table) {
             $table->id();
             $table->string('adresse');
-            $table->float('longitude');
+            $table->float('longitude')->nullable();
             $table->string('nom_destination')->nullable();
-            $table->float('latitude');
+            $table->float('latitude')->nullable();
             $table->string('tel_destination')->nullable();
             $table->timestamps();
         });
