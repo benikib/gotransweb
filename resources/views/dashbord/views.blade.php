@@ -103,7 +103,7 @@
                                             <div class="icon icon-sm icon-shape bg-gradient-warning shadow text-center rounded-circle me-2 overflow-hidden"
                                                 style="width: 40px; height: 40px; cursor: pointer;" data-bs-toggle="modal"
                                                 data-bs-target="#imageModal"
-                                                onclick="setModalImage('{{ asset('storage/' . $type->photo) }}', '{{ $type->nom_type }}')">
+                                                onclick="setModalImage('{{ asset('storage/'.$type->photo) }}', '{{ $type->nom_type }}')">
                                                 @if (isset($type->photo))
                                                     <img src="{{ asset('storage/' . $type->photo) }}"
                                                         alt="{{ $type->nom_type }}"

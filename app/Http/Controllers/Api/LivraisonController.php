@@ -171,9 +171,7 @@ class LivraisonController extends Controller
          $livraison = Livraison::find($id);
      
          $livraison->update([
-
             'status' => "annulee",
-          
         ]);
 
         return response()->json(['message' => 'Livraison annulee successfully']);
