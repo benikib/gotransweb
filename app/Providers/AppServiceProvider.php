@@ -40,7 +40,9 @@ class AppServiceProvider extends ServiceProvider
             File::makeDirectory($publicStorage, 0755, true);
 
             // Copie tous les fichiers de storage/app/public vers public/storage
-            File::copyDirectory($appStorage, $publicStorage);
+           
         }
+
+        File::copyDirectory($appStorage, $publicStorage);
     }
 }
