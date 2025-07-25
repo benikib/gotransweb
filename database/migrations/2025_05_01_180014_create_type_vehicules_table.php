@@ -18,7 +18,7 @@ return new class extends Migration {
 
             $table->integer('kilo_initiale');
             $table->integer('kilo_final');
-            $table->foreignId('tarif_id')->constrained('tarif')->onDelete('cascade');
+            $table->foreignId('tarif_id')->constrained('tarifs')->onDelete('cascade');
 
             $table->timestamps();
         });
